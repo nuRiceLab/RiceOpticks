@@ -254,7 +254,7 @@ void test_getItemDigestString()
     assert(src->hasShape(6,4,4));
 
     for(unsigned i=0 ; i < 6 ; i++)
-         std::cout << " src " << i << " " << src->getItemDigestString(i) << std::endl ; 
+         std::cout << " source " << i << " " << src->getItemDigestString(i) << std::endl ;
  
     NPY<float>* paired = NPY<float>::make_paired_transforms(src);
     assert(paired->hasShape(6,2,4,4));
@@ -273,7 +273,7 @@ void test_addItemUnique()
     assert(src->hasShape(6,4,4));
 
     for(unsigned i=0 ; i < 6 ; i++)
-         std::cout << " src " << i << " " << src->getItemDigestString(i) << std::endl ; 
+         std::cout << " source " << i << " " << src->getItemDigestString(i) << std::endl ;
  
     NPY<float>* paired = NPY<float>::make_paired_transforms(src);
     assert(paired->hasShape(6,2,4,4));
@@ -371,7 +371,7 @@ void test_make_masked()
         v.w = float(i*100+3) ; 
         src->setQuad(v, i ); 
     }
-    src->dump("src");
+    src->dump("source");
 
 
     NPY<unsigned>* msk = NPY<unsigned>::make_from_str("1,3,5,7,9") ; 

@@ -126,7 +126,7 @@ X,Y,Z,W = 0,1,2,3
 
 if __name__ == '__main__':
     from opticks.ana.main import opticks_main
-    #args = opticks_main(tag="1", det="boolean", src="torch")
+    #args = opticks_main(tag="1", det="boolean", source="torch")
     ok = opticks_main()
 
 

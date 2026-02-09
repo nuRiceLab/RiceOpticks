@@ -172,6 +172,7 @@ inline void SOPTIX_Options::init_pipelineCompileOptions()
     pipelineCompileOptions.exceptionFlags        = exceptionFlags ; 
     pipelineCompileOptions.pipelineLaunchParamsVariableName = pipelineLaunchParamsVariableName ; 
     pipelineCompileOptions.usesPrimitiveTypeFlags = usesPrimitiveTypeFlags ;
+    //pipelineCompileOptions.usesPrintf = true;
 }
 
 inline std::string SOPTIX_Options::Desc_pipelineCompileOptions(const OptixPipelineCompileOptions& pipeline_compile_options )

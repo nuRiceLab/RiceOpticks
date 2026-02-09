@@ -41,7 +41,7 @@
 
 //  
 // 
-//  /usr/local/env/g4/geant4.10.02/examples/extended/optical/wls/src/WLSOpticalPhysics.cc
+//  /usr/local/env/g4/geant4.10.02/examples/extended/optical/wls/source/WLSOpticalPhysics.cc
 
 
 PhysicsList::PhysicsList() : G4VModularPhysicsList()

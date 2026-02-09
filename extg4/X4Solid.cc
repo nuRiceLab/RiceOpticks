@@ -253,7 +253,7 @@ G4ThreeVector X4Solid::GetAngles(const G4RotationMatrix& mtx)
 
 void X4Solid::booleanDisplacement( G4VSolid** pp, G4ThreeVector& pos, G4ThreeVector& rot )
 {
-    // cf /usr/local/opticks/externals/g4/geant4_10_02_p01/source/persistency/gdml/src/G4GDMLWriteSolids.cc
+    // cf /usr/local/opticks/externals/g4/geant4_10_02_p01/source/persistency/gdml/source/G4GDMLWriteSolids.cc
     int displaced = 0 ; 
     while (true)
     {  

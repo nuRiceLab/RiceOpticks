@@ -417,7 +417,7 @@ int stra_test::Copy_Columns_3x4()
 
 
     std::cout
-        << " src \n"  
+        << " source \n"
         << glm::to_string(src) 
         << std::endl 
         << stra<T>::Desc(src)

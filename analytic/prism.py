@@ -595,12 +595,12 @@ def make_cubeplanes(hx=0.5, hy=0.5, hz=0.5, dtype=np.float32):
 
     src.verts = v 
 
-    #src(3,7,5)
-    #src(0,4,6)
-    #src(2,6,7)
-    #src(1,5,4)
-    #src(5,7,6)
-    #src(3,1,0)  
+    #source(3,7,5)
+    #source(0,4,6)
+    #source(2,6,7)
+    #source(1,5,4)
+    #source(5,7,6)
+    #source(3,1,0)
 
     # visualize the cube from different faces, and read off the ccw cycles
 

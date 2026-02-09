@@ -1587,7 +1587,7 @@ NPY<T>* NPY<T>::make_masked(NPY<T>* src, NPY<unsigned>* msk )
     msk->minmax(msk_mi, msk_mx);
 
     LOG(info) << "make_masked"
-              << " src.ni " << ni
+              << " source.ni " << ni
               << " msk.nsel " << nsel 
               << " msk.mi " << msk_mi
               << " msk.mx " << msk_mx
@@ -1614,7 +1614,7 @@ NPY<T>* NPY<T>::make_masked(NPY<T>* src, NPY<unsigned>* msk )
 NPY::_copy_masked
 -------------------
 
-Copy items from src to dst that are pointed to via indices
+Copy items from source to dst that are pointed to via indices
 in the msk array. 
 
 **/
@@ -1712,7 +1712,7 @@ NPY<T>::make_selection
 ------------------------
 
 CPU equivalent of thrust stream compaction
-this is selecting items from src based on item values.
+this is selecting items from source based on item values.
 When the AND of the (jj,kk) element of the item and the mask 
 is non-zero the item is selected.
 
@@ -2086,7 +2086,7 @@ NPY<double>* NPY<T>::MakeDouble(const NPY<T>* src )
 NPY<T>::make_modulo
 ---------------------
 
-Modulo selection of src array.  
+Modulo selection of source array.
 
 NB this is limited to 3d arrays. For a more general version
 use make_modulo_selection. 

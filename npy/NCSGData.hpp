@@ -128,7 +128,7 @@ class NPY_API NCSGData
         void setIdx( unsigned index, unsigned soIdx, unsigned lvIdx, unsigned height, bool src  );
 
     public:
-        // pure const access to src buffer content 
+        // pure const access to source buffer content
         void     getSrcPlanes(std::vector<glm::vec4>& _planes, unsigned idx, unsigned num_plane  ) const ;
         unsigned getTypeCode(unsigned idx) const ;
         unsigned getTransformIndex(unsigned idx) const ; 

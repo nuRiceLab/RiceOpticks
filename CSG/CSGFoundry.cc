@@ -52,7 +52,7 @@
 #include "CSGImport.h"
 #include "CSGCopy.h"
 
-const unsigned CSGFoundry::IMAX = 50000 ;
+const unsigned CSGFoundry::IMAX = 100000000 ;
 
 const plog::Severity CSGFoundry::LEVEL = SLOG::EnvLevel("CSGFoundry", "DEBUG" );
 const int CSGFoundry::VERBOSE = ssys::getenvint("VERBOSE", 0);
@@ -3090,7 +3090,7 @@ Using CSGCopy::Select creates a partial geometry with some solids
 included/excluded according to the elv SBitSet specification, that
 is normally configured by ELV envvar.
 
-The SSim pointer from the loaded src instance,
+The SSim pointer from the loaded source instance,
 overriding the empty dst SSim instance.
 
 Notice that the stree that the SSim contains is not changed by

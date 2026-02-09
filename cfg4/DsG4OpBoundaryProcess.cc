@@ -223,7 +223,7 @@ DsG4OpBoundaryProcess::PostStepDoIt(const G4Track& aTrack, const G4Step& aStep)
     G4double startVelocity = aTrack.GetVelocity() ; 
     aParticleChange.ProposeVelocity(startVelocity);  
 
-    // SCB add above velocity proposal from geant4_10_02_p01/source/processes/optical/src/G4OpBoundaryProcess.cc
+    // SCB add above velocity proposal from geant4_10_02_p01/source/processes/optical/source/G4OpBoundaryProcess.cc
     //     NB the proposal is trumped by G4Track::CalculateVelocity unless
     //     G4Track::UseGivenVelocity is in force, that is done in CTrackingAction
 
@@ -830,7 +830,7 @@ DsG4OpBoundaryProcess::PostStepDoIt(const G4Track& aTrack, const G4Step& aStep)
 
 
 #ifdef GEANT4_BT_GROUPVEL_FIX
-       // from /usr/local/opticks/externals/g4/geant4_10_02_p01/source/processes/optical/src/G4OpBoundaryProcess.cc
+       // from /usr/local/opticks/externals/g4/geant4_10_02_p01/source/processes/optical/source/G4OpBoundaryProcess.cc
        //if ( theStatus == FresnelRefraction || theStatus == Transmission ) 
        if ( theStatus == Ds::FresnelRefraction ) 
        {

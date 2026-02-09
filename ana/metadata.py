@@ -32,7 +32,7 @@ TODO: extract the good stuff from here as migrate from metadata.py to meta.py
 
 ::
 
-    [blyth@localhost tmp]$ OPTICKS_EVENT_BASE=tboolean-box metadata.py --det tboolean-box --src torch --pfx .
+    [blyth@localhost tmp]$ OPTICKS_EVENT_BASE=tboolean-box metadata.py --det tboolean-box --source torch --pfx .
 
 """
 

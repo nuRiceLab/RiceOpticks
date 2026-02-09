@@ -5,7 +5,7 @@ tag=${1:-$dtag}
 
 cat="g4live"
 det="det"
-src="natural"
+source="natural"
 pfx="source"
 
 export OPTICKS_ANA_DEFAULTS="src=$src,cat=$cat,det=$det,tag=$tag,pfx=$pfx"

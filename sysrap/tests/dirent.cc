@@ -41,7 +41,7 @@ std::string Desc(const std::vector<std::string>& names)
 
 void test_0()
 {
-    //const char* path = "c:\\src\\" ; 
+    //const char* path = "c:\\source\\" ;
     const char* path = "/private/tmp" ; 
 
     DIR* dir = opendir(path) ;

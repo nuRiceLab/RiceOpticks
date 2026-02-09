@@ -124,7 +124,7 @@ void test_Value()
     const NPY<double>* src = xvec->src ; 
     VecDump(vec); 
 
-    src->save(FOLD, "src.npy"); 
+    src->save(FOLD, "source.npy");
 
     double el = 0. ; 
     double eh = 16. ; 
@@ -173,7 +173,7 @@ void test_GetEnergy()
 
     G4MaterialPropertyVector* ga  = static_cast<G4MaterialPropertyVector*>(xa->vec) ; 
     G4MaterialPropertyVector* gb  = static_cast<G4MaterialPropertyVector*>(xb->vec) ; 
-    //const NPY<double>* src = xvec->src ; 
+    //const NPY<double>* source = xvec->source ;
     VecDump(ga); 
     VecDump(gb); 
 

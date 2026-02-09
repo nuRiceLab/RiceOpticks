@@ -643,7 +643,7 @@ void Tran<T>::ApplyToFloat( const glm::tmat4x4<T>& tr, float* p0, float w, unsig
         glm::tvec3<T> nta3 = normalize ? glm::normalize(ta3) : ta3  ; 
         T* ta_ = glm::value_ptr( nta3 ) ; 
 
-        // copy back into src array 
+        // copy back into source array
         for(unsigned j=0 ; j < 3 ; j++) a_[j] = float(ta_[j]) ;   // potentially narrow  
 
         //std::cout << " apply_: a " << glm::to_string( a ) << std::endl ; 
@@ -734,7 +734,7 @@ inline void Tran<T>::AddTransform( T* ttk, const char* opt, const glm::tvec3<T>&
         bool flip = strcmp(opt,"tr") == 0 ; 
         glm::tmat4x4<T> tr = stra<T>::Place( a, b, c, flip );  
         T* src = glm::value_ptr(tr) ; 
-        //std::cout << Desc(src, 16) << std::endl ; 
+        //std::cout << Desc(source, 16) << std::endl ;
         memcpy( ttk, src, 16*sizeof(T) ); 
     }
     else if(strcmp(opt,"R") == 0 || strcmp(opt,"r") == 0)

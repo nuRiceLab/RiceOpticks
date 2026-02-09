@@ -1012,7 +1012,7 @@ class AB(object):
         """
         hmm at some point seq0 lost its underscores
         """
-        return Ctx({'det':self.ok.det, 'tag':self.ok.tag, 'src':self.ok.src, 'seq0':self.label0, 'lab':self.reclab, 'irec':self.irec, 'qwn':self.qwn })
+        return Ctx({'det':self.ok.det, 'tag':self.ok.tag, 'source':self.ok.src, 'seq0':self.label0, 'lab':self.reclab, 'irec':self.irec, 'qwn':self.qwn })
     ctx = property(_get_ctx)
 
     pctx = property(lambda self:self.ctx.pctx)

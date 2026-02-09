@@ -209,7 +209,7 @@ G4OKTest::init
 
 Code similar to this is usually within detector simulation frameworks, eg for JUNO:: 
 
-    Simulation/DetSimV2/DetSimOptions/src/LSExpDetectorConstruction_Opticks.cc
+    Simulation/DetSimV2/DetSimOptions/source/LSExpDetectorConstruction_Opticks.cc
 
 The origin G4PVPlacement for sensor volumes are provided by Opticks in order 
 that the corresponding detector specific sensor identifiers can be 

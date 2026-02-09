@@ -274,7 +274,7 @@ Iterate over a canned inorder sequence of the tree
 (tree starts mono-operator with CSG_ZERO leaves).
 
 When reach bileaf level with placeholder in left slot (node->left->is_zero())
-pop a node off the back of src, make a copy and refererence 
+pop a node off the back of source, make a copy and refererence
 it from the tree.
 
 Ditto for right slot. 

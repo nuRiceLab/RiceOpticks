@@ -18,7 +18,7 @@
  */
 
 #pragma once
-// porting from  /usr/local/env/chroma_env/src/chroma/chroma/cuda/scintillation.h
+// porting from  /usr/local/env/chroma_env/source/chroma/chroma/cuda/scintillation.h
 
 #include "quad.h"
 #include "random.h"

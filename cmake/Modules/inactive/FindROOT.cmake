@@ -1,7 +1,7 @@
 #
 #
 # copied from Chroma Geant4 to allow simpler and more general CMakeLists.txt
-# /usr/local/env/chroma_env/src/geant4.9.5.p01/cmake/Modules/FindROOT.cmake
+# /usr/local/env/chroma_env/source/geant4.9.5.p01/cmake/Modules/FindROOT.cmake
 #
 #
 # - Finds ROOT instalation

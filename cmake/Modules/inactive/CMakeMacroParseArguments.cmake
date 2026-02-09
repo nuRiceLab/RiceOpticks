@@ -1,4 +1,4 @@
-#  Copied from /usr/local/env/chroma_env/src/geant4.9.5.p01/cmake/Modules/CMakeMacroParseArguments.cmake
+#  Copied from /usr/local/env/chroma_env/source/geant4.9.5.p01/cmake/Modules/CMakeMacroParseArguments.cmake
 #
 # CMAKE_PARSE_ARGUMENTS(<prefix> <options> <one_value_keywords> <multi_value_keywords> args...)
 #

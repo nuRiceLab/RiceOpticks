@@ -13,7 +13,7 @@ identical_bbox_cheat:true
     causing CSGCopyTest.sh to fail when using exact comparisons. 
 
     As a shortcut to fixing the small bbox shift issue 
-    can instead cheat and copy the bbox from the src when it
+    can instead cheat and copy the bbox from the source when it
     is known that there is no selection being applied. 
 
 **/
@@ -40,7 +40,7 @@ struct CSG_API CSGCopy
     int*              solidMap ;  
     unsigned          sSolidIdx ; 
     const SBitSet*    elv ; 
-    bool              identical ; // when elv->is_all_set dst should be identical to src 
+    bool              identical ; // when elv->is_all_set dst should be identical to source
     bool              identical_bbox_cheat ;       
 
     CSGFoundry* dst ; 

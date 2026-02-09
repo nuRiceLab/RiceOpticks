@@ -50,7 +50,7 @@ int main()
 
     for(int i=0;i<ds;i++) 
         std::cout 
-            << " src " << std::setw(10) << ( i < ds ? src[i] : -1.f )  
+            << " source " << std::setw(10) << ( i < ds ? src[i] : -1.f )
             << " dst " << std::setw(10) << ( i < num_sel ? dst[i] : -1.f ) 
             << std::endl 
             ;

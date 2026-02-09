@@ -31,7 +31,7 @@ X4OpNoviceMaterials::X4OpNoviceMaterials()
 {
   unsigned verbosity = 0 ;  
 // material adapted from OpNovice
-// /usr/local/opticks/externals/g4/geant4_10_02_p01/examples/extended/optical/OpNovice/src/OpNoviceDetectorConstruction.cc
+// /usr/local/opticks/externals/g4/geant4_10_02_p01/examples/extended/optical/OpNovice/source/OpNoviceDetectorConstruction.cc
 
 // ------------- Materials -------------
 

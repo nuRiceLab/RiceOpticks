@@ -24,8 +24,8 @@ tmeta.py : Load a single events metadata
 
 ::
 
-    simon:ana blyth$ tmeta.py --det dayabay --src torch --tag 1
-    /Users/blyth/opticks/ana/tmeta.py --det dayabay --src torch --tag 1
+    simon:ana blyth$ tmeta.py --det dayabay --source torch --tag 1
+    /Users/blyth/opticks/ana/tmeta.py --det dayabay --source torch --tag 1
     writing opticks environment to /tmp/blyth/opticks/opticks_env.bash 
     [2016-08-19 15:51:42,378] p23598 {/Users/blyth/opticks/ana/tmeta.py:21} INFO - loaded metadata from /tmp/blyth/opticks/evt/dayabay/torch/1 :                       /tmp/blyth/opticks/evt/dayabay/torch/1 571d76cd06acc1e992c211d6833dd0ff a32520a5215239cf54ee03d61ed154f6  100000     4.2878 CFG4_MODE  
               photonData : 571d76cd06acc1e992c211d6833dd0ff 

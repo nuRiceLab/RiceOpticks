@@ -375,12 +375,12 @@ void test_SearchDirUpTreeWithFile()
 
 void test_Copy()
 {
-    const char* src = "/tmp/src.txt" ; 
+    const char* src = "/tmp/source.txt" ;
     const char* dst = "/tmp/dst.txt" ; 
-    const char* srcn = "src.txt" ; 
+    const char* srcn = "source.txt" ;
     const char* dstn = "dst2.txt" ; 
 
-    SStr::Save(src, "SPathTest test_Copy src text\n" ); 
+    SStr::Save(src, "SPathTest test_Copy source text\n" );
     SPath::Copy(dst, src ) ; 
     SPath::Copy(dstn, srcn, "/tmp" ) ; 
 

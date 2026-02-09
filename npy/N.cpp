@@ -44,7 +44,7 @@ N::N(nnode* node, const nmat4triple* transform, const NSceneConfig* config, floa
 
         // huh there is a local vector of vec3 named model ?
 
-         // populate local vector of vec3 with transformed points from src 
+         // populate local vector of vec3 with transformed points from source
          float w = 1.0f ; 
          transform->apply_transform_t( local, model, w );
 

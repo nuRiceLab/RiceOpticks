@@ -1858,7 +1858,7 @@ inline const char* stree::get_node_vector_name( char _src ) const
 stree::find_lvid_nodes_
 -------------------------
 
-Collect all snode from src vector nds/rem/tri which have the provided lvid shape into nodes vector.
+Collect all snode from source vector nds/rem/tri which have the provided lvid shape into nodes vector.
 
 **/
 
@@ -1880,9 +1880,9 @@ inline void stree::find_lvid_nodes_( std::vector<snode>& nodes, int lvid, char _
 stree::find_lvid_nodes
 -----------------------
 
-Collect all snode::index from src vector nds/rem/tri which have the provided lvid shape into nodes vector.
-NB this should correpond to the absolute nidx indices not the indices into the selected src (unless the
-src is nds which corresponds to all nodes)
+Collect all snode::index from source vector nds/rem/tri which have the provided lvid shape into nodes vector.
+NB this should correpond to the absolute nidx indices not the indices into the selected source (unless the
+source is nds which corresponds to all nodes)
 
 **/
 

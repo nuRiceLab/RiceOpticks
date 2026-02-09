@@ -23,10 +23,10 @@
 ::
 
    
-    ipython --pdb -i evt.py -- --pfx tds3gun --src natural --tag 100
+    ipython --pdb -i evt.py -- --pfx tds3gun --source natural --tag 100
 
 
-    #export OPTICKS_ANA_DEFAULTS="det=tboolean-box,src=torch,tag=1,pfx=tboolean-box"
+    #export OPTICKS_ANA_DEFAULTS="det=tboolean-box,source=torch,tag=1,pfx=tboolean-box"
     #export OPTICKS_EVENT_BASE=/tmp       # <-- set this to the test invokation directory 
 
     unset OPTICKS_ANA_DEFAULTS

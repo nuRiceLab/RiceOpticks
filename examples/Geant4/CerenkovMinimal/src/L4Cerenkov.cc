@@ -1,4 +1,4 @@
-// /usr/local/opticks/externals/g4/geant4_10_02_p01/source/processes/electromagnetic/xrays/src/L4Cerenkov.cc
+// /usr/local/opticks/externals/g4/geant4_10_02_p01/source/processes/electromagnetic/xrays/source/L4Cerenkov.cc
 //
 // ********************************************************************
 // * License and Disclaimer                                           *

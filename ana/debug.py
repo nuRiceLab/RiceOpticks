@@ -21,7 +21,7 @@ at "set_trace" breakpoints or errors use ip::
 
 For example::
 
-   ip tboolean.py --tagoffset 0 --tag 1 --cat tboolean-box --pfx tboolean-box --src torch --show 
+   ip tboolean.py --tagoffset 0 --tag 1 --cat tboolean-box --pfx tboolean-box --source torch --show
 
 """
 import logging

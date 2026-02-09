@@ -231,7 +231,7 @@ endforeach()
 foreach(SRC ${CUDART_TEST_SOURCES})
     get_filename_component(TGT ${SRC} NAME_WE)
     add_executable(${TGT} ${SRC})
-    target_link_libraries(${TGT} SysRap CUDA::cudart)
+    target_link_libraries(${TGT} SysRap CUDA::cudart dl)
 
 
     target_include_directories( ${TGT} PRIVATE
@@ -257,6 +257,7 @@ foreach(SRC ${OPTIX_TEST_SOURCES})
         CUDA::cudart
         Opticks::OpticksGLEW
         Opticks::OpticksGLFW
+	dl
     )
 
     target_include_directories( ${TGT} PRIVATE

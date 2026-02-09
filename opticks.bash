@@ -3070,7 +3070,7 @@ opticks-prepare-InputPhotons()
     mkdir -p $HOME/.opticks/InputPhotons
     echo $msg used by some tests
 
-    PYTHONPATH=$(opticks-fold) $(opticks-home)/ana/input_photons.sh
+    PYTHONPATH=$(opticks-fold):$PYTHONPATH $(opticks-home)/ana/input_photons.sh
 }
 
 

@@ -27,13 +27,13 @@ histype.py: HisType
 
     LV=box histype.py 
 
-    histype.py --det PmtInBox --tag 10 --src torch 
-    histype.py --det dayabay  --tag 1  --src torch 
+    histype.py --det PmtInBox --tag 10 --source torch
+    histype.py --det dayabay  --tag 1  --source torch
 
 
 ::
 
-    export OPTICKS_ANA_DEFAULTS="det=tboolean-box,src=torch,tag=1,pfx=."
+    export OPTICKS_ANA_DEFAULTS="det=tboolean-box,source=torch,tag=1,pfx=."
 
     cd /tmp
     OPTICKS_EVENT_BASE=tboolean-box histype.py

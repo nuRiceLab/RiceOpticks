@@ -231,7 +231,7 @@ OpSeeder::seedPhotonsFromGenstepsImp
 2. access CPU side gensteps from OpticksEvent
 3. check the photon counts from the GPU side gensteps match those from CPU side
    (this implies that the event gensteps must have been uploaded to GPU already)
-4. create src(photon counts per genstep) and dst(genstep indices) buffer slices
+4. create source(photon counts per genstep) and dst(genstep indices) buffer slices
    with appropriate strides and offsets 
 5. use TBufPair::seedDestination which distributes genstep indices to every photon
 
@@ -278,7 +278,7 @@ void OpSeeder::seedPhotonsFromGenstepsImp(const CBufSpec& s_gs, const CBufSpec& 
                << " num_genstep_values " << num_genstep_values
                ;
 
-    // src slice is plucking photon counts from each genstep
+    // source slice is plucking photon counts from each genstep
     // dst slice points at the first value of each item in photon buffer
     // buffer size and num_bytes comes directly from CBufSpec
     CBufSlice src = tgs.slice(6*4,3,num_genstep_values) ;  // stride, begin, end 

@@ -74,7 +74,7 @@ def test_HisMask_SeqAna(aa, af):
 
 if __name__ == '__main__':
      from opticks.ana.main import opticks_main
-     #ok = opticks_main(src="torch", tag="10", det="PmtInBox")
+     #ok = opticks_main(source="torch", tag="10", det="PmtInBox")
      ok = opticks_main()
 
      af = HisMask()

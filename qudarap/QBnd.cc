@@ -198,7 +198,7 @@ std::string QBnd::desc() const
 {
     std::stringstream ss ; 
     ss << "QBnd"
-       << " src " << ( src ? src->desc() : "-" )
+       << " source " << ( src ? src->desc() : "-" )
        << " tex " << ( tex ? tex->desc() : "-" )
        << " tex " << tex 
        ; 
@@ -262,7 +262,7 @@ NP* QBnd::lookup() const
 NPFold* QBnd::serialize() const 
 {
     NPFold* f = new NPFold ; 
-    f->add("src", src ); 
+    f->add("source", src );
     f->add("dst", lookup() ); 
     return f ; 
 }

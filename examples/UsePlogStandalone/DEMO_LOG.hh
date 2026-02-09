@@ -2,7 +2,7 @@
 #pragma once
 
 
-// these macros are used from the main, so plog::get returns the logger from the main 
+// these macros are used from the main, so plog::get returns the logger from the main
 // and hands it to the logger from the shared lib 
 //
 // HMM : feels wring way around, shouldny the shared lib loggers be added as appenders to the main logger ?

@@ -21,8 +21,8 @@ class QMultiFilmTest(object):
     BASE = os.path.expandvars("${TMP}/QMultiFilmTest") 
     def __init__(self):
         mpl.rcParams['font.size'] = 15
-        #path = os.path.join(self.BASE,"src.npy")
-        #self.src = np.load(path)
+        #path = os.path.join(self.BASE,"source.npy")
+        #self.source = np.load(path)
         pass
     def test_all_lookup(self):
         src = self.src
@@ -35,7 +35,7 @@ class QMultiFilmTest(object):
     def test_lookup(self, dst_file_name):
         path = os.path.join(self.BASE,dst_file_name)
         dst = np.load(path)
-        print("dst.shape = {} dst = {} , src.shape = {}".format(dst.shape, dst , self.src.shape))
+        print("dst.shape = {} dst = {} , source.shape = {}".format(dst.shape, dst , self.src.shape))
         
         subsrc = self.subsrc
         fig, axs = plt.subplots(3,4,figsize=(12,8))

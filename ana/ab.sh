@@ -20,7 +20,7 @@ EOU
 
 cat="g4live"
 det="det"
-src="natural"
+source="natural"
 pfx=${PFX:-source}
 
 tag=${1:-1}

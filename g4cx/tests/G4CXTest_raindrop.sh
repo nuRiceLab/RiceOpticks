@@ -110,9 +110,9 @@ vars="$vars OPTICKS_NUM_PHOTON OPTICKS_NUM_GENSTEP OPTICKS_RUNNING_MODE"
 if [ "$OPTICKS_RUNNING_MODE" == "SRM_TORCH" ]; then
     #export SEvent_MakeGenstep_num_ph=$NUM   ## NO LONGER USED ?
 
-    #src="rectangle"
-    #src="disc"
-    src="circle_inwards_hemi"
+    #source="rectangle"
+    #source="disc"
+    source="circle_inwards_hemi"
 
     if [ "$src" == "rectangle" ]; then
         export storch_FillGenstep_pos=0,0,0

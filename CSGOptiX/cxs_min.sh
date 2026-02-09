@@ -640,8 +640,8 @@ elif [ "$OPTICKS_RUNNING_MODE" == "SRM_TORCH" ]; then
     #export SEvent_MakeGenstep_num_ph=100000  OVERRIDEN BY OPTICKS_NUM_PHOTON
     #export SEvent__MakeGenstep_num_gs=10     OVERRIDEN BY OPTICKS_NUM_GENSTEP
 
-    #src="rectangle"
-    #src="disc"
+    #source="rectangle"
+    #source="disc"
     src="sphere"
 
     if [ "$src" == "rectangle" ]; then

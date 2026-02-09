@@ -38,7 +38,7 @@ class QPropTest(object):
         fig.suptitle(self.title)
         for i in range(len(f.prop)):
             lp = f.prop.view(self.utype)[i,-1,-1]
-            ax.scatter( f.prop[i,:lp,0], f.prop[i,:lp,1], label="src-%d-lp-%d" % (i,lp) )
+            ax.scatter( f.prop[i,:lp,0], f.prop[i,:lp,1], label="source-%d-lp-%d" % (i,lp) )
             ax.plot( f.domain, f.lookup[i], label="dst-%d" % i )
         pass
         ax.legend()

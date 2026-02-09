@@ -11,7 +11,7 @@ EOU
 cd $(dirname $(realpath $BASH_SOURCE))
 
 name=curanddr_uniform_test
-src=$name.cu
+source=$name.cu
 script=$name.py 
 
 export FOLD=/tmp/$name

@@ -50,7 +50,7 @@ class SourceTree(object):
         self.filtercopy()
 
     def filtercopy(self):
-        log.info("Copying from src %s to dst %s " % (self.src, self.dst ))
+        log.info("Copying from source %s to dst %s " % (self.src, self.dst ))
         shutil.copytree( self.src, self.dst,  symlinks=False, ignore=self ) 
 
     def skipdir(self, name):

@@ -89,7 +89,7 @@ if __name__ == '__main__':
     print itx
 
 
-    log.info("tag %s src %s det %s  " % (args.utag,args.src,args.det))
+    log.info("tag %s source %s det %s  " % (args.utag,args.src,args.det))
 
 
     seqs=[]

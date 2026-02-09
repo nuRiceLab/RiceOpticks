@@ -536,7 +536,7 @@ std::string OpticksResource::makeSidecarPath(const char* path, const char* styp,
              << " styp " << styp
              << " dtyp " << dtyp
              << " ext "  << ext 
-             << " src " << src.string()
+             << " source " << source.string()
              << " dst " << dst.string()
              << " is_styp "  << is_styp 
              ;

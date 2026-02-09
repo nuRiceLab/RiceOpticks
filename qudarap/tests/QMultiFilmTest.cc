@@ -83,7 +83,7 @@ void test_lookup(QMultiFilm& sc)
             dst->save(fold, ss.str().c_str());
         }
     }
-    sc.src->save(fold, "src.npy") ; 
+    sc.src->save(fold, "source.npy") ;
 }
 
 int main(int argc, char** argv)

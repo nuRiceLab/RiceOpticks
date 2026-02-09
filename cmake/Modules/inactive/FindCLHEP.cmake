@@ -1,4 +1,4 @@
-# from /usr/local/env/chroma_env/src/geant4.9.5.p01/cmake/Modules/FindCLHEP.cmake
+# from /usr/local/env/chroma_env/source/geant4.9.5.p01/cmake/Modules/FindCLHEP.cmake
 #
 # - Try to find the CLHEP High Energy Physics library and headers
 # Usage of this module is as follows

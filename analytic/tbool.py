@@ -28,8 +28,8 @@ tbool%(name)s-vi(){   vi $BASH_SOURCE ; }
 tbool%(name)s-env(){  olocal- ;  } 
 tbool%(name)s-tag(){  echo 1 ; }
 tbool%(name)s-det(){  echo tbool ; }
-tbool%(name)s-src(){  echo torch ; }
-tbool%(name)s-args(){ echo  --det $(tbool%(name)s-det) --src $(tbool%(name)s-src) ; }
+tbool%(name)s-source(){  echo torch ; }
+tbool%(name)s-args(){ echo  --det $(tbool%(name)s-det) --source $(tbool%(name)s-source) ; }
 
 tbool%(name)s-torchconfig()
 {

@@ -30,7 +30,7 @@ int main(int argc, char** argv)
         << std::endl 
         << elv->desc() 
         << std::endl 
-        << "src->descELV(elv)"
+        << "source->descELV(elv)"
         << std::endl 
         << src->descELV(elv)
         << std::endl 
@@ -44,7 +44,7 @@ int main(int argc, char** argv)
     if(ssys::hasenv_("BFOLD")) dst->save("$BFOLD"); 
 
     LOG(info) 
-        << " src " << src 
+        << " source " << src
         << " dst " << dst   
         << " cf " << cf 
         ;  
@@ -61,10 +61,10 @@ int main(int argc, char** argv)
         assert( cf == 0 ); 
     }
 
-    LOG(info) << " src.cfbase " << src->cfbase << " elv.spec " << elv->spec ; 
+    LOG(info) << " source.cfbase " << src->cfbase << " elv.spec " << elv->spec ;
     if(src->cfbase && elv->spec)
     {
-        LOG(info) << " src.cfbase " << src->cfbase << " elv.spec " << elv->spec ; 
+        LOG(info) << " source.cfbase " << src->cfbase << " elv.spec " << elv->spec ;
     }
 
     return 0 ;  

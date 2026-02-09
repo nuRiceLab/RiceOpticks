@@ -111,7 +111,7 @@ NCSG* NCSG::Load(const char* treedir, const NSceneConfig* config  )
     tree->setVerbosity(config->verbosity);
     tree->setIsUsedGlobally(true);
 
-    tree->loadsrc();     // populate the src* buffers 
+    tree->loadsrc();     // populate the source* buffers
     tree->import();      // complete binary tree m_nodes buffer -> nnode tree
     tree->postchange();  // update result buffers  
 
@@ -645,7 +645,7 @@ NCSG::import_tree_r
 --------------------
 
 Importing : constructs the in memory nnode tree from 
-the src buffers loaded by loadsrc ( which were written by analytic/csg.py ) 
+the source buffers loaded by loadsrc ( which were written by analytic/csg.py )
 Prior to importing the NCSGData::prepareForImport must 
 be called to triplet-ize the srctransforms making the 
 transforms buffer.
@@ -1434,7 +1434,7 @@ Note the critical importance of the NNode::part method
 which converts the node into npart instance 
 of which 4 quads get written to the transport nodes buffer.   
 
-In the case of adopted nnode the src buffers are also populated, 
+In the case of adopted nnode the source buffers are also populated,
 to enable subsequent loading to be just like loading from python written trees 
 
 **/
@@ -1563,7 +1563,7 @@ NCSG::export_srcnode
 ----------------------
 
 In the adopted from nnode case (as opposed to loaded from python written buffers) 
-there are no src buffers so remedy that here : 
+there are no source buffers so remedy that here :
 allowing loading to proceed just like from python
  
 **/

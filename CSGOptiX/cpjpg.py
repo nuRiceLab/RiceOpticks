@@ -16,7 +16,7 @@ class Place(object):
         rsrc = "/".join(elem[div+1:])
         dst = "/".join([self.DESTBASE, rsrc]) 
 
-        log.debug("src  : %s "%  src )
+        log.debug("source  : %s "%  src )
         log.debug("rsrc : %s " % rsrc )
         log.debug("dst  : %s "%  dst )
 

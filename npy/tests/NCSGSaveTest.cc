@@ -48,7 +48,7 @@ void test_load_save()
     if(!csg) return ; 
     csg->savesrc("$TMP/tboolean-box--save/1") ; 
 
-    // savesrc after Load is an easy test to pass, as have the src buffers already from the loadsrc
+    // savesrc after Load is an easy test to pass, as have the source buffers already from the loadsrc
 }
 
 void test_adopt_save()

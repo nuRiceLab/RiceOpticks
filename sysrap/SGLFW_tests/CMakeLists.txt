@@ -30,7 +30,8 @@ target_link_libraries(${name}
   PUBLIC 
     Opticks::GLM 
     Opticks::OpticksGLEW 
-    Opticks::OpticksGLFW 
+    Opticks::OpticksGLFW
+    dl 
 )
 install(TARGETS ${name}  DESTINATION lib)
 

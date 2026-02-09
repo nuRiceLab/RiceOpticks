@@ -27,7 +27,7 @@
 TBufPair
 ==========
 
-seedDestintion uses strided_range.h for src and dst buffers
+seedDestintion uses strided_range.h for source and dst buffers
 and iexpand.h  
 
 

@@ -31,6 +31,7 @@ if [ "${arg/info}" != "$arg" ]; then
    for var in $vars ; do printf "%30s : %s \n" "$var" "${!var}" ; done
 fi
 
+#python -c "import numpy as np" 2>/dev/null
 if [ "${arg/numpy}" != "$arg" ]; then
     python -c "import numpy as np" 2>/dev/null
     [ $? -ne 0 ] && echo $BASH_SOURCE numpy package is not within your python - cannot generate input photons && exit 2

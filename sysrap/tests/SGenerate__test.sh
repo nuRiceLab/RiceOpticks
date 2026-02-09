@@ -38,7 +38,7 @@ unset SGenerate__GeneratePhotons_RNG_PRECOOKED
 
 vv="BASH_SOURCE U4TDIR CUDA_PREFIX OPTICKS_PREFIX FOLD bin script SGenerate__test_GS_NAME SGenerate__test_PH_NAME"
 
-#src=sphere
+#source=sphere
 src=disc
 
 if [ "$src" == "sphere" ]; then

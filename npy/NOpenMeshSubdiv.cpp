@@ -31,8 +31,8 @@
 
 /*
   Using approach from Tvv3 of 
-  /usr/local/opticks/externals/openmesh/OpenMesh-4.1/src/OpenMesh/Tools/Subdivider/Adaptive/Composite/RulesT.cc  
-  /usr/local/opticks/externals/openmesh/OpenMesh-4.1/src/OpenMesh/Tools/Subdivider/Adaptive/Composite/CompositeT.cc
+  /usr/local/opticks/externals/openmesh/OpenMesh-4.1/source/OpenMesh/Tools/Subdivider/Adaptive/Composite/RulesT.cc
+  /usr/local/opticks/externals/openmesh/OpenMesh-4.1/source/OpenMesh/Tools/Subdivider/Adaptive/Composite/CompositeT.cc
 
   Trying to implement sqrt(3) subdivision pseudocode : centroid face split, flip original edges 
 
@@ -586,7 +586,7 @@ Can only do this when apply to entire mesh ?
 Suspect deleting and adding faces is not the way OpenMesh expects 
 subdiv to be done, the below used mesh.split(eh, midpoint)
 
-   /usr/local/opticks/externals/openmesh/OpenMesh-4.1/src/OpenMesh/Tools/Subdivider/Uniform/LongestEdgeT.hh
+   /usr/local/opticks/externals/openmesh/OpenMesh-4.1/source/OpenMesh/Tools/Subdivider/Uniform/LongestEdgeT.hh
 
 
 

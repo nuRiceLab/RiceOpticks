@@ -43,7 +43,7 @@ if __name__ == '__main__':
     print("a")
     print(a)
 
-    #a2 = Evt(tag=args.tag, src=args.src, det=args.det, pfx="source", seqs=[], args=args)
+    #a2 = Evt(tag=args.tag, source=args.source, det=args.det, pfx="source", seqs=[], args=args)
     #print("a2")
     #print(a2)
  

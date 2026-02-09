@@ -82,13 +82,13 @@ G4bool CSensitiveDetector::ProcessHits(G4Step* step,G4TouchableHistory* )
 #3  0x00007fffe202e0d2 in __assert_fail () from /usr/lib64/libc.so.6
 #4  0x00007fffefd6d1b3 in CSensitiveDetector::ProcessHits (this=0x8ef800, step=0x88a800) at /home/blyth/opticks/cfg4/CSensitiveDetector.cc:49
 #5  0x00007fffec12d431 in G4VSensitiveDetector::Hit (this=0x8ef800, aStep=0x88a800) at /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/digits_hits/detector/include/G4VSensitiveDetector.hh:122
-#6  0x00007fffec12b6df in G4SteppingManager::Stepping (this=0x88a660) at /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/tracking/src/G4SteppingManager.cc:237
-#7  0x00007fffec137236 in G4TrackingManager::ProcessOneTrack (this=0x88a620, apValueG4Track=0x2243bd0) at /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/tracking/src/G4TrackingManager.cc:126
-#8  0x00007fffec3afd46 in G4EventManager::DoProcessing (this=0x88a590, anEvent=0x216f2a0) at /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/event/src/G4EventManager.cc:185
-#9  0x00007fffec3b0572 in G4EventManager::ProcessOneEvent (this=0x88a590, anEvent=0x216f2a0) at /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/event/src/G4EventManager.cc:338
-#10 0x00007fffec6b2665 in G4RunManager::ProcessOneEvent (this=0x701520, i_event=0) at /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/run/src/G4RunManager.cc:399
-#11 0x00007fffec6b24d7 in G4RunManager::DoEventLoop (this=0x701520, n_event=1, macroFile=0x0, n_select=-1) at /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/run/src/G4RunManager.cc:367
-#12 0x00007fffec6b1d2d in G4RunManager::BeamOn (this=0x701520, n_event=1, macroFile=0x0, n_select=-1) at /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/run/src/G4RunManager.cc:273
+#6  0x00007fffec12b6df in G4SteppingManager::Stepping (this=0x88a660) at /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/tracking/source/G4SteppingManager.cc:237
+#7  0x00007fffec137236 in G4TrackingManager::ProcessOneTrack (this=0x88a620, apValueG4Track=0x2243bd0) at /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/tracking/source/G4TrackingManager.cc:126
+#8  0x00007fffec3afd46 in G4EventManager::DoProcessing (this=0x88a590, anEvent=0x216f2a0) at /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/event/source/G4EventManager.cc:185
+#9  0x00007fffec3b0572 in G4EventManager::ProcessOneEvent (this=0x88a590, anEvent=0x216f2a0) at /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/event/source/G4EventManager.cc:338
+#10 0x00007fffec6b2665 in G4RunManager::ProcessOneEvent (this=0x701520, i_event=0) at /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/run/source/G4RunManager.cc:399
+#11 0x00007fffec6b24d7 in G4RunManager::DoEventLoop (this=0x701520, n_event=1, macroFile=0x0, n_select=-1) at /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/run/source/G4RunManager.cc:367
+#12 0x00007fffec6b1d2d in G4RunManager::BeamOn (this=0x701520, n_event=1, macroFile=0x0, n_select=-1) at /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/run/source/G4RunManager.cc:273
 #13 0x00007fffefded44d in CG4::propagate (this=0x708570) at /home/blyth/opticks/cfg4/CG4.cc:331
 #14 0x00007ffff7bd570f in OKG4Mgr::propagate_ (this=0x7fffffffd280) at /home/blyth/opticks/okg4/OKG4Mgr.cc:177
 #15 0x00007ffff7bd55cf in OKG4Mgr::propagate (this=0x7fffffffd280) at /home/blyth/opticks/okg4/OKG4Mgr.cc:117

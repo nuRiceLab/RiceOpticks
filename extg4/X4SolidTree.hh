@@ -29,7 +29,7 @@ X4SolidTree : CSG tree manipulations
 X4SolidTree was developed initially as j/PMTSim/ZSolid 
 
 CAUTION : an older version of X4SolidTree is currently 
-in use within JUNOSW/offline as Simulation/DetSimV2/PMTSim/src/ZSolid.h
+in use within JUNOSW/offline as Simulation/DetSimV2/PMTSim/source/ZSolid.h
 
 Even though X4SolidTree.h is a "private" header it still needs to be 
 used across compilation units (eg for tests) hence assume that 

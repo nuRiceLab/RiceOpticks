@@ -760,8 +760,8 @@ SSim::AddBoundary
 
 Canonically invoked from SSim::Add in coordination with SSim::AddOptical to maintain consistency.
 
-Creates new array containing the src array with extra boundaries constructed
-from materials and surfaces already present in the src array as configured by the
+Creates new array containing the source array with extra boundaries constructed
+from materials and surfaces already present in the source array as configured by the
 specs argument.
 
 **/
@@ -782,8 +782,8 @@ NP* SSim::AddBoundary( const NP* dsrc, const std::vector<std::string>& specs ) /
     unsigned nm = src->shape[4] ;
 
     LOG(LEVEL)
-        << " src.ebyte " << src->ebyte
-        << " src.desc " << src->desc()
+        << " source.ebyte " << src->ebyte
+        << " source.desc " << src->desc()
         ;
 
     bool src_expect = src->ebyte == 4 && ni > 0  && nj == 4 ;

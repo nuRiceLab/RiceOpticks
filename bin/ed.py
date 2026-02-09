@@ -18,7 +18,7 @@ which the insertions are to be done.
 
    ./ed.py /tmp/tt/.bash_profile -l "before:P()" -i /tmp/tt/p -l "after:Q()" -i /tmp/tt/q -o /tmp/tt/.bash_profile_edited 
 
-* positional argument is the src file to be edited
+* positional argument is the source file to be edited
 * number of "-l,--line" options must match the number of "-i,--insert-path" options
 * linespec argument to -l must start with "before:" or "after:" followed by the linestart to match
 * when -o,--outpath option is provided the edited file is written there
@@ -158,10 +158,10 @@ class Ed(object):
         for i in range(len(beforepos)):
             bpos = beforepos[i]                        # line number before which to insert
             dst.lines.extend(src.lines[srcpos:bpos])   # copy lines prior to insertion i  
-            srcpos = bpos                              # keep track of the position in the src 
+            srcpos = bpos                              # keep track of the position in the source
             dst.lines.extend(inserts[i].lines)         # copy lines of the insertion
         pass
-        dst.lines.extend(src.lines[srcpos:])           # copy lines from src after the last insertion 
+        dst.lines.extend(src.lines[srcpos:])           # copy lines from source after the last insertion
         return dst 
 
 

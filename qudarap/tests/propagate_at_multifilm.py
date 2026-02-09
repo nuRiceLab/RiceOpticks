@@ -182,8 +182,8 @@ class MultiFilmPropagate():
 
 if __name__ == '__main__':
     src = os.path.expandvars("/tmp/${USER}/opticks/QSimTest/hemisphere_s_polarized/")
-    #src = os.path.expandvars("/tmp/${USER}/opticks/QSimTest/hemisphere_p_polarized/")
-    #src = os.path.expandvars("/tmp/${USER}/opticks/QSimTest/hemisphere_x_polarized/")
+    #source = os.path.expandvars("/tmp/${USER}/opticks/QSimTest/hemisphere_p_polarized/")
+    #source = os.path.expandvars("/tmp/${USER}/opticks/QSimTest/hemisphere_x_polarized/")
     mutate_src = os.path.expandvars("/tmp/${USER}/opticks/QSimTest/propagate_at_multifilm_s_polarized/") 
     #mutate_src = os.path.expandvars("/tmp/${USER}/opticks/QSimTest/propagate_at_multifilm_p_polarized/") 
     #mutate_src =os.path.expandvars("/tmp/${USER}/opticks/QSimTest/propagate_at_multifilm_x_polarized/") 

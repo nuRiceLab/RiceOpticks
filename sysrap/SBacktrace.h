@@ -20,7 +20,7 @@ Using the addresses in the debugger::
 
 
     (lldb) source list -a 0x0000000101f1be26
-    /usr/local/opticks_externals/g4_1042/lib/libG4tracking.dylib`G4SteppingManager::DefinePhysicalStepLength() + 1334 at /usr/local/opticks_externals/g4_1042.build/geant4.10.04.p02/source/tracking/src/G4SteppingManager2.cc:251
+    /usr/local/opticks_externals/g4_1042/lib/libG4tracking.dylib`G4SteppingManager::DefinePhysicalStepLength() + 1334 at /usr/local/opticks_externals/g4_1042.build/geant4.10.04.p02/source/tracking/source/G4SteppingManager2.cc:251
        246 	                                    &fGPILSelection );
        247 	#ifdef G4VERBOSE
        248 	                         // !!!!! Verbose

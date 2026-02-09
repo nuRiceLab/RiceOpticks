@@ -22,7 +22,7 @@
 
 ::
 
-    export OPTICKS_ANA_DEFAULTS=cat=tboolean-box,det=tboolean-box,src=torch,tag=1,pfx=tboolean-box
+    export OPTICKS_ANA_DEFAULTS=cat=tboolean-box,det=tboolean-box,source=torch,tag=1,pfx=tboolean-box
     main.py 
 
     unset OPTICKS_ANA_DEFAULTS
@@ -57,7 +57,7 @@ class OK(argparse.Namespace):
     pass
     #ipython = property(lambda self:sys.argv[0].endswith("ipython"))
     ipython = isIPython()
-    brief = property(lambda self:"pfx %s tag %s src %s det %s c2max %s ipython %s " % (self.pfx, self.utag,self.src,self.det, self.c2max, self.ipython))
+    brief = property(lambda self:"pfx %s tag %s source %s det %s c2max %s ipython %s " % (self.pfx, self.utag,self.src,self.det, self.c2max, self.ipython))
 
     def _get_ctx(self):
         return dict(tag=self.tag, utag=self.utag, src=self.src, det=self.det)
@@ -111,7 +111,7 @@ def opticks_args(**kwa):
     The envvar OPTICKS_ANA_DEFAULTS provides a convenient way to 
     communicate where the events of interest are, eg::
 
-        OPTICKS_ANA_DEFAULTS=det=g4live,cat=g4live,src=torch,tag=1,pfx=OKTest
+        OPTICKS_ANA_DEFAULTS=det=g4live,cat=g4live,source=torch,tag=1,pfx=OKTest
 
     The pfx setting default from here can be separately overridden using
     the TEST envvar, for example::
@@ -120,7 +120,7 @@ def opticks_args(**kwa):
 
     """
     oad_key = "OPTICKS_ANA_DEFAULTS"
-    oad = os.environ.get(oad_key,"det=g4live,cat=g4live,src=torch,tag=1,pfx=.")
+    oad = os.environ.get(oad_key,"det=g4live,cat=g4live,source=torch,tag=1,pfx=.")
     defaults = dict(map(lambda ekv:ekv.split("="), oad.split(","))) 
     lv = os.environ.get("LV", None)
 
@@ -141,11 +141,11 @@ def opticks_args(**kwa):
 
     det = kwa.get("det", defaults["det"])
     cat = kwa.get("cat", defaults["cat"])
-    src = kwa.get("src", defaults["src"])
+    src = kwa.get("source", defaults["source"])
     tag = kwa.get("tag", defaults["tag"])
     pfx = kwa.get("pfx", defaults["pfx"])
 
-    #print("defaults det %s cat %s src %s tag %s pfx %s " % (det, cat, src, tag, pfx), file=sys.stderr)
+    #print("defaults det %s cat %s source %s tag %s pfx %s " % (det, cat, source, tag, pfx), file=sys.stderr)
 
 
     llv = kwa.get("loglevel", "info")
@@ -243,7 +243,7 @@ def opticks_args(**kwa):
     parser.add_argument(     "--tag",  default=tag, help="tag identifiying a simulation within a specific source and detector geometry, negated tag for Geant4 equivalent. Default %(default)s" )
     parser.add_argument(     "--det",  default=det, help="detector geometry: eg g4live, PmtInBox, dayabay. Default %(default)s. "  )
     parser.add_argument(     "--cat",  default=cat, help="category that overrides det. Will replace det, to match C++. Default %(default)s. "  )
-    parser.add_argument(     "--src",  default=src, help="photon source: torch, natural, scintillation OR cerenkov. Default %(default)s " )
+    parser.add_argument(     "--source",  default=src, help="photon source: torch, natural, scintillation OR cerenkov. Default %(default)s " )
     parser.add_argument(     "--pfx",  default=pfx, help="either \"source\" for 1st executable or the name of the executable for subsequent eg \"OKG4Test\". Default %(default)s " )
 
     parser.add_argument(     "--noshow",  dest="show", default=show, action="store_false", help="switch off dumping commandline "  )

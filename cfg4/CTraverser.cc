@@ -489,7 +489,7 @@ const char* CTraverser::getPVName(unsigned int index) const
 
 G4Transform3D CTraverser::VolumeTreeTraverse(const G4LogicalVolume* const lv, const G4int depth)
 {
-     G4Transform3D R, invR ;  // huh invR stays identity, see g4dae/src/G4DAEWriteStructure.cc
+     G4Transform3D R, invR ;  // huh invR stays identity, see g4dae/source/G4DAEWriteStructure.cc
      Visit(lv);
 
      const G4int daughterCount = lv->GetNoDaughters();    
@@ -513,7 +513,7 @@ G4Transform3D CTraverser::VolumeTreeTraverse(const G4LogicalVolume* const lv, co
 
          VisitPV(physvol, invR*P*daughterR);  // postorder (visit after recursive call), collecting into m_ltransforms
 
-        // This mimicks what is done in g4dae/src/G4DAEWriteStructure.cc which follows GDML (almost) 
+        // This mimicks what is done in g4dae/source/G4DAEWriteStructure.cc which follows GDML (almost)
         // despite trying to look like it accounts for all the transforms through the tree
         // it aint doing that as:
         //

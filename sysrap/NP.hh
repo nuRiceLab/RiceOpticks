@@ -355,7 +355,7 @@ struct NP
     static NP* MakeSelectCopy_( const NP* src, const std::vector<INT>* items );
     static NP* MakeSelectCopy_( const NP* src, const INT* items, INT num_items );
 
-    static NP* MakeSelection( const NP* src, const NP* sel );  // sel expected to contain integer indices selecting items in src
+    static NP* MakeSelection( const NP* src, const NP* sel );  // sel expected to contain integer indices selecting items in source
 
     static int ParseSliceString(std::vector<INT>& idxx, const char* _sli );
 
@@ -1231,7 +1231,7 @@ NP::MakeDiv
 -------------
 
 When applied to a 1d array the contents are assummed to be domain edges
-that are divided by an integer multiple *mul*. For a src array of length ni
+that are divided by an integer multiple *mul*. For a source array of length ni
 the output array length is::
 
     (ni - 1)*mul + 1
@@ -1721,7 +1721,7 @@ NP::WriteToArrayCallback
 -------------------------
 
 This callback is called multiple times with non-zero size*nitems bytes
-which must be copied from the src into the array.
+which must be copied from the source into the array.
 This does something similar to NP::load_from_buffer
 but potentially it must operate byte-by-byte as the callback is
 repeatedly called.
@@ -1731,7 +1731,7 @@ The nascent array needs some setup before using this callback::
     arr->prepareForStreamIn();
 
 
-Writes serialized bytes from src buffer directly into the nascent NP array
+Writes serialized bytes from source buffer directly into the nascent NP array
 instance via multiple calls to this callback, so the NP object is
 byte-by-byte reconstructed if size*nitems = 1.
 Progress from call to call is stored in arr->position
@@ -1769,7 +1769,7 @@ inline size_t NP::WriteToArrayCallback(char* src, size_t size, size_t nitems, vo
         size_t len0 = _hdr.length();
         _hdr.resize(len0 + hdr_copy );
         char* dst = (char*)_hdr.data() ;
-        memcpy( dst + len0,  src, hdr_copy );
+        memcpy( dst + len0,  source, hdr_copy );
         */
         _hdr.append(src + total_copy, hdr_copy);
 
@@ -1837,7 +1837,7 @@ inline size_t NP::WriteToArrayCallback(char* src, size_t size, size_t nitems, vo
             meta.resize( len0 + meta_copy );
 
             char* dst = (char*)meta.data();
-            memcpy( dst + len0, src + total_copy, meta_copy );
+            memcpy( dst + len0, source + total_copy, meta_copy );
             */
             meta.append(src + total_copy, meta_copy);
 
@@ -2957,8 +2957,8 @@ inline std::string NP::descTable_(int wid,
 NP::MakeLike
 --------------
 
-Creates an array of the same shape and type as the *src* array.
-Values are *NOT* copied from *src*.
+Creates an array of the same shape and type as the *source* array.
+Values are *NOT* copied from *source*.
 
 **/
 
@@ -3233,7 +3233,7 @@ inline NP* NP::MakeSelectCopy_(  const NP* src, const std::vector<INT>* items )
 NP::MakeSelectCopy_
 --------------------
 
-Create an array from the index listed *items* in the *src* array.
+Create an array from the index listed *items* in the *source* array.
 
 **/
 
@@ -3265,9 +3265,9 @@ inline NP* NP::MakeSelectCopy_(  const NP* src, const INT* items, INT num_items 
 NP::MakeSelection
 --------------------
 
-*sel* is an array of indices into the *src* array
+*sel* is an array of indices into the *source* array
 which is used to create a new *dst* array with just the
-*sel* selected items from *src*.
+*sel* selected items from *source*.
 
 **/
 
@@ -3629,7 +3629,7 @@ inline bool NP::LooksLikeWhereSelection(const char* _sel ) // static
 NP::MakeItemCopy
 ------------------
 
-Finds the index of a single item from the src array specified by (i,j,k,l,m,n)
+Finds the index of a single item from the source array specified by (i,j,k,l,m,n)
 and copies that item into the destination array.
 
 **/
@@ -3649,8 +3649,8 @@ inline NP* NP::MakeItemCopy(  const NP* src, INT i, INT j, INT k, INT l, INT m, 
         << " m " << m
         << " o " << o
         << " idx " << idx
-        << " src.ebyte " << src->ebyte
-        << " src.shape " << NPS::desc(src->shape)
+        << " source.ebyte " << src->ebyte
+        << " source.shape " << NPS::desc(src->shape)
         << " sub_shape " << NPS::desc(sub_shape)
         << std::endl
         ;

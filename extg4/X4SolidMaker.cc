@@ -1627,7 +1627,7 @@ const G4VSolid* X4SolidMaker::LHCbRichSphMirr(const char* qname)  // static
 
 
 
-   // /Users/blyth/liyu/Rich_Simplified/src/RichTbLHCbR1or.cc    
+   // /Users/blyth/liyu/Rich_Simplified/source/RichTbLHCbR1or.cc
 
     G4Sphere* SphFullSph = new G4Sphere ("SphFullSphDEV",InnerRadius,
                        OuterRadius,PhiStart,
@@ -1898,7 +1898,7 @@ const G4VSolid* X4SolidMaker::LHCbRichFlatMirr(const char* qname)  // static
      */
 
 
-    // /Users/blyth/Rich_Simplified/Rich_Simplified/src/RichTbLHCbR1FlatMirror.cc
+    // /Users/blyth/Rich_Simplified/Rich_Simplified/source/RichTbLHCbR1FlatMirror.cc
 
     G4Sphere* RichTbR1FlatFull = new G4Sphere ("RichTbR1FlatFullDEV",InnerRadius,OuterRadius,StartPhi,DeltaPhi, StartTheta,DeltaTheta);
 

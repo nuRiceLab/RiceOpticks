@@ -244,7 +244,7 @@ source/persistency/gdml/include/G4GDMLReadSolids.hh::
     115 
     116 };
 
-source/persistency/gdml/src/G4GDMLReadSolids.cc::
+source/persistency/gdml/source/G4GDMLReadSolids.cc::
 
     2477 void G4GDMLReadSolids::
     2478 PropertyRead(const xercesc::DOMElement* const propertyElement,
@@ -288,7 +288,7 @@ source/persistency/gdml/src/G4GDMLReadSolids.cc::
     2557 }
 
 
-In source/persistency/gdml/src/G4GDMLReadSolids.cc
+In source/persistency/gdml/source/G4GDMLReadSolids.cc
 the key of the mapOfMatPropVects is "Strip(name)" which means
 that only the first occurrence of each stripped property name (eg EFFICIENCY) 
 amongst all skinsurface and bordersurface elements in the entire geometry

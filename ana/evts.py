@@ -5,7 +5,7 @@ evts.py
 
 Try concatenation of event arrays::
 
-   ipython --pdb -i evts.py -- --pfx tds3gun --src natural 
+   ipython --pdb -i evts.py -- --pfx tds3gun --source natural
 
    OR
 

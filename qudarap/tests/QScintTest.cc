@@ -15,7 +15,7 @@ void test_lookup(QScint& sc)
 {
     NP* dst = sc.lookup(); 
     dst->save("$TMP/QScintTest/dst.npy"); 
-    sc.src->save("$TMP/QScintTest/src.npy") ; 
+    sc.src->save("$TMP/QScintTest/source.npy") ;
 }
 
 int main(int argc, char** argv)

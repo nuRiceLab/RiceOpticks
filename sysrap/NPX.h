@@ -245,7 +245,7 @@ NPX::Make "Make_ellipsis"
 --------------------------
 
 This "Make_ellipsis" method combines allocation of the array and populating it
-from the src data. This is intended to facilitate creating arrays from vectors
+from the source data. This is intended to facilitate creating arrays from vectors
 of struct, by using simple template types  (int, float, double etc.. )
 together with array item shapes appropriate to the elements of the struct.
 For example::
@@ -257,7 +257,7 @@ For example::
    NP* a = NPX::Make<int>( (int*)dd.data() , int(dd.size()) , 4 );
 
 The product of the shape integers MUST correspond to the number of
-values provided from the src data.
+values provided from the source data.
 When the first int shape dimension is zero a nullptr is returned.
 
 **/

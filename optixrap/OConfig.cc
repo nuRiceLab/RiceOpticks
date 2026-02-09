@@ -335,7 +335,7 @@ void OConfig::ConfigureSampler(optix::TextureSampler& sampler, optix::Buffer& bu
 
 
 /*
-(Details: Function "RTresult _rtContextValidate(RTcontext)" caught exception: Unsupported combination of texture index, wrap and filter modes:  RT_TEXTURE_INDEX_ARRAY_INDEX, RT_WRAP_REPEAT, RT_FILTER_LINEAR, file:/Users/umber/workspace/rel4.0-mac64-build-Release/sw/wsapps/raytracing/rtsdk/rel4.0/src/Util/TextureDescriptor.cpp, line: 138)
+(Details: Function "RTresult _rtContextValidate(RTcontext)" caught exception: Unsupported combination of texture index, wrap and filter modes:  RT_TEXTURE_INDEX_ARRAY_INDEX, RT_WRAP_REPEAT, RT_FILTER_LINEAR, file:/Users/umber/workspace/rel4.0-mac64-build-Release/sw/wsapps/raytracing/rtsdk/rel4.0/source/Util/TextureDescriptor.cpp, line: 138)
 
 
 */
@@ -430,7 +430,7 @@ of type optix::Exception: Invalid value (Details: Function "RTresult
 _rtContextValidate(RTcontext)" caught exception: Unsupported combination of
 texture index, wrap and filter modes:  RT_TEXTURE_INDEX_ARRAY_INDEX,
 RT_WRAP_REPEAT, RT_FILTER_LINEAR,
-file:/Users/umber/workspace/rel4.0-mac64-build-Release/sw/wsapps/raytracing/rtsdk/rel4.0/src/Util/TextureDescriptor.cpp,
+file:/Users/umber/workspace/rel4.0-mac64-build-Release/sw/wsapps/raytracing/rtsdk/rel4.0/source/Util/TextureDescriptor.cpp,
 line: 138) Abort trap: 6
 
 */

@@ -18,7 +18,7 @@
  */
 
 #pragma once
-// porting from /usr/local/env/chroma_env/src/chroma/chroma/cuda/cerenkov.h
+// porting from /usr/local/env/chroma_env/source/chroma/chroma/cuda/cerenkov.h
 
 #include "quad.h"
 #include "rotateUz.h"

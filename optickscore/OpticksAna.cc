@@ -79,7 +79,7 @@ std::string OpticksAna::getArgs(const char* /*anakey*/) const
          << "--tag " << m_ok->getEventTag() << " "
          << "--cat " << m_ok->getInputUDet() << " "     
          << "--pfx " << m_ok->getEventPfx() << " "
-         << "--src " << m_ok->getSourceType() << " "
+         << "--source " << m_ok->getSourceType() << " "
          << "--show " 
          << ( anakeyargs ? anakeyargs : "" )
          ;

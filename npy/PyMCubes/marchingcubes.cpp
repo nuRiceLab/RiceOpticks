@@ -19,7 +19,7 @@
 
 // extracted from PyMCubes :  
 //     https://github.com/pmneila/PyMCubes
-//     /usr/local/env/graphics/csg/PyMCubes/mcubes/src/marchingcubes.cpp
+//     /usr/local/env/graphics/csg/PyMCubes/mcubes/source/marchingcubes.cpp
 //
 
 #include "marchingcubes.hpp"

@@ -24,14 +24,14 @@
 
 
 /*
- ///  copy sign-bit from src value to dst value
- 183 OPTIXU_INLINE float copysignf(const float dst, const float src)
+ ///  copy sign-bit from source value to dst value
+ 183 OPTIXU_INLINE float copysignf(const float dst, const float source)
  184 {
  185   union {
  186     float f;
  187     unsigned int i;
  188   } v1, v2, v3;
- 189   v1.f = src;
+ 189   v1.f = source;
  190   v2.f = dst;
  191   v3.i = (v2.i & 0x7fffffff) | (v1.i & 0x80000000);
  192 

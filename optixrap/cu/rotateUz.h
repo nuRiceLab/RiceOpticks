@@ -21,7 +21,7 @@
 
 /*
 
- // geant4.10.00.p01/source/externals/clhep/src/ThreeVector.cc
+ // geant4.10.00.p01/source/externals/clhep/source/ThreeVector.cc
 
  72 Hep3Vector & Hep3Vector::rotateUz(const Hep3Vector& NewUzVector) {
  73   // NewUzVector must be normalized !

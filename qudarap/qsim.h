@@ -1592,6 +1592,7 @@ inline QSIM_METHOD int qsim::propagate_at_surface_MultiFilm(unsigned& flag, RNG&
     {
         float u_theEfficiency = curand_uniform(&rng) ;
         flag = u_theEfficiency < theEfficiency ? SURFACE_DETECT : SURFACE_ABSORB ;
+	printf("Eff1 %f , Eff2 %f " ,u_theEfficiency,theEfficiency);
     }
     else
     {
@@ -1683,17 +1684,15 @@ inline QSIM_METHOD int qsim::propagate_at_surface(unsigned& flag, RNG& rng, sctx
     const float& reflect_diffuse_  = s.surface.w ;
 
     float u_surface = curand_uniform(&rng);
-
+    
 #if !defined(PRODUCTION) && defined(DEBUG_TAG)
     stagr& tagr = ctx.tagr ;
     float u_surface_burn = curand_uniform(&rng);
     tagr.add( stag_at_burn_sf_sd, u_surface);
     tagr.add( stag_sf_burn,       u_surface_burn);
 #endif
-
-
+	
     int action = u_surface < absorb + detect ? BREAK : CONTINUE  ;
-
     if( action == BREAK )
     {
 #if defined(WITH_CUSTOM4)
@@ -1718,13 +1717,20 @@ inline QSIM_METHOD int qsim::propagate_at_surface(unsigned& flag, RNG& rng, sctx
                                       ( u_qe < qe  ? EFFICIENCY_COLLECT : EFFICIENCY_CULL  )
                                   ;
 #else
-        flag = u_surface < absorb ?
+        flag = (u_surface < absorb || absorb>0.99) ?
                                       SURFACE_ABSORB
-                                  :
-                                      SURFACE_DETECT
-                                  ;
-#endif
-
+                                  :		      
+                                      	SURFACE_DETECT;
+				     // SURFACE_ABSORB
+                                  
+#endif 
+        /*	
+	if(flag == SURFACE_DETECT){
+		
+		 printf("u_surface %f , absorb %f, detect %f, action %d \n",u_surface,absorb,detect,action);
+        	//printf(" SurfAbs %d , SurfDet, %d, EffColl %d ,Eff_Cull %d",SURFACE_ABSORB,SURFACE_DETECT,EFFICIENCY_COLLECT,EFFICIENCY_CULL);
+		printf("flag %d \n", flag);
+	}*/	
 #if !defined(PRODUCTION) && defined(DEBUG_PIDX)
         if(ctx.pidx == base->pidx)
         printf("//qsim.propagate_at_surface.SA/SD.BREAK pidx %7lld : flag %d \n" , ctx.pidx, flag );

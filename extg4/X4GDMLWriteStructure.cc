@@ -35,7 +35,7 @@ X4GDMLWriteStructure::X4GDMLWriteStructure(bool refs)
     init(refs); 
 }
 
-// /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/persistency/gdml/src/G4GDMLWrite.cc
+// /home/blyth/local/opticks/externals/g4/geant4.10.04.p02/source/persistency/gdml/source/G4GDMLWrite.cc
 
 
 void X4GDMLWriteStructure::write(const G4VSolid* solid, const char* path )

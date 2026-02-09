@@ -870,7 +870,7 @@ EON
 g4-bug-2305-fix(){
   local msg="=== $FUNCNAME :"
 
-  local cc=$(g4-dir)/source/persistency/gdml/src/G4GDMLReadSolids.cc 
+  local cc=$(g4-dir)/source/persistency/gdml/source/G4GDMLReadSolids.cc
 
   if [ -f "$cc.orig" ]; then 
      echo $msg it looks like a fix has been applied already : aborting 
@@ -944,7 +944,7 @@ g4-bdir(){ echo $(g4-dir).$(g4-config).build ; }
 g4-cmake-dir(){     echo $(g4-prefix)/lib$(g4-libsuffix)/$(g4-nom) ; }
 g4-examples-dir(){  echo $(g4-prefix)/share/$(g4-nom)/examples ; }
 g4-gdml-dir(){      echo $(g4-dir)/source/persistency/gdml ; }
-g4-optical-dir(){   echo $(g4-dir)/source/processes/optical/src ; }
+g4-optical-dir(){   echo $(g4-dir)/source/processes/optical/source ; }
 
 g4-c(){    cd $(g4-dir)/$1 ; }
 g4-cd(){   cd $(g4-dir)/$1 ; }
@@ -1306,7 +1306,7 @@ g4-cls-copy(){
    local number=$(g4-version-number)
    local lname=Local${name}${number}
 
-   local src=$(g4-dir)/source
+   local source=$(g4-dir)/source
    local hh=$(find $src -name "$name.hh")
    local cc=$(find $src -name "$name.cc")
    local icc=$(find $src -name "$name.icc")
@@ -1347,7 +1347,7 @@ g4-cls-(){
    local hh=$(find $base -name "$name.hh")
    local cc=$(find $base -name "$name.cc")
    local icc=$(find $base -name "$name.icc")
-   local src=$(find $base -name "$name.src")
+   local source=$(find $base -name "$name.src")
 
    local cc2=""
    if [ "$name" == "G4SteppingManager" ] ; then

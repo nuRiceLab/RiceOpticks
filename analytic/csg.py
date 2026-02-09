@@ -769,7 +769,7 @@ class CSG(CSG_):
 
     def save_src(self, treedir):
         """
-        Persist src verts and faces from ConvexPolyhedronSrc for use by cfg4 CMaker::ConvertPrimitive 
+        Persist source verts and faces from ConvexPolyhedronSrc for use by cfg4 CMaker::ConvertPrimitive
         """
         if len(self.faces) == 0: return
         assert len(self.faces) == len(self.planes)

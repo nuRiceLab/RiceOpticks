@@ -16,15 +16,15 @@ Make sense of GDML physvol/rotation and global to local transforms
 
 ::
 
-    epsilon:src blyth$ grep \"rotation\" *.cc
+    epsilon:source blyth$ grep \"rotation\" *.cc
     G4GDMLReadDefine.cc:      if (tag=="rotation") { RotationRead(child); } else
     G4GDMLReadParamvol.cc:      if (tag=="rotation") { VectorRead(child,rotation); } else
     G4GDMLReadSolids.cc:      if (tag=="rotation") { VectorRead(child,rotation); } else
     G4GDMLReadSolids.cc:      if (tag=="rotation") { VectorRead(child,rotation); } else
     G4GDMLReadStructure.cc:     else if (tag=="rotation")
     G4GDMLReadStructure.cc:      if (tag=="rotation")
-    epsilon:src blyth$ pwd
-    /usr/local/opticks_externals/g4_1042.build/geant4.10.04.p02/source/persistency/gdml/src
+    epsilon:source blyth$ pwd
+    /usr/local/opticks_externals/g4_1042.build/geant4.10.04.p02/source/persistency/gdml/source
 
 
 ::

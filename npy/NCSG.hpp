@@ -39,8 +39,8 @@ Workflow 1 : NCSG::Load from python CSG defined geometry thru to transport buffe
 
 Steps 1,2,3 are done by NCSG::Load
 
-0. serialize python defined geometry (see tboolean-box--) into src* buffers 
-1. loadsrc the src* buffers into NCSGData.m_src* 
+0. serialize python defined geometry (see tboolean-box--) into source* buffers
+1. loadsrc the source* buffers into NCSGData.m_src*
 2. import the NCSGData.m_src* buffers into nnode tree
 3. export the nnode tree into NCSGData transport buffers m_nodes, m_gtransforms, m_planes
 
@@ -343,7 +343,7 @@ class NPY_API NCSG {
         void increaseVerbosity(int verbosity);
 
    private:
-        // import src buffers of nodes/transforms into a node tree 
+        // import source buffers of nodes/transforms into a node tree
         void import();
         void import_leaf();
         void import_tree();

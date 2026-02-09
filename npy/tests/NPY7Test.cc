@@ -55,7 +55,7 @@ void test_MakeFloat()
 
     NPY<double>* src = NPY<double>::make( ni, nj, nk, nl, nm ); 
     src->fillIndexFlat(); 
-    src->dump("src"); 
+    src->dump("source");
 
     NPY<float>* dst = NPY<double>::MakeFloat(src); 
     dst->dump("dst"); 
@@ -113,7 +113,7 @@ void test_interp()
     }
     const char* FOLD = "$TMP/NPY7Test/test_interp" ; 
 
-    a->save(FOLD, "src.npy"); 
+    a->save(FOLD, "source.npy");
     b->save(FOLD, "dst.npy"); 
 
     LOG(info) << " saved to " << FOLD ; 

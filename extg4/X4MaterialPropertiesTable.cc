@@ -328,7 +328,7 @@ void X4MaterialPropertiesTable::AddProperties(GPropertyMap<double>* pmap, const 
 
         GProperty<double>* prop = nullptr ;        
 
-        if( mode == 'G' )           // Geant4 src interpolation onto the domain 
+        if( mode == 'G' )           // Geant4 source interpolation onto the domain
         {
             prop = X4PhysicsVector<double>::Interpolate(pvec, dom) ; 
             pmap->addPropertyAsis( pname.c_str(), prop );     

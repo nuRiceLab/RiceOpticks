@@ -24,7 +24,7 @@ nload.py
 
 With current defaults in environment::
 
-    export OPTICKS_ANA_DEFAULTS="det=tboolean-box,src=torch,tag=1,pfx=tboolean-box"
+    export OPTICKS_ANA_DEFAULTS="det=tboolean-box,source=torch,tag=1,pfx=tboolean-box"
     export OPTICKS_EVENT_BASE=/tmp
 
 ::
@@ -297,7 +297,7 @@ class A(np.ndarray):
     def path_(cls, stem, typ, tag, det="dayabay", pfx="source"):
         """
         :param stem: gs,ox,ht,rs,so,ph,fdom,idom
-        :param typ: natural ok.src
+        :param typ: natural ok.source
         :param tag: 1,-1
         :param det: g4live 
         :param pfx: source for 1st executable, the name of the executable for subsequent ones eg OKG4Test 
@@ -468,7 +468,7 @@ class II(list):
 
 if __name__ == '__main__':
     from opticks.ana.main import opticks_main
-    #ok = opticks_main(src="torch", tag="10", det="PmtInBox")
+    #ok = opticks_main(source="torch", tag="10", det="PmtInBox")
     ok = opticks_main()
 
     try:

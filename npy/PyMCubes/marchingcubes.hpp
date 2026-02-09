@@ -19,7 +19,7 @@
 
 // extracted from PyMCubes :  
 //     https://github.com/pmneila/PyMCubes
-//     /usr/local/env/graphics/csg/PyMCubes/mcubes/src/marchingcubes.h
+//     /usr/local/env/graphics/csg/PyMCubes/mcubes/source/marchingcubes.h
 //
 #ifndef _MARCHING_CUBES_H
 #define _MARCHING_CUBES_H

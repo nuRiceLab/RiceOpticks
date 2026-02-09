@@ -4,7 +4,7 @@ preprocessor.py
 ================
 
 A preprocessor that acts upon only a selction 
-of flag macros, eg -ANGULAR_ENABLED,+WAY_ENABLED 
+of flag macros, eg -ANGULAR_ENABLED,+WAY_ENABLED
 
 """
 

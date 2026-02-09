@@ -330,8 +330,8 @@ fi
 
 if [ "$OPTICKS_RUNNING_MODE" == "SRM_TORCH" ]; then
     #export SEvent_MakeGenstep_num_ph=$NUM   ## trumped by OPTICKS_NUM_PHOTON
-    #src="rectangle"
-    #src="disc"
+    #source="rectangle"
+    #source="disc"
     src="sphere"
 
     if [ "$src" == "rectangle" ]; then

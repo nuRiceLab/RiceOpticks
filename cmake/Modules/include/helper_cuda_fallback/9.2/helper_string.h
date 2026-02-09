@@ -274,8 +274,8 @@ inline char *sdkFindFilePath(const char *filename,
       "./common/",                      // "/common/" subdir
       "./common/data/",                 // "/common/data/" subdir
       "./data/",                        // "/data/" subdir
-      "./src/",                         // "/src/" subdir
-      "./src/<executable_name>/data/",  // "/src/<executable_name>/data/" subdir
+      "./source/",                         // "/source/" subdir
+      "./source/<executable_name>/data/",  // "/source/<executable_name>/data/" subdir
       "./inc/",                         // "/inc/" subdir
       "./0_Simple/",                    // "/0_Simple/" subdir
       "./1_Utilities/",                 // "/1_Utilities/" subdir
@@ -311,7 +311,7 @@ inline char *sdkFindFilePath(const char *filename,
       "../common/",       // up 1 in tree, "/common/" subdir
       "../common/data/",  // up 1 in tree, "/common/data/" subdir
       "../data/",         // up 1 in tree, "/data/" subdir
-      "../src/",          // up 1 in tree, "/src/" subdir
+      "../source/",          // up 1 in tree, "/source/" subdir
       "../inc/",          // up 1 in tree, "/inc/" subdir
 
       "../0_Simple/<executable_name>/data/",  // up 1 in tree,
@@ -348,7 +348,7 @@ inline char *sdkFindFilePath(const char *filename,
       "../../common/",                       // up 2 in tree, "/common/" subdir
       "../../common/data/",  // up 2 in tree, "/common/data/" subdir
       "../../data/",         // up 2 in tree, "/data/" subdir
-      "../../src/",          // up 2 in tree, "/src/" subdir
+      "../../source/",          // up 2 in tree, "/source/" subdir
       "../../inc/",          // up 2 in tree, "/inc/" subdir
       "../../sandbox/<executable_name>/data/",  // up 2 in tree,
                                                 // "/sandbox/<executable_name>/"
@@ -384,16 +384,16 @@ inline char *sdkFindFilePath(const char *filename,
                                                 // "/samples/<executable_name>/"
                                                 // subdir
       "../../../",                              // up 3 in tree
-      "../../../src/<executable_name>/",        // up 3 in tree,
-                                          // "/src/<executable_name>/" subdir
-      "../../../src/<executable_name>/data/",  // up 3 in tree,
-                                               // "/src/<executable_name>/data/"
+      "../../../source/<executable_name>/",        // up 3 in tree,
+                                          // "/source/<executable_name>/" subdir
+      "../../../source/<executable_name>/data/",  // up 3 in tree,
+                                               // "/source/<executable_name>/data/"
                                                // subdir
-      "../../../src/<executable_name>/src/",   // up 3 in tree,
-                                               // "/src/<executable_name>/src/"
+      "../../../source/<executable_name>/source/",   // up 3 in tree,
+                                               // "/source/<executable_name>/source/"
                                                // subdir
-      "../../../src/<executable_name>/inc/",   // up 3 in tree,
-                                               // "/src/<executable_name>/inc/"
+      "../../../source/<executable_name>/inc/",   // up 3 in tree,
+                                               // "/source/<executable_name>/inc/"
                                                // subdir
       "../../../sandbox/<executable_name>/",   // up 3 in tree,
                                                // "/sandbox/<executable_name>/"
@@ -401,8 +401,8 @@ inline char *sdkFindFilePath(const char *filename,
       "../../../sandbox/<executable_name>/data/",  // up 3 in tree,
                                                    // "/sandbox/<executable_name>/data/"
                                                    // subdir
-      "../../../sandbox/<executable_name>/src/",  // up 3 in tree,
-                                                  // "/sandbox/<executable_name>/src/"
+      "../../../sandbox/<executable_name>/source/",  // up 3 in tree,
+                                                  // "/sandbox/<executable_name>/source/"
                                                   // subdir
       "../../../sandbox/<executable_name>/inc/",  // up 3 in tree,
                                                   // "/sandbox/<executable_name>/inc/"
@@ -468,16 +468,16 @@ inline char *sdkFindFilePath(const char *filename,
       "../../../common/data/",  // up 3 in tree, "../../../common/data/" subdir
       "../../../data/",         // up 3 in tree, "../../../data/" subdir
       "../../../../",           // up 4 in tree
-      "../../../../src/<executable_name>/",  // up 4 in tree,
-                                             // "/src/<executable_name>/" subdir
-      "../../../../src/<executable_name>/data/",  // up 4 in tree,
-                                                  // "/src/<executable_name>/data/"
+      "../../../../source/<executable_name>/",  // up 4 in tree,
+                                             // "/source/<executable_name>/" subdir
+      "../../../../source/<executable_name>/data/",  // up 4 in tree,
+                                                  // "/source/<executable_name>/data/"
                                                   // subdir
-      "../../../../src/<executable_name>/src/",  // up 4 in tree,
-                                                 // "/src/<executable_name>/src/"
+      "../../../../source/<executable_name>/source/",  // up 4 in tree,
+                                                 // "/source/<executable_name>/source/"
                                                  // subdir
-      "../../../../src/<executable_name>/inc/",  // up 4 in tree,
-                                                 // "/src/<executable_name>/inc/"
+      "../../../../source/<executable_name>/inc/",  // up 4 in tree,
+                                                 // "/source/<executable_name>/inc/"
                                                  // subdir
       "../../../../sandbox/<executable_name>/",  // up 4 in tree,
                                                  // "/sandbox/<executable_name>/"
@@ -485,8 +485,8 @@ inline char *sdkFindFilePath(const char *filename,
       "../../../../sandbox/<executable_name>/data/",  // up 4 in tree,
                                                       // "/sandbox/<executable_name>/data/"
                                                       // subdir
-      "../../../../sandbox/<executable_name>/src/",  // up 4 in tree,
-                                                     // "/sandbox/<executable_name>/src/"
+      "../../../../sandbox/<executable_name>/source/",  // up 4 in tree,
+                                                     // "/sandbox/<executable_name>/source/"
                                                      // subdir
       "../../../../sandbox/<executable_name>/inc/",  // up 4 in tree,
                                                      // "/sandbox/<executable_name>/inc/"
@@ -553,17 +553,17 @@ inline char *sdkFindFilePath(const char *filename,
                                    // subdir
       "../../../../data/",         // up 4 in tree, "../../../data/" subdir
       "../../../../../",           // up 5 in tree
-      "../../../../../src/<executable_name>/",  // up 5 in tree,
-                                                // "/src/<executable_name>/"
+      "../../../../../source/<executable_name>/",  // up 5 in tree,
+                                                // "/source/<executable_name>/"
                                                 // subdir
-      "../../../../../src/<executable_name>/data/",  // up 5 in tree,
-                                                     // "/src/<executable_name>/data/"
+      "../../../../../source/<executable_name>/data/",  // up 5 in tree,
+                                                     // "/source/<executable_name>/data/"
                                                      // subdir
-      "../../../../../src/<executable_name>/src/",  // up 5 in tree,
-                                                    // "/src/<executable_name>/src/"
+      "../../../../../source/<executable_name>/source/",  // up 5 in tree,
+                                                    // "/source/<executable_name>/source/"
                                                     // subdir
-      "../../../../../src/<executable_name>/inc/",  // up 5 in tree,
-                                                    // "/src/<executable_name>/inc/"
+      "../../../../../source/<executable_name>/inc/",  // up 5 in tree,
+                                                    // "/source/<executable_name>/inc/"
                                                     // subdir
       "../../../../../sandbox/<executable_name>/",  // up 5 in tree,
                                                     // "/sandbox/<executable_name>/"
@@ -571,8 +571,8 @@ inline char *sdkFindFilePath(const char *filename,
       "../../../../../sandbox/<executable_name>/data/",  // up 5 in tree,
                                                          // "/sandbox/<executable_name>/data/"
                                                          // subdir
-      "../../../../../sandbox/<executable_name>/src/",  // up 5 in tree,
-                                                        // "/sandbox/<executable_name>/src/"
+      "../../../../../sandbox/<executable_name>/source/",  // up 5 in tree,
+                                                        // "/sandbox/<executable_name>/source/"
                                                         // subdir
       "../../../../../sandbox/<executable_name>/inc/",  // up 5 in tree,
                                                         // "/sandbox/<executable_name>/inc/"

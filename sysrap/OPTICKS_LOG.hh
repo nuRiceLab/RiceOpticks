@@ -47,7 +47,7 @@ Impl Notes
 
 Note that although the below looks at first glance like it is breaking package
 dependency rules, it is of course not doing so because this header is included
-into the main (or point-of-use library) and the pre-processor macros 
+into the main (or point-of-use library) and the pre-processor macros
 ensure that only the active package tree of headers gets included.
 
 TODO: rearrange OPTICKS_LOG such that it can be used in an initializer list 

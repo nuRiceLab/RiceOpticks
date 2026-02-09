@@ -69,7 +69,7 @@ void QMultiFilm::makeMultiFilmAllTex(){
     for(unsigned i = 0 ; i < pmtTypeList.size() ; i++){
 
         std::string pmtName = pmtTypeList[i];
-        //NP* pmt_src = src -> spawn_item(i);
+        //NP* pmt_src = source -> spawn_item(i);
         QTex<float4>  ** tex_arr = nullptr;
         if(pmtName == "kPMT_NNVT"){
             tex_arr = tex_nnvt_normal;
@@ -90,8 +90,8 @@ void QMultiFilm::makeMultiFilmAllTex(){
 
 void QMultiFilm::makeMultiFilmOnePMTTex(  int pmtcatIdx , QTex<float4> ** tex_pmt  ){
 
-    //   int bndDimIdx = src->get_meta<int>("boundary");
-    //   int resDimIdx = src->get_meta<int>("resolution");
+    //   int bndDimIdx = source->get_meta<int>("boundary");
+    //   int resDimIdx = source->get_meta<int>("resolution");
 
     int resolution_dim = src->shape[1];
 
@@ -108,14 +108,14 @@ QTex<float4>* QMultiFilm::makeMultiFilmOneTex( int pmtcatIdx , int resIdx ){
 
 
     assert( src->uifc == 'f' ); 
-    assert( src->ebyte == 4 );    // expecting float src array, possible narrowed from double dsrc array  
+    assert( src->ebyte == 4 );    // expecting float source array, possible narrowed from double dsrc array
 
     /*
-       int bndDimIdx = src->get_meta<int>("boundary");
-       int resDimIdx = src->get_meta<int>("resolution");
-       int wvDimIdx = src->get_meta<int>("wavelength");
-       int aoiDimIdx = src->get_meta<int>("aoi");
-       int payDimIdx = src->get_meta<int>("payload");
+       int bndDimIdx = source->get_meta<int>("boundary");
+       int resDimIdx = source->get_meta<int>("resolution");
+       int wvDimIdx = source->get_meta<int>("wavelength");
+       int aoiDimIdx = source->get_meta<int>("aoi");
+       int payDimIdx = source->get_meta<int>("payload");
        */
     int resolution_dim = src->shape[1];
     assert(resolution_dim == 2);
@@ -165,7 +165,7 @@ QTex<float4>* QMultiFilm::makeMultiFilmOneTex( int pmtcatIdx , int resIdx ){
     tx->uploadMeta(); 
 
     LOG(LEVEL)
-        << " src " << src->desc()
+        << " source " << src->desc()
         << " nx (width) " << nx
         << " ny (height) " << ny
         //<< " tx.HDFactor " << tx->getHDFactor() 
@@ -182,7 +182,7 @@ std::string QMultiFilm::desc() const
     std::stringstream ss ; 
     ss << "QMultiFilm"
         << " dsrc " << ( dsrc ? dsrc->desc() : "-" )
-        << " src " << ( src ? src->desc() : "-" )
+        << " source " << ( src ? src->desc() : "-" )
         ; 
     int num = 2;
     for(int i = 0 ; i < num ;i++){

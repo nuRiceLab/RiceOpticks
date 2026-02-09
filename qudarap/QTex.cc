@@ -186,17 +186,17 @@ QTex::uploadToArray
        struct cudaArray* dst, 
        size_t wOffset, 
        size_t hOffset, 
-       const void* src, 
+       const void* source,
        size_t spitch, 
        size_t width, 
        size_t height, 
        enum cudaMemcpyKind kind) 
 
-Copies a matrix (height rows of width bytes each) from the memory area pointed to by src 
+Copies a matrix (height rows of width bytes each) from the memory area pointed to by source
 to the CUDA array dst starting at the upper left corner (wOffset, hOffset) where kind is one of 
 cudaMemcpyHostToHost, cudaMemcpyHostToDevice, cudaMemcpyDeviceToHost, or cudaMemcpyDeviceToDevice,
 and specifies the direction of the copy. 
-spitch is the width in memory in bytes of the 2D array pointed to by src, 
+spitch is the width in memory in bytes of the 2D array pointed to by source,
 including any padding added to the end of each row. 
 wOffset + width must not exceed the width of the CUDA array dst. 
 width must not exceed spitch. 
@@ -206,7 +206,7 @@ cudaMemcpy2DToArray() returns an error if spitch exceeds the maximum allowed.
 dst - Destination memory address 
 wOffset - Destination starting X offset
 hOffset - Destination starting Y offset
-src - Source memory address
+source - Source memory address
 spitch - Pitch of source memory
 width - Width of matrix transfer (columns in bytes) 
 height - Height of matrix transfer (rows)

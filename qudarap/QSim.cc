@@ -437,10 +437,10 @@ double QSim::simulate(int eventID, bool reset_)
     int64_t tot_ph_0 = SGenstep::GetGenstepSlices( igs_slice, igs, SEventConfig::MaxSlot() );
 
     //bool xxl = tot_ph_0 > SGenstep::MAX_SLOT_PER_SLICE ;
-    bool xxl = tot_ph_0 > 100*M ;
+    bool xxl = tot_ph_0 > 200*M ;
 
     int num_slice = igs_slice.size();
-
+    	
     LOG(xxl ? info : LEVEL)
         << " eventID " << std::setw(6) << eventID
         << " igs " << ( igs ? igs->sstr() : "-" )
@@ -453,7 +453,7 @@ double QSim::simulate(int eventID, bool reset_)
         << sslice::Desc(igs_slice)
         << " num_slice " << num_slice
         ;
-
+     	
 
     int64_t t_LBEG = SProf::Add("QSim__simulate_LBEG");
 
@@ -496,7 +496,7 @@ double QSim::simulate(int eventID, bool reset_)
             << " dt " << std::setw(11) << std::fixed << std::setprecision(6) << dt
             << " slice " << sl.idx_desc(i)
             ;
-
+	
         int64_t t_POST = SProf::Add("QSim__simulate_POST");
 
         sev->gather();  // gather into *fold* just added to *topfold*

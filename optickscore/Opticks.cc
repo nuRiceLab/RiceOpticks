@@ -469,7 +469,7 @@ void Opticks::init()
     if(IsLegacyGeometryEnabled())
     {
         LOG(fatal) << "OPTICKS_LEGACY_GEOMETRY_ENABLED mode is active " 
-                   << " : ie dae src access to geometry, opticksdata  "  
+                   << " : ie dae source access to geometry, opticksdata  "
                     ;
     }
     else

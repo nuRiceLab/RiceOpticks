@@ -29,7 +29,7 @@ TODO: perhaps more precision loss later... compare transforms at point of use in
 ::
 
 In [190]: run gltf.py
-[2017-07-01 11:35:10,972] p18709 {/Users/blyth/opticks/ana/base.py:266} INFO - envvar OPTICKS_ANA_DEFAULTS -> defaults {'src': 'torch', 'tag': '1', 'det': 'concentric'} 
+[2017-07-01 11:35:10,972] p18709 {/Users/blyth/opticks/ana/base.py:266} INFO - envvar OPTICKS_ANA_DEFAULTS -> defaults {'source': 'torch', 'tag': '1', 'det': 'concentric'}
 args: gltf.py
                scenes : 1 
                 nodes : 12230 

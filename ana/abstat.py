@@ -69,7 +69,7 @@ class ABStat(object):
     Hmm stats should probably have a standard path within the event tree 
     """
     STATPATH = "$TMP/stat.npy"
-    SUPTITLE = "  %(det)s/%(src)s/%(tag)s  %(iv)s/%(is)s %(na)d/%(nb)d   %(reclab)-50s  XYZT: %(X)4.2f %(Y)4.2f %(Z)4.2f %(T)4.2f ABCW: %(A)4.2f %(B)4.2f %(C)4.2f %(W)4.2f  seqc2 %(seqc2)4.2f dstc2 %(distc2)4.2f " 
+    SUPTITLE = "  %(det)s/%(source)s/%(tag)s  %(iv)s/%(is)s %(na)d/%(nb)d   %(reclab)-50s  XYZT: %(X)4.2f %(Y)4.2f %(Z)4.2f %(T)4.2f ABCW: %(A)4.2f %(B)4.2f %(C)4.2f %(W)4.2f  seqc2 %(seqc2)4.2f dstc2 %(distc2)4.2f "
     SKIP = "qctx".split()
 
     @classmethod

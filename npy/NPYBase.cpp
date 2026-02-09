@@ -427,7 +427,7 @@ void NPYBase::write_item_(void* dst, unsigned item) const
             << " item_size " << item_size
             << " item " << item   
             << " dst " << dst            
-            << " src " << src
+            << " source " << src
             ;            
 
         memcpy( dst, src, item_size ); 

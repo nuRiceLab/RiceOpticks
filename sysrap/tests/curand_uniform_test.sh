@@ -12,7 +12,7 @@ cd $(dirname $(realpath $BASH_SOURCE))
 source dbg__.sh
 
 name=curand_uniform_test
-src=$name.cu
+source=$name.cu
 script=$name.py 
 
 tmp=/data/$USER/opticks

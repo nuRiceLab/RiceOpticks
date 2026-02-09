@@ -764,9 +764,9 @@ optix-sfind(){    optix-samples-scd ; find . \( -name '*.cu' -or -name '*.h' -or
 
 optix-scd(){ optix-samples-scd  ; }
 
-optix-samples-sdir(){ echo $(optix-prefix)/SDK-src ; }
-optix-samples-bdir(){ echo $(optix-prefix)/SDK-src.build ; }
-optix-samples-pdir(){ echo $(optix-prefix)/SDK-src.build/lib/ptx ; }
+optix-samples-sdir(){ echo $(optix-prefix)/SDK-source ; }
+optix-samples-bdir(){ echo $(optix-prefix)/SDK-source.build ; }
+optix-samples-pdir(){ echo $(optix-prefix)/SDK-source.build/lib/ptx ; }
 optix-samples-scd(){ cd $(optix-samples-sdir) ; }
 optix-samples-bcd(){ cd $(optix-samples-bdir) ; }
 optix-samples-pcd(){ cd $(optix-samples-pdir) ; }

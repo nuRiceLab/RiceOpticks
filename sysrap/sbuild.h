@@ -6,7 +6,7 @@ sbuild.h
 ~/o/sysrap/tests/sbuild_test.sh 
 
 Curious the simple script build has no problem
-with variable names the same as the macros, but the 
+with variable names the same as the macros, but the
 CMake build gives error::
 
     <command-line>: error: expected unqualified-id before numeric constant

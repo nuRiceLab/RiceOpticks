@@ -74,7 +74,7 @@ std::string CSGCopy::desc() const
     std::stringstream ss ; 
     ss 
         << std::endl 
-        << "src:" 
+        << "source:"
         << src->desc() 
         << std::endl 
         << "dst:" 
@@ -235,7 +235,7 @@ void CSGCopy::copySolidPrim(AABB& solid_bb, int dPrimOffset, const CSGSolid* sso
          bool selected = elv == nullptr ? true : elv->is_set(meshIdx) ; 
          if( selected == false ) continue ; 
 
-         unsigned numNode = spr->numNode()  ;  // not envisaging node selection, so this will be same in src and dst 
+         unsigned numNode = spr->numNode()  ;  // not envisaging node selection, so this will be same in source and dst
          unsigned dPrimIdx_global = dst->getNumPrim() ;            // destination numPrim prior to prim addition
          unsigned dPrimIdx_local = dPrimIdx_global - dPrimOffset ; // make the PrimIdx local to the solid 
 
@@ -407,7 +407,7 @@ it is necessary to change potentially all the inst solid references.
 
 See ~/j/issues/cxr_scan_cxr_overview_ELV_scan_out_of_range_error.rst
 
-Iterates over all source instances looking up the src gas_idx and 
+Iterates over all source instances looking up the source gas_idx and
 checking if that solid is selected and hence is being copied into the dst 
 geometry. Where instances correspond to selected solids the addInstance
 is invoked on the destination geometry.  

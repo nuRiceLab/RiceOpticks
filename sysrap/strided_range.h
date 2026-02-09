@@ -40,9 +40,9 @@ genstep buffer, as used by seeding in okop-::
     195 void OpSeeder::seedPhotonsFromGenstepsImp(const CBufSpec& s_gs, const CBufSpec& s_ox)
     196 {
     ...
-    235     // src slice is plucking photon counts from each genstep
+    235     // source slice is plucking photon counts from each genstep
     237     // buffer size and num_bytes comes directly from CBufSpec
-    238     CBufSlice src = tgs.slice(6*4,3,num_genstep_values) ;  // stride, begin, end 
+    238     CBufSlice source = tgs.slice(6*4,3,num_genstep_values) ;  // stride, begin, end
     ...
 
 

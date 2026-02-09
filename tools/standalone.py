@@ -59,7 +59,7 @@ class Code(dict):
     mkr = property(lambda self:self["mkr"])
     nam = property(lambda self:self["nam"])
     exe = property(lambda self:self["exe"])
-    src = property(lambda self:self["src"])
+    src = property(lambda self:self["source"])
     bpl = property(lambda self:self["bpl"])
 
     def __repr__(self):
@@ -68,7 +68,7 @@ class Code(dict):
              nam : %(nam)s
              mkr : %(mkr)s
              exe : %(exe)s
-             src : %(src)s
+             source : %(src)s
              cmd : %(cmd)s
              bpl : %(bpl)s
 
@@ -79,16 +79,16 @@ class Code(dict):
     def __init__(self, *args, **kwa):
         """
         When using an existing executable, 
-        require *exe* path to the binary and *src* path to the source.
+        require *exe* path to the binary and *source* path to the source.
 
         When compiling standalone code 
-        provide only the *src*  path.
+        provide only the *source*  path.
         """
         dict.__init__(self, *args, **kwa)
 
-        assert hasattr(self, "src")
-        assert os.path.isfile(self["src"])
-        self["nam"] = os.path.splitext(os.path.basename(self["src"]))[0]
+        assert hasattr(self, "source")
+        assert os.path.isfile(self["source"])
+        self["nam"] = os.path.splitext(os.path.basename(self["source"]))[0]
 
         if not hasattr(self,"exe"):
             self["exe"] = "/tmp/%(nam)s" % self     
@@ -166,7 +166,7 @@ class Standalone(object):
 
 if __name__ == '__main__':
 
-    #co = Code(src="standalone.cc")  ## when compiling 
+    #co = Code(source="standalone.cc")  ## when compiling
     co = Code(src="standalone.cc", exe="/tmp/standalone")  ## when using preexistinge exe
     print(co)
 

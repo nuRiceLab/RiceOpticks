@@ -108,7 +108,7 @@ void test_Narrow(int mode)
     set(col3, mode); 
 
     strid::Encode(src, col3 ); 
-    std::cout << "src\n" << strid::Desc<double, uint64_t>(src) << std::endl ; 
+    std::cout << "source\n" << strid::Desc<double, uint64_t>(src) << std::endl ;
 
     glm::tmat4x4<float>  dst(1.); 
     strid::Narrow(dst, src); 

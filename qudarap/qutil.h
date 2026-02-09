@@ -24,7 +24,7 @@ uses *u* as its third column and is given by the below matrix.
 
 The below CUDA implementation follows the CLHEP implementation used by Geant4::
 
-     // geant4.10.00.p01/source/externals/clhep/src/ThreeVector.cc
+     // geant4.10.00.p01/source/externals/clhep/source/ThreeVector.cc
      72 Hep3Vector & Hep3Vector::rotateUz(const Hep3Vector& NewUzVector) {
      73   // NewUzVector must be normalized !
      74 

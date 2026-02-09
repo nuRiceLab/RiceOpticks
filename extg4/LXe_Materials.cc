@@ -19,7 +19,7 @@
 
 
 
-// /usr/local/opticks/externals/g4/geant4_10_02_p01/examples/extended/optical/LXe/src/LXeDetectorConstruction.cc
+// /usr/local/opticks/externals/g4/geant4_10_02_p01/examples/extended/optical/LXe/source/LXeDetectorConstruction.cc
 // /usr/local/opticks/externals/g4/geant4_10_02_p01/examples/extended/optical/LXe/include/LXeDetectorConstruction.hh
 
 #include "G4Version.hh"

@@ -176,7 +176,7 @@ class NPEncoder(json.JSONEncoder):
 
 def manual_mixin( dst, src ):
     """
-    Add all methods from the src class to the destination class
+    Add all methods from the source class to the destination class
 
     :param dst: destination class
     :param src: source class

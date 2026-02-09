@@ -208,7 +208,7 @@ void OpNovicePhysicsList::ConstructProcess()
 void OpNovicePhysicsList::addTransportation()
 {
    // adpated from 
-   // /usr/local/opticks/externals/g4/geant4_10_02_p01/source/run/src/G4PhysicsListHelper.cc
+   // /usr/local/opticks/externals/g4/geant4_10_02_p01/source/run/source/G4PhysicsListHelper.cc
 
   G4int verboseLevelTransport = 0;
   G4int nParaWorld = G4RunManagerKernel::GetRunManagerKernel()->GetNumberOfParallelWorld();

@@ -87,7 +87,7 @@ async def handle_npy(reader, writer):
     log.info(f"handle_npy : received from peer {addr!r}")
     arr, meta = await npy_read(reader) ;  
 
-    meta["src"] = sys.argv[0]
+    meta["source"] = sys.argv[0]
     arr += 42 
     await npy_write( writer, arr, meta )
 

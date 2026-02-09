@@ -24,7 +24,7 @@
 //  Local copy from 
 //      /usr/local/env/g4/geant4.10.02/
 //           source/processes/optical/include/G4OpRayleigh.hh
-//           source/processes/optical/src/G4OpRayleigh.cc
+//           source/processes/optical/source/G4OpRayleigh.cc
 //
 //
 // ********************************************************************

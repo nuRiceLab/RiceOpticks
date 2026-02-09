@@ -48,7 +48,7 @@ void TBufPair<T>::seedDestination()
 {  
     if(m_verbose)
     {
-        m_src.Summary("TBufPair<T>::seedDestination (CBufSlice)src");
+        m_src.Summary("TBufPair<T>::seedDestination (CBufSlice)source");
         m_dst.Summary("TBufPair<T>::seedDestination (CBufSlice)dst");
     }
 

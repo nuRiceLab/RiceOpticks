@@ -570,7 +570,7 @@ CGenstep CGenstepCollector::collectTorchGenstep(const OpticksGenstep* gs)
 
     LOG(LEVEL) 
         << " num_gensteps " << num_gensteps 
-        << " src.shape " << src->getShapeString()
+        << " source.shape " << src->getShapeString()
         << " src_oac.desc " << OpticksActionControl::Desc(src->getActionControl())
         ;
 

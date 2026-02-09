@@ -96,7 +96,13 @@ static quad6 MakeGenstep_DsG4Scintillation_r4695(
     G4double meanVelocity = (pPreStepPoint->GetVelocity()+pPostStepPoint->GetVelocity())/2. ;
 
     const G4DynamicParticle* aParticle = aTrack->GetDynamicParticle();
-    const G4Material* aMaterial = aTrack->GetMaterial();
+    const G4Material* aMaterial = nullptr;
+
+    if(!aTrack->GetMaterial())
+   	 aMaterial = pPostStepPoint->GetMaterial();
+    else
+   	 aMaterial  = aTrack->GetMaterial();	    
+    //const G4Material* aMaterial = aTrack->GetMaterial();
 
     quad6 _gs ;
     _gs.zero() ;

@@ -15,7 +15,7 @@ fold="$TMP/QScintTest"
 load_ = lambda name:np.load(os.path.expandvars("%s/%s" % (fold,name)))
 
 if __name__ == '__main__':
-    src = load_("src.npy")
+    src = load_("source.npy")
     dst = load_("dst.npy")
 
     s = src

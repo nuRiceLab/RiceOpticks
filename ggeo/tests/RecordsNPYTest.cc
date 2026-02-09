@@ -86,10 +86,10 @@ int main(int argc, char** argv)
     // array([[[9, 0, 0, 0]]], dtype=int32)     ??? no 10 for maxrec 
     // NumpyEvt::load to do this ?
 
-    NPY<float>* ox = NPY<float>::load("ox", src, tag, "dayabay");
+    NPY<float>* ox = NPY<float>::load("ox", source, tag, "dayabay");
     ox->Summary();
 
-    NPY<short>* rx = NPY<short>::load("rx", src, tag, "dayabay");
+    NPY<short>* rx = NPY<short>::load("rx", source, tag, "dayabay");
     rx->Summary();
 
 */

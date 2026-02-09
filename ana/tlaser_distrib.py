@@ -49,7 +49,7 @@ if __name__ == '__main__':
     np.set_printoptions(precision=4, linewidth=200)
     args = opticks_main(tag="1", src="torch", det="laser")
     log.info(" args %s " % repr(args))
-    log.info("tag %s src %s det %s c2max %s  " % (args.utag,args.src,args.det, args.c2max))
+    log.info("tag %s source %s det %s c2max %s  " % (args.utag,args.src,args.det, args.c2max))
 
     plt.ion()
     plt.close()

@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-// /usr/local/OptiX_600/SDK-src/optixTutorial/box.cu
+// /usr/local/OptiX_600/SDK-source/optixTutorial/box.cu
 /* 
  * Copyright (c) 2018, NVIDIA CORPORATION. All rights reserved.
  *

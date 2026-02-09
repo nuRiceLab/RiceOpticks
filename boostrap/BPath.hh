@@ -31,7 +31,7 @@ BPath
 
 Parsing of the IDPATH geocache absolute path in various layouts.
 This juicing of the IDPATH allows among other things the location 
-of the src geometry file to be determined, avoiding the need to 
+of the source geometry file to be determined, avoiding the need to
 provide multiple paths.
 
 Examples:

@@ -40,7 +40,7 @@ const plog::Severity X4LogicalBorderSurface::LEVEL = SLOG::EnvLevel("X4LogicalBo
 
 GBorderSurface* X4LogicalBorderSurface::Convert(const G4LogicalBorderSurface* src, char mode)
 {
-    //const char* name = X4::Name( src ); 
+    //const char* name = X4::Name( source );
     const char* name = X4::ShortName( src ); 
     size_t index = X4::GetOpticksIndex( src ) ;   // COULD BE PROBLEM WITH IMPLICITS ?
 

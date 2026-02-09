@@ -24,13 +24,13 @@ so.py: Load CPU emitsource "input photons"
 
 ::
 
-    so.py --det PmtInBox --tag 10 --src torch 
-    so.py --det dayabay  --tag 1  --src torch 
-    so.py --det tboolean-torus  --tag 1  --src torch 
+    so.py --det PmtInBox --tag 10 --source torch
+    so.py --det dayabay  --tag 1  --source torch
+    so.py --det tboolean-torus  --tag 1  --source torch
 
 Jump into interactive::
 
-    ipython -i $(which so.py) -- --det tboolean-sphere --tag 1 --src torch 
+    ipython -i $(which so.py) -- --det tboolean-sphere --tag 1 --source torch
 
 """
 import logging, sys

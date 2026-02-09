@@ -29,7 +29,7 @@ http://www.nat.vu.nl/en/sec/atom/Publications/pdf/rayleigh.pdf
 #include "random.h"
 #include "rotateUz.h"
 
-// port:source/processes/optical/src/G4OpRayleigh.cc
+// port:source/processes/optical/source/G4OpRayleigh.cc
 // http://bugzilla-geant4.kek.jp/show_bug.cgi?id=207  Xin Qian patch
 
 

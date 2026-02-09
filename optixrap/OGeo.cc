@@ -1252,7 +1252,7 @@ optix::Buffer OGeo::CreateInputUserBuffer(optix::Context& ctx, NPY<T>* src, unsi
     LOG(info) 
         << " name " << name
         << " ctxname " << ctxname_informational
-        << " src shape " << src->getShapeString()
+        << " source shape " << src->getShapeString()
         << " numBytes " << numBytes
         << " elementSize " << elementSize
         << " size " << size 

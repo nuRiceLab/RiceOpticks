@@ -109,7 +109,7 @@ void UseGeant4::make_transform()
 
      // numbers grabbed from from debug session
 /*
-reakpoint 8, junoSD_PMT_v2::ProcessHits (this=0x34d0f10, step=0x252ccf0) at ../src/junoSD_PMT_v2.cc:277
+reakpoint 8, junoSD_PMT_v2::ProcessHits (this=0x34d0f10, step=0x252ccf0) at ../source/junoSD_PMT_v2.cc:277
 277	    double qe = 1;
 (gdb) p global_pos
 $6 = (const G4ThreeVector &) @0x252ce20: {dx = -7250.5045525891683, dy = 17122.963751776308, dz = -5263.5969960140847, static tolerance = 2.22045e-14}

@@ -39,7 +39,7 @@ inline SMeshGroup::SMeshGroup(){}
 SMeshGroup::MakeCopy
 ---------------------
 
-NB if none of the subs from the src SMeshGroup are selected by elv a nullptr is returned
+NB if none of the subs from the source SMeshGroup are selected by elv a nullptr is returned
 
 **/
 

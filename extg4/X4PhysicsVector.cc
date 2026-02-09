@@ -121,7 +121,7 @@ GProperty<T>* X4PhysicsVector<T>::makeDirect(bool nm_domain) const
 {
     bool reverse = nm_domain ;   
     size_t len = getSrcVectorLength() ; 
-    LOG(LEVEL) << " src.len " << len ; 
+    LOG(LEVEL) << " source.len " << len ;
     T* values = getSrcValues(reverse); 
     T* domain = nm_domain ? getSrcWavelengths(reverse) : getSrcEnergies(reverse) ; 
     GProperty<T>* prop = new GProperty<T>( values, domain, len );   

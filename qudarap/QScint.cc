@@ -64,7 +64,7 @@ std::string QScint::desc() const
     std::stringstream ss ; 
     ss << "QScint"
        << " dsrc " << ( dsrc ? dsrc->desc() : "-" )
-       << " src " << ( src ? src->desc() : "-" )
+       << " source " << ( src ? src->desc() : "-" )
        << " tex " << ( tex ? tex->desc() : "-" )
        << " tex " << tex 
        ; 
@@ -84,7 +84,7 @@ TODO: move the hd_factor into payload instead of items for easier extension to 2
 QTex<float>* QScint::MakeScintTex(const NP* src, unsigned hd_factor )  // static 
 {
     bool expected_shape = src->has_shape(1,4096,1) ||  src->has_shape(3,4096,1) ; 
-    LOG_IF(fatal, !expected_shape) << " unexpected shape of src " << ( src ? src->sstr() : "-" ) ; 
+    LOG_IF(fatal, !expected_shape) << " unexpected shape of source " << ( src ? src->sstr() : "-" ) ;
     assert( expected_shape ); 
 
     unsigned ni = src->shape[0]; 
@@ -112,7 +112,7 @@ QTex<float>* QScint::MakeScintTex(const NP* src, unsigned hd_factor )  // static
     tx->uploadMeta(); 
 
     LOG(LEVEL)
-        << " src " << src->desc()
+        << " source " << src->desc()
         << " nx (width) " << nx
         << " ny (height) " << ny
         << " tx.HDFactor " << tx->getHDFactor() 

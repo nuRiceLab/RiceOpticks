@@ -12,7 +12,7 @@ log.py : logfile parsing and presenting with time filtering
                      timestamp :        DTS-prev :        DFS-frst :msg
     2022-08-23 20:25:36.116000 :      0.3140[35] :      0.3330[37] : INFO  [22382] [QSim::UploadComponents@106] ] new QBase : latency here of about 0.3s from first device access, if latency of >1s need to start nvidia-persistenced 
     2022-08-23 20:25:36.294000 :      0.1780[20] :      0.5110[56] : INFO  [22382] [QSim::UploadComponents@110] QRng path /home/blyth/.opticks/rngcache/RNG/cuRANDWrapper_1000000_0_0.bin rngmax 1000000 qr 0x2b6cb70 d_qr 0x7f056dc00200
-    2022-08-23 20:25:36.312000 :      0.0180[ 2] :      0.5290[58] : INFO  [22382] [QSim::UploadComponents@125] QBnd src NP  dtype <f4(45, 4, 2, 761, 4, ) size 1095840 uifc f ebyte 4 shape.size 5 data.size 4383360 meta.size 69 names.size 45 tex QTex width 761 height 360 texObj 1 meta 0x2d908f0 d_meta 0x7f056dc01000 tex 0x2d90880
+    2022-08-23 20:25:36.312000 :      0.0180[ 2] :      0.5290[58] : INFO  [22382] [QSim::UploadComponents@125] QBnd source NP  dtype <f4(45, 4, 2, 761, 4, ) size 1095840 uifc f ebyte 4 shape.size 5 data.size 4383360 meta.size 69 names.size 45 tex QTex width 761 height 360 texObj 1 meta 0x2d908f0 d_meta 0x7f056dc01000 tex 0x2d90880
     2022-08-23 20:25:36.425000 :      0.1030[11] :      0.6420[71] : INFO  [22382] [SBT::init@69] 
     2022-08-23 20:25:36.449000 :      0.0130[ 1] :      0.6660[73] : INFO  [22382] [IAS_Builder::CollectInstances@77]  i   25601 gasIdx   2 sbtOffset   3094 gasIdx_sbtOffset.size   3
     2022-08-23 20:25:36.488000 :      0.0130[ 1] :      0.7050[78] : INFO  [22382] [SBT::createHitgroup@849] gas_idx 1 so.numPrim 5 so.primOffset 3089

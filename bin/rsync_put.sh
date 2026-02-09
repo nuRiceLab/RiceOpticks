@@ -60,7 +60,7 @@ EOU
 defarg="info_all"
 arg=${1:-$defarg}
 
-src=/Users/blyth/opticks/         ## for rsync a trailing slash on source directory means copy contents of this directory
+source=/Users/blyth/opticks/         ## for rsync a trailing slash on source directory means copy contents of this directory
 dst=P:/data/blyth/junotop/opticks
 cmd="rsync -zarv --delete  $src $dst"
 cmdx="rsync -zarv --exclude .git/ --delete $src $dst"

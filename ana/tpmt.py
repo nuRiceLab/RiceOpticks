@@ -162,7 +162,7 @@ if __name__ == '__main__':
 
     args = opticks_main(doc=__doc__, tag="10", src="torch", det="PmtInBox", c2max=2.0, tagoffset=0)
 
-    log.info("tag %s src %s det %s c2max %s  " % (args.utag,args.src,args.det, args.c2max))
+    log.info("tag %s source %s det %s c2max %s  " % (args.utag,args.src,args.det, args.c2max))
 
 
     #seqs = ["TO BT BR BT BT BT BT SA"] 

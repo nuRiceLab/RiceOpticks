@@ -193,7 +193,7 @@ GLuint InstLODCull::createForkVertexArray(RBuf* src, RBuf4* dst)
 
     LOG(info) << "InstLODCull::createForkVertexArray"
               << " loc " << loc
-              << " src.id " << src->id
+              << " source.id " << src->id
               ;
 
     if(!src->isUploaded())
@@ -296,7 +296,7 @@ void InstLODCull::pullback()
 {
     LOG(info) << "InstLODCull::pullback launch_count " << m_launch_count ; 
     m_src->pullback(0);
-    m_src->dump("InstLODCull::pullback.src");
+    m_src->dump("InstLODCull::pullback.source");
     m_dst->pullback( "InstLODCull::pullback.m_dst");   
 }
 

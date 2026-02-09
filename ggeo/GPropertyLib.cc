@@ -886,7 +886,7 @@ void GPropertyLib::SelectPropertyMapsWithProperties(
 
     LOG(LEVEL)
          << props 
-         << " src.size()  " << src.size() 
+         << " source.size()  " << src.size()
          << " dst.size()  " << dst.size() 
          ; 
 

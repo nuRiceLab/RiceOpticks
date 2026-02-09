@@ -135,7 +135,7 @@ torchstep.h : Torch modes
 *sphere*
     Torch photons start from the transformed "source" 
     and are emitted in the direction 
-    of the transformed "target"  ie direction normalize(tgt - src )
+    of the transformed "target"  ie direction normalize(tgt - source )
 
 *invsphere*
 *refltest T_REFLTEST*

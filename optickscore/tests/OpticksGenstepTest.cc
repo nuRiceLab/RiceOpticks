@@ -87,7 +87,7 @@ void test_torchstep()
 
     LOG(LEVEL) 
         << " num_gensteps " << num_gensteps 
-        << " src.shape " << src->getShapeString()
+        << " source.shape " << src->getShapeString()
         ;   
 
     for(unsigned idx=0 ; idx < num_gensteps ; idx++)
