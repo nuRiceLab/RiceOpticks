@@ -38,6 +38,7 @@ struct sscint
     unsigned trackid ;
     unsigned matline ;
     unsigned numphoton ;
+	int ParentId;
 
     float3   pos ;  // formerly x0
     float    time ; // formerly t0
@@ -82,6 +83,7 @@ inline void sscint::FillGenstep( sscint& gs, int genstep_id, int numphoton_per_g
 {
     gs.gentype = OpticksGenstep_SCINTILLATION ;
     gs.trackid = 0u ;
+    gs.ParentId = 0 ;
     gs.matline = 0u ;
     gs.numphoton = numphoton_per_genstep  ;
 

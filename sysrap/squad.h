@@ -373,6 +373,7 @@ SQUAD_METHOD void quad4::set_flags(unsigned boundary, unsigned identity, unsigne
     // hmm: could swap the general purpose identity for sensor index when this is a hit ?
 }
 
+
 SQUAD_METHOD void quad4::get_flags(unsigned& boundary, unsigned& identity, unsigned& idx, unsigned& flag, float& orient ) const
 {
     boundary = q3.u.x >> 16 ;
@@ -431,7 +432,7 @@ struct quad6
     quad q3 ;
     quad q4 ;
     quad q5 ;
-
+	int ParentId;
 
 #if defined(__CUDACC__) || defined(__CUDABE__)
 #else
@@ -441,11 +442,13 @@ struct quad6
 
     SQUAD_METHOD unsigned gentype() const {   return q0.u.x ; }
     SQUAD_METHOD unsigned trackid() const {   return q0.u.y ; }
+    SQUAD_METHOD int PID() const {   return ParentId ; }
     SQUAD_METHOD unsigned matline() const {   return q0.u.z ; }
     SQUAD_METHOD unsigned numphoton() const { return q0.u.w ; }
 
     SQUAD_METHOD void set_gentype(  unsigned gt) { q0.u.x = gt ; }
     SQUAD_METHOD void set_trackid(  unsigned tk) { q0.u.y = tk ; }
+    SQUAD_METHOD void set_PID(  int tk) { ParentId = tk ; }
     SQUAD_METHOD void set_matline(  unsigned ml) { q0.u.z = ml ; }
     SQUAD_METHOD void set_numphoton(unsigned np) { q0.u.w = np ; }
 
@@ -481,6 +484,7 @@ inline void quad6::zero()
     q3.u.x = 0 ; q3.u.y = 0 ; q3.u.z = 0 ; q3.u.w = 0 ;
     q4.u.x = 0 ; q4.u.y = 0 ; q4.u.z = 0 ; q4.u.w = 0 ;
     q5.u.x = 0 ; q5.u.y = 0 ; q5.u.z = 0 ; q5.u.w = 0 ;
+	ParentId=0;
 }
 
 inline const float* quad6::cdata() const { return &q0.f.x ; }

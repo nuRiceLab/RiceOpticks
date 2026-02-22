@@ -205,13 +205,14 @@ struct sphoton
     unsigned identity ;       // upper 8 bits used to extend range of index, lower 24 bits for identity
     unsigned index ;          // lower 32 bits of the full index
     unsigned flagmask ;
+    int ParentId;                   // Parent Id for LArSoft OptBackTracking
 
     SPHOTON_METHOD void set_prd( unsigned  boundary, unsigned  identity, float  orient, unsigned iindex );
 
 
     SPHOTON_METHOD unsigned iindex() const {   return ( orient_iindex & 0x7fffffffu ) ;  }
     SPHOTON_METHOD float    orient() const {   return ( orient_iindex & 0x80000000u ) ? -1.f : 1.f ; }
-
+    SPHOTON_METHOD int    get_PId() const {   return ParentId; }
     SPHOTON_METHOD void set_orient(float orient){ orient_iindex = ( orient_iindex & 0x7fffffffu ) | (( orient < 0.f ? 0x1 : 0x0 ) << 31 ) ; } // clear orient bit and then set it
     SPHOTON_METHOD void set_iindex(unsigned ii ){ orient_iindex = ( orient_iindex & 0x80000000u ) | ( 0x7fffffffu & ii ) ; }   // retain bit 31 asis
     SPHOTON_METHOD void set_orient_iindex( float orient, unsigned ii ){ orient_iindex = (( orient < 0.f ? 0x1 : 0x0 ) << 31 ) | ( 0x7fffffffu & ii ) ; }
@@ -227,6 +228,7 @@ struct sphoton
     SPHOTON_METHOD void     scrub_flagmask(unsigned flag) { flagmask &= ~flag ; }
 
     SPHOTON_METHOD void zero_flags() { boundary_flag = 0u ; identity = 0u ; index = 0u ; flagmask = 0u ; orient_iindex = 0u ; }
+    SPHOTON_METHOD void     set_PID(int pid) { ParentId = pid ; }
 
     SPHOTON_METHOD float* data() {               return &pos.x ; }
     SPHOTON_METHOD const float* cdata() const {  return &pos.x ; }
@@ -257,6 +259,7 @@ struct sphoton
        mom.x = 0.f ; mom.y = 0.f ; mom.z = 0.f ; orient_iindex = 0u ;
        pol.x = 0.f ; pol.y = 0.f ; pol.z = 0.f ; wavelength = 0.f ;
        boundary_flag = 0u ; identity = 0u ; index = 0u ; flagmask = 0u ;
+       ParentId=0;
     }
 
 #if defined(__CUDACC__) || defined(__CUDABE__)
@@ -330,6 +333,7 @@ struct sphotond
 
     double3 pol ;
     double  wavelength ;
+    int ParentId;                   // Parent Id for LArSoft OptBackTracking
 
     unsigned long long boundary_flag ;
     unsigned long long identity ;
@@ -365,6 +369,7 @@ SPHOTON_METHOD void sphotond::FromFloat( sphotond& d, const sphoton& s )
     d.pol.y = double(s.pol.y) ;
     d.pol.z = double(s.pol.z) ;
     d.wavelength  = double(s.wavelength) ;
+    d.ParentId  = s.ParentId ;
 
     d.boundary_flag = ull(s.boundary_flag) ;
     d.identity      = ull(s.identity) ;
@@ -685,7 +690,7 @@ SPHOTON_METHOD NP* sphoton::demoarray(size_t num_photon) // static
 
         p.set_identity(  i*200 );
         p.set_flagmask( SURFACE_DETECT | EFFICIENCY_COLLECT );
-
+        p.set_PID(0);
     }
     return ph ;
 }

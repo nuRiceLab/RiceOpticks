@@ -98,8 +98,9 @@ static quad6 MakeGenstep_DsG4Scintillation_r4695(
     const G4DynamicParticle* aParticle = aTrack->GetDynamicParticle();
     const G4Material* aMaterial = nullptr;
 
+    // This is included for LArSoft if tracks missing material , obtain it from steps
     if(!aTrack->GetMaterial())
-   	 aMaterial = pPostStepPoint->GetMaterial();
+   	 aMaterial = pPreStepPoint->GetMaterial();
     else
    	 aMaterial  = aTrack->GetMaterial();	    
     //const G4Material* aMaterial = aTrack->GetMaterial();
@@ -111,6 +112,7 @@ static quad6 MakeGenstep_DsG4Scintillation_r4695(
 
     gs->gentype = OpticksGenstep_DsG4Scintillation_r4695 ;
     gs->trackid = aTrack->GetTrackID() ;
+	gs->ParentId = aTrack->GetParentID() ;
     gs->matline = aMaterial->GetIndex() + SEvt::G4_INDEX_OFFSET ;  // offset signals that a mapping must be done in SEvt::setGenstep
     gs->numphoton = numPhotons ;
 
