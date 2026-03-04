@@ -112,7 +112,7 @@ static quad6 MakeGenstep_DsG4Scintillation_r4695(
 
     gs->gentype = OpticksGenstep_DsG4Scintillation_r4695 ;
     gs->trackid = aTrack->GetTrackID() ;
-	gs->ParentId = aTrack->GetParentID() ;
+	gs->ParentId = aTrack->GetTrackID() ;
     gs->matline = aMaterial->GetIndex() + SEvt::G4_INDEX_OFFSET ;  // offset signals that a mapping must be done in SEvt::setGenstep
     gs->numphoton = numPhotons ;
 

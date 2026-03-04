@@ -207,7 +207,7 @@ struct sphoton
     unsigned flagmask ;
     int ParentId;                   // Parent Id for LArSoft OptBackTracking
 
-    SPHOTON_METHOD void set_prd( unsigned  boundary, unsigned  identity, float  orient, unsigned iindex );
+    SPHOTON_METHOD void set_prd( unsigned  boundary, unsigned  identity, float  orient, unsigned iindex, int PID );
 
 
     SPHOTON_METHOD unsigned iindex() const {   return ( orient_iindex & 0x7fffffffu ) ;  }
@@ -379,9 +379,12 @@ SPHOTON_METHOD void sphotond::FromFloat( sphotond& d, const sphoton& s )
 
 SPHOTON_METHOD void sphotond::Get( sphotond& p, const NP* a, unsigned idx )
 {
-    assert(a && a->has_shape(-1,4,4) && a->ebyte == sizeof(double) && idx < unsigned(a->shape[0]) );
-    assert( sizeof(sphotond) == sizeof(double)*16 );
-    memcpy( &p, a->cvalues<double>() + idx*16, sizeof(sphotond) );
+    //assert(a && a->has_shape(-1,4,4) && a->ebyte == sizeof(double) && idx < unsigned(a->shape[0]) );
+    //assert( sizeof(sphotond) == sizeof(double)*16 );
+    //memcpy( &p, a->cvalues<double>() + idx*16, sizeof(sphotond) );
+   	assert(a && a->has_shape(-1,17) && a->ebyte == sizeof(double) && idx < unsigned(a->shape[0]) );
+    assert( sizeof(sphotond) == sizeof(double)*17 );
+    memcpy( &p, a->cvalues<double>() + idx*17, sizeof(sphotond) );
 }
 
 SPHOTON_METHOD void sphotond::transform_float( const glm::tmat4x4<float>& tr, bool normalize )
@@ -397,9 +400,11 @@ SPHOTON_METHOD void sphotond::transform( const glm::tmat4x4<double>& tr, bool no
     double zero(0.);
 
     unsigned count = 1 ;
-    unsigned stride = 4*4 ; // effectively not used as count is 1
+    //unsigned stride = 4*4 ; // effectively not used as count is 1
+    unsigned stride = 17 ; // effectively not used as count is 1
 
-    assert( sizeof(*this) == sizeof(double)*16 );
+    //assert( sizeof(*this) == sizeof(double)*16 );
+    assert( sizeof(*this) == sizeof(double)*17 );
     double* p0 = (double*)this ;
 
     Tran<double>::Apply( tr, p0, one,  count, stride, 0, false );      // transform pos as position
@@ -428,11 +433,12 @@ See ~/opticks/notes/issues/sensor_identifier_offset_by_one_wrinkle.rst
 **/
 
 
-SPHOTON_METHOD void sphoton::set_prd( unsigned  boundary_, unsigned  identity_, float  orient_, unsigned iindex_ )
+SPHOTON_METHOD void sphoton::set_prd( unsigned  boundary_, unsigned  identity_, float  orient_, unsigned iindex_, int PID )
 {
     set_boundary(boundary_);
     identity = identity_ ;
     set_orient_iindex( orient_, iindex_ );
+	set_PID( PID );
 }
 
 
@@ -660,7 +666,8 @@ SPHOTON_METHOD NP* sphoton::make_ephoton_array(size_t num_photon) // static
 }
 SPHOTON_METHOD NP* sphoton::zeros(size_t num_photon) // static
 {
-    NP* ph = NP::Make<float>(num_photon, 4, 4 );
+    //NP* ph = NP::Make<float>(num_photon, 4, 4 );
+    NP* ph = NP::Make<float>(num_photon, 17);
     return ph ;
 }
 
@@ -703,7 +710,8 @@ SPHOTON_METHOD NP* sphoton::demoarray(size_t num_photon) // static
 
 SPHOTON_METHOD std::string sphoton::digest(unsigned numval) const
 {
-    assert( numval <= 16 );
+    //assert( numval <= 16 );
+    assert( numval <= 17 );
     return sdigest::Buf( (const char*)cdata() , numval*sizeof(float) );
 }
 
@@ -753,7 +761,8 @@ SPHOTON_METHOD bool sphoton::EqualFlags( const sphoton& a, const sphoton& b) // 
 
 SPHOTON_METHOD void sphoton::Get( sphoton& p, const NP* a, unsigned idx )
 {
-    bool expected = a && a->has_shape(-1,4,4) && a->ebyte == sizeof(float) && idx < unsigned(a->shape[0]) ;
+    //bool expected = a && a->has_shape(-1,4,4) && a->ebyte == sizeof(float) && idx < unsigned(a->shape[0]) ;
+    bool expected = a && a->has_shape(-1,17) && a->ebyte == sizeof(float) && idx < unsigned(a->shape[0]) ;
     if(!expected) std::cerr
         << "sphoton::Get not expected error "
         << " a " << ( a ? "Y" : "N" )
@@ -764,9 +773,12 @@ SPHOTON_METHOD void sphoton::Get( sphoton& p, const NP* a, unsigned idx )
         << std::endl
         ;
 
-    assert( expected  );
-    assert( sizeof(sphoton) == sizeof(float)*16 );
-    memcpy( &p, a->cvalues<float>() + idx*16, sizeof(sphoton) );
+    //assert( expected  );
+    //assert( sizeof(sphoton) == sizeof(float)*16 );
+    //memcpy( &p, a->cvalues<float>() + idx*16, sizeof(sphoton) );
+	assert( expected  );
+    assert( sizeof(sphoton) == sizeof(float)*17 );
+    memcpy( &p, a->cvalues<float>() + idx*17, sizeof(sphoton) );
 }
 
 SPHOTON_METHOD void sphoton::Get( std::vector<sphoton>& pp, const NP* a )
@@ -794,7 +806,8 @@ SPHOTON_METHOD void sphoton::MinMaxPost( float* mn, float* mx, const NP* _a, boo
     NP* a = const_cast<NP*>(_a);
 
     std::vector<NP::INT> sh = a->shape ;
-    a->change_shape(-1,4,4);
+    //a->change_shape(-1,4,4);
+    a->change_shape(-1,17);
 
     bool is_f = IsPhotonArray<float>(a);
     bool is_d = IsPhotonArray<double>(a);
@@ -877,9 +890,12 @@ SPHOTON_METHOD std::string sphoton::DescMinMaxPost( const NP* _a, bool skip_flag
 template<typename T>
 SPHOTON_METHOD bool sphoton::IsPhotonArray( const NP* a )
 {
-    assert( sizeof(sphoton) == sizeof(float)*16 );
-    assert( sizeof(sphotond) == sizeof(double)*16 );
-    return a && a->has_shape(-1,4,4) && a->ebyte == sizeof(T) ;
+    //assert( sizeof(sphoton) == sizeof(float)*16 );
+    //assert( sizeof(sphotond) == sizeof(double)*16 );
+    //return a && a->has_shape(-1,4,4) && a->ebyte == sizeof(T) ;
+    assert( sizeof(sphoton) == sizeof(float)*17 );
+    assert( sizeof(sphotond) == sizeof(double)*17 );
+    return a && a->has_shape(-1,17) && a->ebyte == sizeof(T) ;
 }
 
 
@@ -967,7 +983,8 @@ SPHOTON_METHOD void sphoton::transform( const glm::tmat4x4<double>& tr, bool nor
     unsigned count = 1 ;
     unsigned stride = 4*4 ; // effectively not used as count is 1
 
-    assert( sizeof(*this) == sizeof(float)*16 );
+    //assert( sizeof(*this) == sizeof(float)*16 );
+    assert( sizeof(*this) == sizeof(float)*17 );
     float* p0 = (float*)this ;
 
     Tran<double>::ApplyToFloat( tr, p0, one,  count, stride, 0, false );      // transform pos as position

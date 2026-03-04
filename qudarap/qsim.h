@@ -2227,7 +2227,7 @@ inline QSIM_METHOD int qsim::propagate(const int bounce, RNG& rng, sctx& ctx )  
     const unsigned identity = ctx.prd->identity() ; // sensor_identifier+1, 0:not-a-sensor
     const unsigned iindex = ctx.prd->iindex() ;
     const float lposcost = ctx.prd->lposcost() ;  // local frame intersect position cosine theta
-
+	const int PID = ctx.p.ParentId;
     const float3* normal = ctx.prd->normal();
     float cosTheta = dot(ctx.p.mom, *normal ) ;
 
@@ -2251,7 +2251,7 @@ inline QSIM_METHOD int qsim::propagate(const int bounce, RNG& rng, sctx& ctx )  
 #endif
 
     // copy geometry info into the sphoton struct
-    ctx.p.set_prd(boundary, identity, cosTheta, iindex );  // HMM: lposcost not passed along
+    ctx.p.set_prd(boundary, identity, cosTheta, iindex,PID );  // HMM: lposcost not passed along
 
     bnd->fill_state(ctx.s, boundary, ctx.p.wavelength, cosTheta, ctx.pidx, base->pidx );
 
