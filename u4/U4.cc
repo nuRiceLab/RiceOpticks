@@ -147,6 +147,77 @@ static quad6 MakeGenstep_DsG4Scintillation_r4695(
     return _gs ;
 }
 
+// Scintiliation class to propagate LArSoft TrackIds
+// These Track Ids can be negative
+////////////////////////////////////////////////////////////
+static quad6 MakeGenstep_DsG4Scintillation_r4695_LArSoft(
+     const G4Track* aTrack,
+     const G4Step* aStep,
+     G4int    numPhotons,
+     G4int    scnt,
+     G4double ScintillationTime,
+     G4int LArSoftId
+    )
+{
+    G4StepPoint* pPreStepPoint  = aStep->GetPreStepPoint();
+    G4StepPoint* pPostStepPoint = aStep->GetPostStepPoint();
+
+    G4ThreeVector x0 = pPreStepPoint->GetPosition();
+    G4double      t0 = pPreStepPoint->GetGlobalTime();
+    G4ThreeVector deltaPosition = aStep->GetDeltaPosition() ;
+    G4double meanVelocity = (pPreStepPoint->GetVelocity()+pPostStepPoint->GetVelocity())/2. ;
+
+    const G4DynamicParticle* aParticle = aTrack->GetDynamicParticle();
+    const G4Material* aMaterial = nullptr;
+
+    // This is included for LArSoft if tracks missing material , obtain it from steps
+    if(!aTrack->GetMaterial())
+   	 aMaterial = pPreStepPoint->GetMaterial();
+    else
+   	 aMaterial  = aTrack->GetMaterial();
+    //const G4Material* aMaterial = aTrack->GetMaterial();
+
+    quad6 _gs ;
+    _gs.zero() ;
+
+    sscint* gs = (sscint*)(&_gs) ;   // warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+    gs->gentype = OpticksGenstep_DsG4Scintillation_r4695 ;
+    gs->trackid = aTrack->GetTrackID() ;
+	gs->ParentId = LArSoftId;
+    gs->matline = aMaterial->GetIndex() + SEvt::G4_INDEX_OFFSET ;  // offset signals that a mapping must be done in SEvt::setGenstep
+    gs->numphoton = numPhotons ;
+
+    // note that gs->matline is not currently used for scintillation,
+    // but done here as check of SEvt::addGenstep mtindex to mtline mapping
+
+    gs->pos.x = x0.x() ;
+    gs->pos.y = x0.y() ;
+    gs->pos.z = x0.z() ;
+    gs->time = t0 ;
+
+    gs->DeltaPosition.x = deltaPosition.x() ;
+    gs->DeltaPosition.y = deltaPosition.y() ;
+    gs->DeltaPosition.z = deltaPosition.z() ;
+    gs->step_length = aStep->GetStepLength() ;
+
+    gs->code = aParticle->GetDefinition()->GetPDGEncoding() ;
+    gs->charge = aParticle->GetDefinition()->GetPDGCharge() ;
+    gs->weight = aTrack->GetWeight() ;
+    gs->meanVelocity = meanVelocity ;
+
+    gs->scnt = scnt ;
+    gs->f41 = 0.f ;
+    gs->f42 = 0.f ;
+    gs->f43 = 0.f ;
+
+    gs->ScintillationTime = ScintillationTime ;
+    gs->f51 = 0.f ;
+    gs->f52 = 0.f ;
+    gs->f53 = 0.f ;
+
+    return _gs ;
+}
 
 const char* U4::CollectGenstep_DsG4Scintillation_r4695_DISABLE = "U4__CollectGenstep_DsG4Scintillation_r4695_DISABLE" ;
 const char* U4::CollectGenstep_DsG4Scintillation_r4695_ZEROPHO = "U4__CollectGenstep_DsG4Scintillation_r4695_ZEROPHO" ;
@@ -199,6 +270,42 @@ void U4::CollectGenstep_DsG4Scintillation_r4695(
     LOG(LEVEL) << gs.desc();
 }
 
+
+void U4::CollectGenstep_DsG4Scintillation_r4695_LArSoft(
+         const G4Track* aTrack,
+         const G4Step* aStep,
+         G4int    numPhotons,
+         G4int    scnt,
+         G4double ScintillationTime,
+         G4int LArSoftId
+    )
+ {
+    if(getenv(CollectGenstep_DsG4Scintillation_r4695_DISABLE))
+    {
+        LOG(error) << CollectGenstep_DsG4Scintillation_r4695_DISABLE ;
+        return ;
+    }
+    if(getenv(CollectGenstep_DsG4Scintillation_r4695_ZEROPHO))
+    {
+        LOG(error) << CollectGenstep_DsG4Scintillation_r4695_ZEROPHO ;
+        numPhotons = 0 ;
+    }
+
+
+
+    quad6 gs_ = MakeGenstep_DsG4Scintillation_r4695_LArSoft( aTrack, aStep, numPhotons, scnt, ScintillationTime, LArSoftId);
+
+#ifdef WITH_CUSTOM4
+    sgs _gs = SEvt::AddGenstep(gs_);    // returns sgs struct which is a simple 4 int label
+    gs = C4GS::Make(_gs.index, _gs.photons, _gs.offset, _gs.gentype );
+#else
+    gs = SEvt::AddGenstep(gs_);    // returns sgs struct which is a simple 4 int label
+#endif
+    // gs is private static genstep label
+
+    //if(dump) std::cout << "U4::CollectGenstep_DsG4Scintillation_r4695 " << gs.desc() << std::endl ;
+    LOG(LEVEL) << gs.desc();
+}
 
 
 static quad6 MakeGenstep_G4Cerenkov_modified(

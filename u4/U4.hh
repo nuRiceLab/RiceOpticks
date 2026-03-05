@@ -108,7 +108,15 @@ struct U4_API U4
          G4int    numPhotons,
          G4int    scnt,        
          G4double ScintillationTime
-    ); 
+    );
+    static void CollectGenstep_DsG4Scintillation_r4695_LArSoft(
+         const G4Track* aTrack,
+         const G4Step* aStep,
+         G4int    numPhotons,
+         G4int    scnt,
+         G4double ScintillationTime,
+         G4int LArSoftId
+    );
 
     static const char* CollectGenstep_G4Cerenkov_modified_DISABLE ; 
     static const char* CollectGenstep_G4Cerenkov_modified_ZEROPHO ; 
