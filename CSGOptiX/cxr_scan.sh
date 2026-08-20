@@ -112,8 +112,8 @@ scan-elv-()
 {
     echo "t"    # ALL : for the candle 
 
-    for e in $(seq 0 $NLV) ; do echo "t$e" ; done    # disabling each midx one-by-one
-    #for e in $(seq 0 $NLV) ; do echo "$e" ; done     # enabling each midx one-by-one
+    #for e in $(seq 0 $NLV) ; do echo "t$e" ; done    # disabling each midx one-by-one
+    for e in $(seq 0 $NLV) ; do echo "$e" ; done     # enabling each midx one-by-one
 }
 
 scan-emm()

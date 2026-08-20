@@ -24,6 +24,7 @@
 #include "sscint.h"
 #include "scerenkov.h"
 #include "sgs.h"
+#include "U4Material.hh"
 
 #ifdef WITH_CUSTOM4
 #include "C4GS.h"
@@ -147,9 +148,6 @@ static quad6 MakeGenstep_DsG4Scintillation_r4695(
     return _gs ;
 }
 
-// Scintiliation class to propagate LArSoft TrackIds
-// These Track Ids can be negative
-////////////////////////////////////////////////////////////
 static quad6 MakeGenstep_DsG4Scintillation_r4695_LArSoft(
      const G4Track* aTrack,
      const G4Step* aStep,
@@ -215,6 +213,64 @@ static quad6 MakeGenstep_DsG4Scintillation_r4695_LArSoft(
 
     return _gs ;
 }
+static quad6 MakeGenstep_DsG4Scintillation_r4695_LArSoftv2(
+        const G4ThreeVector &startP,
+        const G4ThreeVector &endP,
+        const G4double &startT,
+        const G4double &endT,
+        const G4double &stepLength,
+        const G4int    &trackID,
+        const G4int &LArSoftId,
+        const G4int    &pdg,
+        const std::size_t    &materialIndex,
+        const G4int    &numPhotons,
+        const G4int    &scnt,
+        const G4double &ScintillationTime
+    )
+{
+    quad6 _gs ;
+    _gs.zero() ;
+
+    sscint* gs = (sscint*)(&_gs) ;   // warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+    gs->gentype = OpticksGenstep_DsG4Scintillation_r4695 ;
+    gs->trackid = trackID    ;
+    gs->ParentId = LArSoftId;
+    gs->matline = materialIndex + SEvt::G4_INDEX_OFFSET ;  // offset signals that a mapping must be done in SEvt::setGenstep
+    gs->numphoton = numPhotons ;
+
+    // note that gs->matline is not currently used for scintillation,
+    // but done here as check of SEvt::addGenstep mtindex to mtline mapping
+
+    gs->pos.x = startP.x() ;
+    gs->pos.y = startP.y() ;
+    gs->pos.z = startP.z() ;
+    gs->time = startT ;
+
+    gs->DeltaPosition.x = endP.x()-startP.x() ;
+    gs->DeltaPosition.y = endP.y()-startP.y() ;
+    gs->DeltaPosition.z = endP.z()-startP.z() ;
+    gs->step_length = stepLength ;
+    // Accuracy of bellow 3 lines should nt effect the results for Scintilation
+    gs->code = pdg;
+    gs->charge = -1 ;
+    gs->weight = 1;
+
+    // mean velocity is calculated from the start and end positions and times
+    gs->meanVelocity = (endP-startP).mag()/(endT-startT) ;
+
+    gs->scnt = scnt ;
+    gs->f41 = 0.f ;
+    gs->f42 = 0.f ;
+    gs->f43 = 0.f ;
+
+    gs->ScintillationTime = ScintillationTime ;
+    gs->f51 = 0.f ;
+    gs->f52 = 0.f ;
+    gs->f53 = 0.f ;
+
+    return _gs ;
+}
 
 const char* U4::CollectGenstep_DsG4Scintillation_r4695_DISABLE = "U4__CollectGenstep_DsG4Scintillation_r4695_DISABLE" ;
 const char* U4::CollectGenstep_DsG4Scintillation_r4695_ZEROPHO = "U4__CollectGenstep_DsG4Scintillation_r4695_ZEROPHO" ;
@@ -266,8 +322,6 @@ void U4::CollectGenstep_DsG4Scintillation_r4695(
     //if(dump) std::cout << "U4::CollectGenstep_DsG4Scintillation_r4695 " << gs.desc() << std::endl ;
     LOG(LEVEL) << gs.desc();
 }
-
-
 void U4::CollectGenstep_DsG4Scintillation_r4695_LArSoft(
          const G4Track* aTrack,
          const G4Step* aStep,
@@ -276,7 +330,7 @@ void U4::CollectGenstep_DsG4Scintillation_r4695_LArSoft(
          G4double ScintillationTime,
          G4int LArSoftId
     )
- {
+{
     if(getenv(CollectGenstep_DsG4Scintillation_r4695_DISABLE))
     {
         LOG(error) << CollectGenstep_DsG4Scintillation_r4695_DISABLE ;
@@ -301,6 +355,32 @@ void U4::CollectGenstep_DsG4Scintillation_r4695_LArSoft(
     // gs is private static genstep label
 
     //if(dump) std::cout << "U4::CollectGenstep_DsG4Scintillation_r4695 " << gs.desc() << std::endl ;
+    LOG(LEVEL) << gs.desc();
+}
+
+
+//  Transferring parameters from SimEnergyDeposit to Opticks
+void U4::CollectGenstep_DsG4Scintillation_r4695_LArSoftv2(
+        const G4ThreeVector &startP,
+        const G4ThreeVector &endP,
+        const G4double &startT,
+        const G4double &endT,
+        const G4double &stepLength,
+        const G4int    &trackID,
+        const G4int &LArSoftId,
+        const G4int    &pdg,
+        const std::size_t    &materialIndex,
+        const G4int    &numPhotons,
+        const G4int    &scnt,
+        const G4double &ScintillationTime
+       )
+ {
+
+    quad6 gs_ = MakeGenstep_DsG4Scintillation_r4695_LArSoftv2(startP,endP,startT,
+                                                              endT,stepLength,trackID,
+                                                              LArSoftId,pdg,materialIndex,
+                                                              numPhotons,scnt,ScintillationTime);
+    gs = SEvt::AddGenstep(gs_);    // returns sgs struct which is a simple 4 int label
     LOG(LEVEL) << gs.desc();
 }
 

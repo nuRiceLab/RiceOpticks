@@ -257,8 +257,10 @@ void QTex<T>::createTextureObject()
     // https://docs.nvidia.com/cuda/cuda-runtime-api/structcudaTextureDesc.html
     struct cudaTextureDesc texDesc;
     memset(&texDesc, 0, sizeof(texDesc));
-    texDesc.addressMode[0] = cudaAddressModeWrap;
-    texDesc.addressMode[1] = cudaAddressModeWrap;
+    //texDesc.addressMode[0] = cudaAddressModeWrap;
+    //texDesc.addressMode[1] = cudaAddressModeWrap;
+    texDesc.addressMode[0] = cudaAddressModeClamp;
+    texDesc.addressMode[1] = cudaAddressModeClamp;
 
     assert( filterMode == 'P' || filterMode == 'L' ); 
     switch(filterMode)
@@ -271,8 +273,11 @@ void QTex<T>::createTextureObject()
     texDesc.readMode = cudaReadModeElementType;  // return data of the type of the underlying buffer
     texDesc.normalizedCoords = normalizedCoords ;   // addressing into the texture with floats in range 0:1 when true
 
-    // Create texture object
-    cudaCreateTextureObject(&texObj, &resDesc, &texDesc, NULL);
+
+    cudaError_t err = cudaCreateTextureObject(&texObj, &resDesc, &texDesc, nullptr);
+    if (err != cudaSuccess) {
+        fprintf(stderr, "Failed to create texture object: %s\n", cudaGetErrorString(err));
+    }
 }
 
 #endif

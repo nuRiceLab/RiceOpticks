@@ -107,7 +107,8 @@ QTex::setMetaDomainY::
 
 
 **/
-inline QBND_METHOD float4 qbnd::boundary_lookup( float nm, unsigned line, unsigned k )
+
+/*inline QBND_METHOD float4 qbnd::boundary_lookup( float nm, unsigned line, unsigned k )
 {
     //printf("//qbnd.boundary_lookup nm %10.4f line %d k %d boundary_meta %p  \n", nm, line, k, boundary_meta  );
 
@@ -130,8 +131,51 @@ inline QBND_METHOD float4 qbnd::boundary_lookup( float nm, unsigned line, unsign
   
     return props ;
 }
+*/
 
+inline QBND_METHOD float4 qbnd::boundary_lookup( float nm, unsigned line, unsigned k )
+{
+    const unsigned& nx = boundary_meta->q0.u.x  ;
+    const unsigned& ny = boundary_meta->q0.u.y  ;
+    const float& nm0 = boundary_meta->q1.f.x ;
+    const float& nms = boundary_meta->q1.f.z ;
 
+    // fractional index along the wavelength axis (unchanged from original)
+    float fx = (nm - nm0)/nms ;
+
+    // --- manual linear interpolation along x ---
+    // find the two neighboring integer texel indices that bracket fx,
+    // and how far between them fx actually falls (0.0 to 1.0)
+    float fx_c   = fx - 0.5f ;
+    int   ix0    = int(floorf(fx_c)) ;
+    int   ix1    = ix0 + 1 ;
+    float frac   = fx_c - float(ix0) ;   // 0 = exactly at ix0, 1 = exactly at ix1
+
+    // clamp so we never read outside the valid texel range
+    ix0 = max(0, min(int(nx)-1, ix0)) ;
+    ix1 = max(0, min(int(nx)-1, ix1)) ;
+
+    // y axis: exact line/k selection, never blended (this is the actual bug fix)
+    unsigned iy = _BOUNDARY_NUM_FLOAT4*line + k ;
+    float y = (float(iy)+0.5f)/float(ny) ;
+
+    // two EXACT point-mode fetches, one per neighboring x texel
+    float x0 = (float(ix0)+0.5f)/float(nx) ;
+    float x1 = (float(ix1)+0.5f)/float(nx) ;
+
+    float4 p0 = tex2D<float4>( boundary_tex, x0, y ) ;   // exact record at ix0
+    float4 p1 = tex2D<float4>( boundary_tex, x1, y ) ;   // exact record at ix1
+
+    // blend the two fetched values by hand, replicating what Linear mode
+    // used to do on the x-axis, but WITHOUT touching the y-axis at all
+    float4 props ;
+    props.x = p0.x + frac*(p1.x - p0.x) ;
+    props.y = p0.y + frac*(p1.y - p0.y) ;
+    props.z = p0.z + frac*(p1.z - p0.z) ;
+    props.w = p0.w + frac*(p1.w - p0.w) ;
+
+    return props ;
+}
 /**
 qbnd::fill_state
 -------------------
@@ -202,8 +246,8 @@ inline QBND_METHOD void qbnd::fill_state(sstate& s, unsigned boundary, float wav
     s.material2 = boundary_lookup( wavelength, m2_line, 0);   // refractive_index, (absorption_length, scattering_length, reemission_prob) only m2:refractive index actually used
    // if((su_line - line) >= 2)
    	s.surface   = boundary_lookup( wavelength, su_line, 0);   // detect,         , absorb            , (reflect_specular), reflect_diffuse     [they add to 1. so one not used]
-   
-    //printf("boundary %d , detect %d, absorb %d , reflect %d, reflect_diffuse%d\n",boundary, s.surface.x,s.surface.y,s.surface.z,s.surface.w);	
+    //if ((s.surface.x + s.surface.y) || (s.surface.x>0 && s.surface.x<1) > 1.f)
+       // printf("boundary %d , detect %f, absorb %f , reflect %f, reflect_diffuse %f\n",boundary, s.surface.x, s.surface.y, s.surface.z, s.surface.w);
     /*
     if(s.surface.x>0){
 	float nm =wavelength;    

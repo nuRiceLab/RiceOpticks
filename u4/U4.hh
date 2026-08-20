@@ -94,7 +94,7 @@ class G4Step ;
 
 #include "G4Types.hh"
 #include "U4_API_EXPORT.hh"
-
+#include "G4ThreeVector.hh"
 struct U4_API U4
 {
     static const plog::Severity LEVEL ;
@@ -117,6 +117,20 @@ struct U4_API U4
          G4double ScintillationTime,
          G4int LArSoftId
     );
+   static void CollectGenstep_DsG4Scintillation_r4695_LArSoftv2(
+        const G4ThreeVector &startP,
+        const G4ThreeVector &endP,
+        const G4double &startT,
+        const G4double &endT,
+        const G4double &stepLength,
+        const G4int    &trackID,
+        const G4int &LArSoftId,
+        const G4int    &pdg,
+        const std::size_t    &materialIndex,
+        const G4int    &numPhotons,
+        const G4int    &scnt,
+        const G4double &ScintillationTime
+       );
 
     static const char* CollectGenstep_G4Cerenkov_modified_DISABLE ; 
     static const char* CollectGenstep_G4Cerenkov_modified_ZEROPHO ; 

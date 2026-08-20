@@ -203,7 +203,7 @@ source $HOME/.opticks/GEOM/GEOM.sh
 
 escale=extent
 #moi=sStrut      # what to look at 
-moi=sWaterTube   # should be same as lLowerChimney_phys
+moi=World   # should be same as lLowerChimney_phys
 emm=t0           # "t0" : tilde zero meaning all       "t0," : exclude bit 0 global,  "t8," exclude mm 8 
 elv=t
 zoom=1
