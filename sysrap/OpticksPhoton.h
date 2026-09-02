@@ -15,6 +15,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ History:
+ - Adding G4OptWLS, Ilker Parmaksiz, 2026-08-31
  */
 
 #pragma once
@@ -42,7 +45,8 @@ enum
     __EMITSOURCE       = 0x1 << 18,
     PRIMARYSOURCE      = 0x1 << 19,
     GENSTEPSOURCE      = 0x1 << 20,
-    DEFER_FSTRACKINFO  = 0x1 << 21
+    DEFER_FSTRACKINFO  = 0x1 << 21,
+    OptWLS             = 0x1 << 22
 };
 
 //

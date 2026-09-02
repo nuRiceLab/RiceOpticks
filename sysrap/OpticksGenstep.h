@@ -13,7 +13,8 @@ NB these were formely conflated with photon flags,
 but the needs are somewhat different.
 
 See also: npy/G4StepNPY.cpp  (TODO: consolidate these?)
-
+History:
+- Adding G4OptWLS (Ilker Parmaksiz, 2026-08-31)
 **/
 
 enum
@@ -39,7 +40,8 @@ enum
     OpticksGenstep_G4Cerenkov_modified      = 18,
     OpticksGenstep_INPUT_PHOTON             = 19,
     OpticksGenstep_INPUT_PHOTON_SIMTRACE    = 20,
-    OpticksGenstep_NumType                  = 21
+    OpticksGenstep_NumType                  = 21,
+    OpticksGenstep_G4OptWLS                 = 22
 };
 
 
@@ -56,6 +58,7 @@ struct OpticksGenstep_
     static constexpr const char* DsG4Cerenkov_r3971_      = "DsG4Cerenkov_r3971" ;
     static constexpr const char* DsG4Scintillation_r3971_ = "DsG4Scintillation_r3971" ;
     static constexpr const char* DsG4Scintillation_r4695_ = "DsG4Scintillation_r4695" ;
+    static constexpr const char* DsG4OptWLS_              = "DsG4OptWLS" ;
     static constexpr const char* TORCH_                   = "TORCH" ;
     static constexpr const char* FABRICATED_              = "FABRICATED" ;
     static constexpr const char* EMITSOURCE_              = "EMITSOURCE" ;
@@ -87,6 +90,7 @@ struct OpticksGenstep_
     static bool IsEmitSource(int gentype);
     static bool IsMachinery(int gentype);
     static bool IsFrame(int gentype);
+    static bool IsOptWLS(int gentype);
     static unsigned GenstepToPhotonFlag(int gentype);
     static unsigned GentypeToPhotonFlag(char gentype); // 'C' 'S' 'T' -> CK, SI, TO
 
@@ -101,6 +105,7 @@ inline unsigned OpticksGenstep_::Type(const char* name)
     if(strcmp(name,G4Cerenkov_modified_ )==0)     type = OpticksGenstep_G4Cerenkov_modified ;
     if(strcmp(name,DsG4Scintillation_r3971_ )==0) type = OpticksGenstep_DsG4Scintillation_r3971 ;
     if(strcmp(name,DsG4Scintillation_r4695_ )==0) type = OpticksGenstep_DsG4Scintillation_r4695 ;
+    if(strcmp(name,DsG4OptWLS_)==0)               type = OpticksGenstep_G4OptWLS ;
     if(strcmp(name,TORCH_)==0)                    type = OpticksGenstep_TORCH ;
     if(strcmp(name,FABRICATED_)==0)               type = OpticksGenstep_FABRICATED ;
     if(strcmp(name,EMITSOURCE_)==0)               type = OpticksGenstep_EMITSOURCE ;
@@ -145,6 +150,7 @@ inline const char* OpticksGenstep_::Name(unsigned type)
         case OpticksGenstep_INPUT_PHOTON:            n = INPUT_PHOTON_            ; break ;
         case OpticksGenstep_INPUT_PHOTON_SIMTRACE:   n = INPUT_PHOTON_SIMTRACE_   ; break ;
         case OpticksGenstep_NumType:                 n = INVALID_                 ; break ;
+        case OpticksGenstep_G4OptWLS:                n = DsG4OptWLS_              ; break ;
         default:                                     n = INVALID_                 ; break ;
     }
     return n ;
@@ -166,6 +172,7 @@ inline bool OpticksGenstep_::IsCerenkov(int gentype)  // static
           gentype == OpticksGenstep_G4Cerenkov_modified
           ;
 }
+
 inline bool OpticksGenstep_::IsScintillation(int gentype)  // static
 {
    return gentype == OpticksGenstep_G4Scintillation_1042 ||
@@ -174,6 +181,7 @@ inline bool OpticksGenstep_::IsScintillation(int gentype)  // static
           gentype == OpticksGenstep_SCINTILLATION
          ;
 }
+
 inline bool OpticksGenstep_::IsTorchLike(int gentype)   // static
 {
    return gentype == OpticksGenstep_TORCH ||
@@ -183,6 +191,11 @@ inline bool OpticksGenstep_::IsTorchLike(int gentype)   // static
           gentype == OpticksGenstep_INPUT_PHOTON ||
           gentype == OpticksGenstep_INPUT_PHOTON_SIMTRACE
           ;
+}
+
+inline bool OpticksGenstep_::IsOptWLS(int gentype)  // static
+{
+    return gentype == OpticksGenstep_G4OptWLS;
 }
 
 inline bool OpticksGenstep_::IsInputPhoton(int gentype)   // static
@@ -197,7 +210,7 @@ inline bool OpticksGenstep_::IsInputPhotonSimtrace(int gentype)   // static
 
 inline bool OpticksGenstep_::IsExpected(int gentype) // static
 {
-    return IsCerenkov(gentype) || IsScintillation(gentype) || IsTorchLike(gentype) ;
+    return IsCerenkov(gentype) || IsScintillation(gentype) || IsTorchLike(gentype) || IsOptWLS(gentype);
 }
 
 inline bool OpticksGenstep_::IsEmitSource(int gentype)   // static
@@ -234,6 +247,10 @@ inline unsigned OpticksGenstep_::GenstepToPhotonFlag(int gentype)  // static
     {
         phcode = TORCH ;
     }
+    else if(IsOptWLS(gentype))
+    {
+        phcode = OptWLS ;
+    }
     else
     {
         phcode = NAN_ABORT ;
@@ -249,6 +266,7 @@ inline unsigned OpticksGenstep_::GentypeToPhotonFlag(char gentype)  // static
         case 'C': phcode = CERENKOV          ; break ;
         case 'S': phcode = SCINTILLATION     ; break ;
         case 'T': phcode = TORCH             ; break ;
+        case 'W': phcode = OptWLS            ; break ;
         default:  phcode = NAN_ABORT         ; break ;
     }
     return phcode ;
