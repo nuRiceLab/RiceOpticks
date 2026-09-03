@@ -1,3 +1,5 @@
+// History: Adding wavelength shifting (Ilker Parmaksiz, 09/02/2026)
+
 #pragma once
 
 #include <vector>
@@ -15,6 +17,9 @@ struct snam
     static constexpr const char* BND = "bnd.npy" ;
     static constexpr const char* OPTICAL = "optical.npy" ;
     static constexpr const char* ICDF = "icdf.npy" ;
+    // WLS related
+    static constexpr const char* WLS_ICDF = "wls_icdf.npy" ;
+    static constexpr const char* WLS_Time = "wls_time.npy" ;
 
     static constexpr const char* MULTIFILM = "multifilm.npy" ;
     static constexpr const char* PROPCOM = "propcom.npy" ;

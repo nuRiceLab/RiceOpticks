@@ -1,6 +1,6 @@
 //
 // Created by Ilker Parmaksiz on 8/31/26.
-// Implementation of G4OpWLS for RiceOpticks
+// Implementation of G4OpWLS for Riceicks
 //
 
 
@@ -22,47 +22,47 @@
 
 #include "QTex.hh"
 #include "QU.hh"
-#include "QOptWLS.hh"
+#include "QWLS.hh"
 //#include "qscint.h"
 
 
-const plog::Severity QOptWLS::LEVEL = SLOG::EnvLevel("QOptWLS", "DEBUG");
+const plog::Severity QWLS::LEVEL = SLOG::EnvLevel("QWLS", "DEBUG");
 
 /**
-QOptWLS::QOptWLS
+QWLS::QWLS
 ----------------
 
-1. Uploads icdf array into GPU texture
-2. Creates qoptwls instance hooked up with the qoptwls_tex and uploads the instance
+1. Uploads WLS icdf array into GPU texture
+2. Creates wls instance hooked up with the qwls_tex and uploads the instance
 
 **/
 
 
-QOptWLS::QOptWLS(const NP* icdf, unsigned hd_factor )
+QWLS::QWLS(const NP* wlwicdf, unsigned hd_factor )
     :
-    dsrc(icdf->ebyte == 8 ? icdf : nullptr),
-    src( icdf->ebyte == 4 ? icdf : NP::MakeNarrow(dsrc) ),
+    dsrc(wlwicdf->ebyte == 8 ? wlwicdf : nullptr),
+    src( wlwicdf->ebyte == 4 ? wlwicdf : NP::MakeNarrow(dsrc) ),
     tex(MakeWLSQTex(src, hd_factor)),
-    optwls(MakeInstance(tex)),
-    d_optwls(QU::UploadArray<optwls>(optwls, 1, "QOptWLS::QOptWLS/d_optwls"))
+    wls(MakeInstance(tex)),
+    d_wls(QU::UploadArray<wls>(wls, 1, "QWLS::QWLS/d_wls"))
 {
 }
 
-qscint* QOptWLS::MakeInstance(const QTex<float>* tex) // static
+qscint* QWLS::MakeInstance(const QTex<float>* tex) // static
 {
-    qoptwls* optwls = new qoptwls;
-    optwls->qoptwls_tex = tex->texObj ;
-    optwls->qoptwls_meta = tex->d_meta ;
-    bool qoptwlsdisable_hd = ssys::getenvbool("QOptWLS_DISABLE_HD");
-    optwls->hd_factor = qoptwlsdisable_hd ? 0u : tex->getHDFactor() ;
-    return optwls ;
+    qwls* wls = new qwls;
+    wls->qwls_tex = tex->texObj ;
+    wls->qwls_meta = tex->d_meta ;
+    bool qwlsdisable_hd = ssys::getenvbool("QWLS_DISABLE_HD");
+    wls->hd_factor = qwlsdisable_hd ? 0u : tex->getHDFactor() ;
+    return wls ;
 }
 
 
-std::string QOptWLS::desc() const
+std::string QWLS::desc() const
 {
     std::stringstream ss ;
-    ss << "QOptWLS"
+    ss << "QWLS"
        << " dsrc " << ( dsrc ? dsrc->desc() : "-" )
        << " source " << ( src ? src->desc() : "-" )
        << " tex " << ( tex ? tex->desc() : "-" )
@@ -74,12 +74,12 @@ std::string QOptWLS::desc() const
 }
 
 /**
-QOptWLS::MakeWLSQTex
+QWLS::MakeWLSQTex
 -----------------------
 
 **/
 
-QTex<float>* QOptWLS::MakeWLSQTex(const NP* src, unsigned hd_factor )  // static
+QTex<float>* QWLS::MakeWLSQTex(const NP* src, unsigned hd_factor )  // static
 {
      bool expected_shape = src->has_shape(1,4096,1) ||  src->has_shape(3,4096,1) ;
      LOG_IF(fatal, !expected_shape) << " unexpected shape of source " << ( src ? src->sstr() : "-" ) ;
@@ -98,10 +98,10 @@ QTex<float>* QOptWLS::MakeWLSQTex(const NP* src, unsigned hd_factor )  // static
     unsigned nx = nj ; // width
 
 
-    bool qscint_disable_interpolation = ssys::getenvbool("QOptWLS_DISABLE_INTERPOLATION");
+    bool qscint_disable_interpolation = ssys::getenvbool("QWLS_DISABLE_INTERPOLATION");
     char filterMode = qscint_disable_interpolation ? 'P' : 'L' ;
 
-    LOG_IF(fatal, qscint_disable_interpolation) << "QOptWLS_DISABLE_INTERPOLATION active using filterMode " << filterMode ;
+    LOG_IF(fatal, qscint_disable_interpolation) << "QWLS_DISABLE_INTERPOLATION active using filterMode " << filterMode ;
 
     bool normalizedCoords = true ;
     QTex<float>* tx = new QTex<float>(nx, ny, src->cvalues<float>(), filterMode, normalizedCoords, src ) ;
@@ -121,10 +121,10 @@ QTex<float>* QOptWLS::MakeWLSQTex(const NP* src, unsigned hd_factor )  // static
     return tx ;
 }
 
-extern "C" void QOptWLS_check(dim3 numBlocks, dim3 threadsPerBlock, unsigned width, unsigned height  );
-extern "C" void QOptWLS_lookup(dim3 numBlocks, dim3 threadsPerBlock, cudaTextureObject_t texObj, quad4* meta, float* lookup, unsigned num_lookup, unsigned width, unsigned height  );
+extern "C" void QWLS_check(dim3 numBlocks, dim3 threadsPerBlock, unsigned width, unsigned height  );
+extern "C" void QWLS_lookup(dim3 numBlocks, dim3 threadsPerBlock, cudaTextureObject_t texObj, quad4* meta, float* lookup, unsigned num_lookup, unsigned width, unsigned height  );
 
-void QOptWLS::configureLaunch( dim3& numBlocks, dim3& threadsPerBlock, unsigned width, unsigned height )
+void QWLS::configureLaunch( dim3& numBlocks, dim3& threadsPerBlock, unsigned width, unsigned height )
 {
     threadsPerBlock.x = 512 ;
     threadsPerBlock.y = 1 ;
@@ -154,7 +154,7 @@ void QOptWLS::configureLaunch( dim3& numBlocks, dim3& threadsPerBlock, unsigned 
 }
 
 
-void QOptWLS::check()
+void QWLS::check()
 {
     unsigned width = tex->width ;
     unsigned height = tex->height ;
@@ -167,13 +167,13 @@ void QOptWLS::check()
     dim3 numBlocks ;
     dim3 threadsPerBlock ;
     configureLaunch( numBlocks, threadsPerBlock, width, height );
-    QOptWLS_check(numBlocks, threadsPerBlock, width, height );
+    QWLS_check(numBlocks, threadsPerBlock, width, height );
 
     cudaDeviceSynchronize();
 }
 
 
-NP* QOptWLS::lookup()
+NP* QWLS::lookup()
 {
     unsigned width = tex->width ;
     unsigned height = tex->height ;
@@ -192,7 +192,7 @@ NP* QOptWLS::lookup()
     return out ;
 }
 
-void QOptWLS::lookup( float* lookup, unsigned num_lookup, unsigned width, unsigned height  )
+void QWLS::lookup( float* lookup, unsigned num_lookup, unsigned width, unsigned height  )
 {
     LOG(LEVEL) << "[" ;
     dim3 numBlocks ;
@@ -214,7 +214,7 @@ void QOptWLS::lookup( float* lookup, unsigned num_lookup, unsigned width, unsign
     float* d_lookup = nullptr ;
     QUDA_CHECK( cudaMalloc(reinterpret_cast<void**>( &d_lookup ), size ));
 
-    QOptWLS_lookup(numBlocks, threadsPerBlock, tex->texObj, tex->d_meta, d_lookup, num_lookup, width, height );
+    QWLS_lookup(numBlocks, threadsPerBlock, tex->texObj, tex->d_meta, d_lookup, num_lookup, width, height );
 
     QUDA_CHECK( cudaMemcpy(reinterpret_cast<void*>( lookup ), d_lookup, size, cudaMemcpyDeviceToHost ));
     QUDA_CHECK( cudaFree(d_lookup) );
@@ -224,7 +224,7 @@ void QOptWLS::lookup( float* lookup, unsigned num_lookup, unsigned width, unsign
     LOG(LEVEL) << "]" ;
 }
 
-void QOptWLS::dump( float* lookup, unsigned num_lookup, unsigned edgeitems  )
+void QWLS::dump( float* lookup, unsigned num_lookup, unsigned edgeitems  )
 {
     LOG(LEVEL);
     for(unsigned i=0 ; i < num_lookup ; i++)

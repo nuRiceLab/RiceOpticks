@@ -82,6 +82,7 @@ controlled via envvar::
 
 #include "U4Mesh.h"
 #include "U4Scint.h"
+#include "U4WLS.h"
 
 #include "U4Solid.h"
 #include "U4PhysicsTable.h"
@@ -112,6 +113,7 @@ struct U4Tree
     std::vector<const G4VSolid*>                solids ;
     U4PhysicsTable<G4OpRayleigh>*               rayleigh_table ;
     U4Scint*                                    scint ;
+    U4WLS*                                      wls ;
 
     // disable the below with settings with by defining the below envvar
     static constexpr const char* __DISABLE_OSUR_IMPLICIT = "U4Tree__DISABLE_OSUR_IMPLICIT" ;
@@ -147,7 +149,7 @@ private:
     void initRayleigh();
     void initMaterials();
     void initMaterials_NoRINDEX();
-
+    void initOptWLS();
     void initMaterials_r(const G4VPhysicalVolume* const pv);
     void initMaterial(const G4Material* const mt);
 
@@ -262,6 +264,7 @@ inline U4Tree::U4Tree(
     num_surface_standard(-1),
     rayleigh_table(CreateRayleighTable()),
     scint(nullptr),
+    wls(nullptr),
     enable_osur(!ssys::getenvbool(__DISABLE_OSUR_IMPLICIT)),
     enable_isur(!ssys::getenvbool(__DISABLE_ISUR_IMPLICIT)),
     material_debug(ssys::getenvint(__MATERIAL_DEBUG,0)),
@@ -288,6 +291,9 @@ inline void U4Tree::init()
     initMaterials();
     LOG(LEVEL) << "-initMaterials_NoRINDEX" ;
     initMaterials_NoRINDEX();
+
+    LOG(LEVEL) << "-initOptWLS" ;
+    initWLS();
 
     LOG(LEVEL) << "-initScint" ;
     initScint();
@@ -429,6 +435,16 @@ inline void U4Tree::initRayleigh()
     st->standard->rayleigh = rayleigh_table ? rayleigh_table->tab : nullptr  ;
 }
 
+inline void U4Tree::initWLS()
+{
+    wls = U4WLS::Create(st->material) ;
+    if(wls)
+    {
+         st->standard->wls_icdf = wls->wls_icdf ;
+         st->standard->wls_time = wls->wlstimeconstant ;
+    }
+
+}
 
 inline void U4Tree::initMaterials_r(const G4VPhysicalVolume* const pv)
 {

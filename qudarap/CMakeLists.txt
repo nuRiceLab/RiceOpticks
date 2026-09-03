@@ -102,6 +102,8 @@ set(SOURCES
     QMultiFilm.cu
 
     QBuf.cc
+
+    QWLS.cc
 )
 
 
@@ -168,6 +170,9 @@ SET(HEADERS
     QMultiFilm.hh
 
     QBuf.hh
+
+    QWLS.hh
+    qwls.h
 )
 
 

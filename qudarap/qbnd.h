@@ -242,7 +242,7 @@ inline QBND_METHOD void qbnd::fill_state(sstate& s, unsigned boundary, float wav
 
     //printf("line %d, isur %d, osur %d, suline %d\n",line,ISUR,OSUR,su_line);	
     s.material1 = boundary_lookup( wavelength, m1_line, 0);   // refractive_index, absorption_length, scattering_length, reemission_prob
-    s.m1group2  = boundary_lookup( wavelength, m1_line, 1);   // group_velocity ,  (unused          , unused           , unused)
+    s.m1group2  = boundary_lookup( wavelength, m1_line, 1);   // group_velocity  , (wls_absorption_length, unused           , unused)
     s.material2 = boundary_lookup( wavelength, m2_line, 0);   // refractive_index, (absorption_length, scattering_length, reemission_prob) only m2:refractive index actually used
    // if((su_line - line) >= 2)
    	s.surface   = boundary_lookup( wavelength, su_line, 0);   // detect,         , absorb            , (reflect_specular), reflect_diffuse     [they add to 1. so one not used]

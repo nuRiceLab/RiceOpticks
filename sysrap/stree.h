@@ -198,7 +198,7 @@ When SSim not in use can also use::
 
     export stree_level=1
 
-
+History: Adding WLS support (Ilker Parmaksiz, 2026-08-31).
 **/
 
 #include <cstdint>
@@ -381,7 +381,7 @@ struct stree
 
     s_csg* _csg ;                          // sn.h based csg node trees
 
-    sstandard* standard ;                  // mat/sur/bnd/bd/optical/wavelength/energy/rayleigh
+    sstandard* standard ;                  // mat/sur/bnd/bd/optical/wavelength/energy/rayleigh/wls
 
     NPFold* material ;   // material properties from G4 MPTs
     NPFold* surface ;    // surface properties from G4 MPTs, includes OpticalSurfaceName osn in metadata

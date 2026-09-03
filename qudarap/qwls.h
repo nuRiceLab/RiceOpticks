@@ -23,7 +23,7 @@ struct quad6 ;
 struct sphoton ;
 
 #include "OpticksPhoton.h"
-struct qoptwls
+struct qwls
 {
     cudaTextureObject_t qoptwls_tex ;
     quad4*              qoptwls_meta ; // HUH: not used ?
@@ -48,14 +48,14 @@ struct qoptwls
 #if defined(__CUDACC__) || defined(__CUDABE__) || defined(MOCK_CURAND) || defined(MOCK_CUDA)
 
 //#include "sscint.h"
-#include "qoptwls.h"
+#include "qwls.h"
 /**
 qoptwls::generate_photon
 ------------------------
 
 **/
 
-inline QOPTWLS_METHOD void qoptwls::generate(
+inline QOPTWLS_METHOD void qwls::generate(
     sphoton& p,
     RNG& rng,
     const quad6& _gs,
@@ -81,7 +81,7 @@ inline QOPTWLS_METHOD void qoptwls::generate(
 
 
 
-inline QOPTWLS_METHOD float qoptwls::wavelength(const float& u0) const
+inline QOPTWLS_METHOD float qwls::wavelength(const float& u0) const
 {
     float wl ;
     switch(hd_factor)
@@ -96,7 +96,7 @@ inline QOPTWLS_METHOD float qoptwls::wavelength(const float& u0) const
 }
 
 
-inline QOPTWLS_METHOD float qoptwls::wavelength_hd0(const float& u0) const
+inline QOPTWLS_METHOD float qwls::wavelength_hd0(const float& u0) const
 {
     constexpr float y0 = 0.5f/3.f ;
     return tex2D<float>(scint_tex, u0, y0 );
@@ -114,7 +114,7 @@ icdf texture can share some of teh implementation
 
 **/
 
-inline QOPTWLS_METHOD float qoptwls::wavelength_hd10(const float& u0) const
+inline QOPTWLS_METHOD float qwls::wavelength_hd10(const float& u0) const
 {
     float wl ;
 
@@ -139,7 +139,7 @@ inline QOPTWLS_METHOD float qoptwls::wavelength_hd10(const float& u0) const
 
 
 
-inline QOPTWLS_METHOD float qoptwls::wavelength_hd20(const float& u0) const
+inline QOPTWLS_METHOD float qwls::wavelength_hd20(const float& u0) const
 {
     float wl ;
 

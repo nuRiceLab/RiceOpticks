@@ -22,7 +22,7 @@ Increase default ABSLENGTH RAYLEIGH from 1e6 to 1e12
 due to notes/issues/G4CXTest_raindrop_shakedown.rst
 This is relevant to simple tests where it is common 
 not to define ABSLENGTH and RAYLEIGH properties. 
-
+History: Adding WLS support (Ilker Parmaksiz, 2026-08-31).
 **/
 
 #include "sprop.h"
@@ -35,7 +35,7 @@ struct sproplist
     0 2 RAYLEIGH        1e12
     0 3 REEMISSIONPROB  0.
     1 0 GROUPVEL        299.792458
-    1 1 SPARE11         0.
+    1 1 WLSABSLENGTH    1e12
     1 2 SPARE12         0.
     1 3 SPARE13         0.
     )" ;

@@ -158,6 +158,7 @@ set(HEADERS
 
     U4Mesh.h
     U4Version.h
+    U4WLS.h
 )
 
 set(OTHER_HEADERS

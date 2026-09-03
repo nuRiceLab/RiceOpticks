@@ -12,9 +12,9 @@
 struct dim3 ;
 struct NP ;
 template <typename T> struct QTex ;
-struct qoptwls ;
+struct qwls ;
 
-struct QUDARAP_API QOptWLS
+struct QUDARAP_API QWLS
 {
     static const plog::Severity LEVEL ;
     static QTex<float>* MakeWLSQTex(const NP* src, unsigned hd_factor);
@@ -22,10 +22,10 @@ struct QUDARAP_API QOptWLS
     const NP*      dsrc ;
     const NP*      src ;
     QTex<float>*    tex ;
-    qoptwls*       optwls ;
-    qoptwls*       d_optwls ;
+    qwls*       optwls ;
+    qwls*       d_optwls ;
 
-    QOptWLS(const NP* icdf, unsigned hd_factor);
+    QWLS(const NP* icdf, unsigned hd_factor);
 
     void init();
     std::string desc() const ;
@@ -40,4 +40,4 @@ struct QUDARAP_API QOptWLS
 
 };
 
-thread_local QOptWLS qwls;
+thread_local QWLS qwls;

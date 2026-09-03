@@ -6,26 +6,26 @@
    #define SSTATE_METHOD 
 #endif 
 
-/**
-sstate.h
-=========
-
-This was formerly qstate.h but as no CUDA specifics it 
-belongs down in sysrap not up in QUDARap. 
-
-Populated by qsim::fill_state from texture and buffer lookups 
-using photon wavelength and the boundary obtained from geometry 
-intersect.  
-
-Old version of this in OptiXRap/cu also copied things from "PRD" into here ... 
-BUT seems no point doing that, can just directly use them from PRD. 
-
-**/
+// /**
+// sstate.h
+// =========
+//
+// This was formerly qstate.h but as no CUDA specifics it
+// belongs down in sysrap not up in QUDARap.
+//
+// Populated by qsim::fill_state from texture and buffer lookups
+// using photon wavelength and the boundary obtained from geometry
+// intersect.
+//
+// Old version of this in OptiXRap/cu also copied things from "PRD" into here ...
+// BUT seems no point doing that, can just directly use them from PRD.
+// History: Adding wavelength shifting support (Ilker Parmaksiz, 2026-08-31). Utilized m1group2 since it has spares.
+// **/
 
 struct sstate
 {
     float4 material1 ;    // refractive_index/absorption_length/scattering_length/reemission_prob
-    float4 m1group2 ;     // group_velocity/spare1/spare2/spare3
+    float4 m1group2 ;     // group_velocity/wls_absorption_length/spare2/spare3
     float4 material2 ;   
     float4 surface ;      // detect/absorb/reflect_specular/reflect_diffuse
 
@@ -71,7 +71,7 @@ inline std::ostream& operator<<(std::ostream& os, const sstate& s )
        << " (refractive_index/absorption_length/scattering_length/reemission_prob) " 
        << std::endl 
        << " m1group2 " << s.m1group2
-       << " (group_velocity/spare1/spare2/spare3) "
+       << " (group_velocity/wls_absorption_length/spare2/spare3) "
        << std::endl 
        << " material2 " << s.material2 
        << " (refractive_index/absorption_length/scattering_length/reemission_prob) " 

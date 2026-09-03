@@ -74,7 +74,7 @@ In the old X4/GGeo workflow, the bnd buffer was created with::
 
     The 39 wavelength samples is historical. There is a way to increase this
     to 1nm FINE_DOMAIN binning.
-
+    History: Adding wavelength shifting (Ilker Parmaksiz, 09/02/2026)
 **/
 
 #include <limits>
@@ -104,6 +104,9 @@ struct sstandard
     const NP* optical ;
 
     const NP* icdf ;
+
+    const NP* wls_icdf;
+    const NP* wls_time;
 
 
     sstandard();
@@ -158,10 +161,11 @@ inline sstandard::sstandard()
     bd(nullptr),
     bnd(nullptr),
     optical(nullptr),
-    icdf(nullptr)
+    icdf(nullptr),
+    wls_icdf(nullptr),
+    wls_time(nullptr)
 {
 }
-
 
 /**
 sstandard::deferred_init
@@ -210,6 +214,9 @@ inline NPFold* sstandard::serialize() const
     fold->add(snam::OPTICAL, optical );
 
     fold->add(snam::ICDF, icdf) ;
+    // Adding WLS related arrays to the fold for serialization
+    fold->add(snam::WLS_ICDF, wls_icdf) ;
+    fold->add(snam::WLS_Time, wls_time) ;
 
     return fold ;
 }
@@ -228,6 +235,10 @@ inline void sstandard::import(const NPFold* fold )
     optical = fold->get(snam::OPTICAL);
 
     icdf = fold->get(snam::ICDF);
+
+    // WLS
+    wls_icdf = fold->get(snam::WLS_ICDF);
+    wls_time = fold->get(snam::WLS_Time);
 }
 
 inline void sstandard::save(const char* base, const char* rel )

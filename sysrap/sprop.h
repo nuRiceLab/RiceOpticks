@@ -12,7 +12,7 @@ Curiously when using a constexpr std::array for the PROP::
         { 0,2,"RAYLEIGH" },
         { 0,3,"REEMISSIONPROB" },
         { 1,0,"GROUPVEL" },
-        { 1,1,"SPARE11"  },
+        { 1,1,"WLSABSLENGTH"  },
         { 1,2,"SPARE12"  },
         { 1,3,"SPARE13"  },
     }};

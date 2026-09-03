@@ -21,13 +21,13 @@ Ilker Parmaksiz, 08/31/2026
 #include "NPFold.h"
 #include "U4MaterialPropertyVector.h"
 
-struct U4OptWLS
+struct U4WLS
 {
     static constexpr const bool VERBOSE = false ;
     static constexpr const char* PROPS = "WLSMEANNUMBERPHOTONS,WLSABSLENGTH,WLSCOMPONENT,WLSTIMECONSTANT" ;
-    static U4OptWLS* Create(const NPFold* materials );
+    static U4WLS* Create(const NPFold* materials );
 
-    const NPFold* optwls ;
+    const NPFold* wls ;
     const char* name ;
 
     const NP* wlsabslength ;
@@ -42,13 +42,13 @@ struct U4OptWLS
     const G4MaterialPropertyVector* WLSIntegral ;
     const G4double MeanNumberPhotons ;
     const G4double TimeConstant;
-    const NP* icdf ;
+    const NP* wls_icdf ;
 
     const int num_wlsamp ;
     const NP* wlsamp ;
 
 
-    U4OptWLS(const NPFold* fold, const char* name);
+    U4WLS(const NPFold* fold, const char* name);
     void init();
 
     std::string desc() const ;
@@ -77,7 +77,7 @@ struct U4OptWLS
 
 };
 
-inline U4OptWLS* U4OptWLS::Create(const NPFold* materials ) // static
+inline U4WLS* U4WLS::Create(const NPFold* materials ) // static
 {
     std::vector<const NPFold*> subs ;
     std::vector<std::string> names ;
@@ -89,42 +89,42 @@ inline U4OptWLS* U4OptWLS::Create(const NPFold* materials ) // static
 
     const char* name = num_names > 0 ? names[0].c_str() : nullptr ;
     const NPFold* sub = num_subs > 0 ? subs[0] : nullptr ;
-    bool with_qoptwls = name && sub ;
+    bool with_qwls = name && sub ;
 
-    return with_qoptwls ? new U4OptWLS(sub, name) : nullptr ;
+    return with_qwls ? new U4WLS(sub, name) : nullptr ;
 }
 
 
-inline U4OptWLS::U4OptWLS(const NPFold* optwls_, const char* name_)
+inline U4WLS::U4WLS(const NPFold* wls_, const char* name_)
     :
-    optwls(optwls_),
+    wls(wls_),
     name(strdup(name_)),
-    wlsabslength(optwls->get("WLSABSLENGTH")),
-    wlscomponent(optwls->get("WLSCOMPONENT")),
-    wlstimeconstant(optwls->get("WLSTIMECONSTANT")),
-    MeanNumberPhotons(optwls->get("WLSMEANNUMBERPHOTONS")),
+    wlsabslength(wls->get("WLSABSLENGTH")),
+    wlscomponent(wls->get("WLSCOMPONENT")),
+    wlstimeconstant(wls->get("WLSTIMECONSTANT")),
+    MeanNumberPhotons(wls->get("WLSMEANNUMBERPHOTONS")),
     epsilon(0.),
     WLSABSVector(U4MaterialPropertyVector::FromArray(wlsabslength)),
     WLSComponentVector(U4MaterialPropertyVector::FromArray(wlscomponent)),
     WLSIntegral(Integral(WLSComponentVector)),
-    icdf(nullptr),
-    num_wlsamp(ssys::getenvint("U4OptWLS__num_wlsamp", 0)),
+    wls_icdf(nullptr),
+    num_wlsamp(ssys::getenvint("U4WLS__num_wlsamp", 0)),
     wlsamp(nullptr)
 {
     init();
 }
 
-inline void U4OptWLS::init()
+inline void U4WLS::init()
 {
     int num_bins = 4096 ;
     int hd_factor = 20 ;
-    icdf = createGeant4InterpolatedInverseCDF(num_bins, hd_factor, name) ;
+    wls_icdf = createGeant4InterpolatedInverseCDF(num_bins, hd_factor, name) ;
     wlsamp = createWavelengthSamples(num_wlsamp) ;
 }
 
 
 
-inline std::string U4OptWLS::desc() const
+inline std::string U4WLS::desc() const
 {
     std::stringstream ss ;
     ss << "U4OptWLS::desc" << std::endl
@@ -132,7 +132,7 @@ inline std::string U4OptWLS::desc() const
        << " WLSLength " << ( wlsabslength ? wlsabslength->sstr() : "-" )
        << " WLSComponent " << ( wlscomponent ? wlscomponent->sstr() : "-" )
        << " WLSTimeConstant " << ( wlstimeconstant ? wlstimeconstant->sstr() : "-" )
-       << " icdf " << ( icdf ? icdf->sstr() : "-" )
+       << " wls_icdf " << ( wls_icdf ? wls_icdf->sstr() : "-" )
        << " wlsamp " << ( wlsamp ? wlsamp->sstr() : "-" )
        << std::endl
        ;
@@ -141,30 +141,30 @@ inline std::string U4OptWLS::desc() const
     return str ;
 }
 
-inline NPFold* U4OptWLS::make_fold() const
+inline NPFold* U4WLS::make_fold() const
 {
     NPFold* fold = new NPFold ;
     fold->add("wlsabslength", wlsabslength) ;
     fold->add("wlscomponent", wlscomponent) ;
     fold->add("wlstimeconstant", wlstimeconstant) ;
-    fold->add("icdf", icdf) ;
+    fold->add("wls_icdf", wls_icdf) ;
     if(wlsamp) fold->add("wlsamp", wlsamp) ;
     return fold ;
 }
 
-inline void U4OptWLS::save(const char* base, const char* rel ) const
+inline void U4WLS::save(const char* base, const char* rel ) const
 {
     NPFold* fold = make_fold();
     fold->save(base, rel);
 }
 
 
-inline NP* U4OptWLS::createWavelengthSamples( int num_samples )
+inline NP* U4WLS::createWavelengthSamples( int num_samples )
 {
     return CreateWavelengthSamples(WLSIntegral, num_samples );
 }
 
-inline NP* U4OptWLS::createGeant4InterpolatedInverseCDF(
+inline NP* U4WLS::createGeant4InterpolatedInverseCDF(
     int num_bins,
     int hd_factor,
     const char* material_name,
@@ -191,7 +191,7 @@ The is using trapezoidal numerical integration.
 
 **/
 
-inline G4MaterialPropertyVector* U4OptWLS::Integral( const G4MaterialPropertyVector* theFastLightVector )
+inline G4MaterialPropertyVector* U4WLS::Integral( const G4MaterialPropertyVector* theFastLightVector )
 {
      G4MaterialPropertyVector* aMaterialPropertyVector = new G4MaterialPropertyVector();
 
@@ -248,7 +248,7 @@ inline G4MaterialPropertyVector* U4OptWLS::Integral( const G4MaterialPropertyVec
 }
 
 
-inline NP* U4OptWLS::CreateWavelengthSamples(
+inline NP* U4WLS::CreateWavelengthSamples(
     const G4MaterialPropertyVector* WLSIntegral_,
     int num_samples )
 {
@@ -379,7 +379,7 @@ in the form of G4MaterialPropertyVector::GetEnergy
 
 **/
 
-inline NP* U4OptWLS::CreateGeant4InterpolatedInverseCDF(
+inline NP* U4WLS::CreateGeant4InterpolatedInverseCDF(
        const G4MaterialPropertyVector* WLSIntegral_,
        int num_bins,
        int hd_factor,
@@ -394,17 +394,17 @@ inline NP* U4OptWLS::CreateGeant4InterpolatedInverseCDF(
     double mx = WLSIntegral->GetMaxValue() ;   // dataVector.back(); because its **ORDERED** to be increasing on Insert
 
 
-    // hmm more extensible (eg for Cerenkov [BetaInverse,u,payload] icdf)
+    // hmm more extensible (eg for Cerenkov [BetaInverse,u,payload] wls_icdf)
     // with the 3 for the different resolutions to be in the payload rather than as separate items ?
     // would of course use 4 to map to float4 after narrowing
 
 
-    NP* icdf = NP::Make<double>(3, num_bins, 1);
-    icdf->fill<double>(0.);
+    NP* wls_icdf = NP::Make<double>(3, num_bins, 1);
+    wls_icdf->fill<double>(0.);
 
-    int ni = icdf->shape[0];
-    int nj = icdf->shape[1];
-    int nk = icdf->shape[2];
+    int ni = wls_icdf->shape[0];
+    int nj = wls_icdf->shape[1];
+    int nk = wls_icdf->shape[2];
 
     assert( ni == 3 );
     assert( nk == 1 );
@@ -413,13 +413,13 @@ inline NP* U4OptWLS::CreateGeant4InterpolatedInverseCDF(
     assert( hd_factor == 10 || hd_factor == 20 );
     double edge = 1./double(hd_factor) ;
 
-    icdf->names.push_back(material_name) ;  // match X4/GGeo
-    icdf->set_meta<std::string>("name", material_name );
+    wls_icdf->names.push_back(material_name) ;  // match X4/GGeo
+    wls_icdf->set_meta<std::string>("name", material_name );
 
-    icdf->set_meta<std::string>("creator", "U4OptWLS::CreateGeant4InterpolatedInverseCDF" );
-    icdf->set_meta<int>("hd_factor", hd_factor );
-    icdf->set_meta<int>("num_bins", num_bins );
-    icdf->set_meta<double>("edge", edge );
+    wls_icdf->set_meta<std::string>("creator", "U4OptWLS::CreateGeant4InterpolatedInverseCDF" );
+    wls_icdf->set_meta<int>("hd_factor", hd_factor );
+    wls_icdf->set_meta<int>("num_bins", num_bins );
+    wls_icdf->set_meta<double>("edge", edge );
 
 
     if(VERBOSE) std::cerr
@@ -429,7 +429,7 @@ inline NP* U4OptWLS::CreateGeant4InterpolatedInverseCDF(
         << " mx " << std::fixed << std::setw(10) << std::setprecision(4) << mx
         << " mx*1e9 " << std::fixed << std::setw(10) << std::setprecision(4) << mx*1e9
         << " edge " << std::fixed << std::setw(10) << std::setprecision(4) << edge
-        << " icdf " << icdf->sstr()
+        << " wls_icdf " << wls_icdf->sstr()
         << std::endl
         ;
 
@@ -452,10 +452,10 @@ inline NP* U4OptWLS::CreateGeant4InterpolatedInverseCDF(
         double v_lhs = energy_not_wavelength ? energy_lhs :  wavelength_lhs ;
         double v_rhs = energy_not_wavelength ? energy_rhs :  wavelength_rhs ;
 
-        icdf->set<double>(v_all, 0, j, k );
-        icdf->set<double>(v_lhs, 1, j, k );
-        icdf->set<double>(v_rhs, 2, j, k );
+        wls_icdf->set<double>(v_all, 0, j, k );
+        wls_icdf->set<double>(v_lhs, 1, j, k );
+        wls_icdf->set<double>(v_rhs, 2, j, k );
     }
-    return icdf ;
+    return wls_icdf ;
 }
 
