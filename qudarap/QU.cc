@@ -1,3 +1,5 @@
+// History: Adding wavelength shifting (Ilker Parmaksiz, 09/04/2026)
+
 #include <cassert>
 
 #include "NP.hh"
@@ -37,6 +39,8 @@
 #include "qcurandwrap.h"
 #include "scurandref.h"
 #include "qmultifilm.h"
+#include "qwls.h"
+
 
 
 const plog::Severity QU::LEVEL = SLOG::EnvLevel("QU", "DEBUG") ;
@@ -172,7 +176,7 @@ template qdebug*        QU::UploadArray<qdebug>(const qdebug* array, unsigned nu
 template qscint*        QU::UploadArray<qscint>(const qscint* array, unsigned num_items, const char* label) ;
 template qcerenkov*     QU::UploadArray<qcerenkov>(const qcerenkov* array, unsigned num_items, const char* label) ;
 template qbase*         QU::UploadArray<qbase>(const qbase* array, unsigned num_items, const char* label) ;
-
+template qwls*          QU::UploadArray<qwls>(const qwls* array, unsigned num_items, const char* label) ;
 
 
 /**

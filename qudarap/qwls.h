@@ -6,14 +6,14 @@
 
 #pragma once
 /**
-qoptwls.h
+wls.h
 ==================
 **/
 
 #if defined(__CUDACC__) || defined(__CUDABE__)
-   #define QOPTWLS_METHOD __device__
+   #define WLS_METHOD __device__
 #else
-   #define QOPTWLS_METHOD
+   #define WLS_METHOD
 #endif
 
 
@@ -25,20 +25,19 @@ struct sphoton ;
 #include "OpticksPhoton.h"
 struct qwls
 {
-    cudaTextureObject_t qoptwls_tex ;
-    quad4*              qoptwls_meta ; // HUH: not used ?
+    cudaTextureObject_t qwls_tex ;
+    quad4*              qwls_meta ; // HUH: not used ?
     unsigned            hd_factor ;
 
 #if defined(__CUDACC__) || defined(__CUDABE__) || defined(MOCK_CURAND) || defined(MOCK_CUDA)
-    QOPTWLS_METHOD void    generate( sphoton& p, RNG& rng, const quad6& gs, unsigned long long photon_id, int genstep_id ) const ;
-    QOPTWLS_METHOD void    reemit(   sphoton& p, RNG& rng, float scintillationTime) const ;
-    QOPTWLS_METHOD void    momw_polw(sphoton& p, RNG& rng) const ;
+    WLS_METHOD void    reemit(   sphoton& p, RNG& rng, float scintillationTime) const ;
+    WLS_METHOD void    momw_polw(sphoton& p, RNG& rng) const ;
     // sets direction, polarization and wavelength as needed by both generate and reemit
 
-    QOPTWLS_METHOD float   wavelength(     const float& u0) const ;
-    QOPTWLS_METHOD float   wavelength_hd0( const float& u0) const ;
-    QOPTWLS_METHOD float   wavelength_hd10(const float& u0) const ;
-    QOPTWLS_METHOD float   wavelength_hd20(const float& u0) const ;
+    WLS_METHOD float   wavelength(     const float& u0) const ;
+    WLS_METHOD float   wavelength_hd0( const float& u0) const ;
+    WLS_METHOD float   wavelength_hd10(const float& u0) const ;
+    WLS_METHOD float   wavelength_hd20(const float& u0) const ;
 
 #endif
 
@@ -48,40 +47,18 @@ struct qwls
 #if defined(__CUDACC__) || defined(__CUDABE__) || defined(MOCK_CURAND) || defined(MOCK_CUDA)
 
 //#include "sscint.h"
-#include "qwls.h"
+
 /**
-qoptwls::generate_photon
+wls::generate_photon
 ------------------------
 
 **/
 
-inline QOPTWLS_METHOD void qwls::generate(
-    sphoton& p,
-    RNG& rng,
-    const quad6& _gs,
-    unsigned long long photon_id,
-    int genstep_id ) const
-{
-    momw_polw(p, rng );
-
-    const sscint& gs = (const sscint&)_gs ;
-
-    float fraction = gs.charge == 0.f  ? 1.f : curand_uniform(&rng) ;
-    p.pos = gs.pos + fraction*gs.DeltaPosition ;
-
-    float u4 = curand_uniform(&rng) ;
-    float deltaTime = fraction*gs.step_length/gs.meanVelocity - gs.ScintillationTime*logf(u4) ;
-
-    p.time = gs.time + deltaTime ;
-    p.zero_flags();
-    p.set_flag(SCINTILLATION) ;
-    p.set_PID(gs.ParentId); // For LArSoft
-}
 
 
 
 
-inline QOPTWLS_METHOD float qwls::wavelength(const float& u0) const
+inline WLS_METHOD float qwls::wavelength(const float& u0) const
 {
     float wl ;
     switch(hd_factor)
@@ -91,19 +68,19 @@ inline QOPTWLS_METHOD float qwls::wavelength(const float& u0) const
         case 20: wl = wavelength_hd20(u0) ; break ;
         default: wl = 0.f ;
     }
-    //printf("//qoptwls::wavelength wl %10.4f hd %d \n", wl, hd_factor );
+    //printf("//wls::wavelength wl %10.4f hd %d \n", wl, hd_factor );
     return wl ;
 }
 
 
-inline QOPTWLS_METHOD float qwls::wavelength_hd0(const float& u0) const
+inline WLS_METHOD float qwls::wavelength_hd0(const float& u0) const
 {
     constexpr float y0 = 0.5f/3.f ;
-    return tex2D<float>(scint_tex, u0, y0 );
+    return tex2D<float>(qwls_tex, u0, y0 );
 }
 
 /**
-qoptwls::wavelength_hd10
+wls::wavelength_hd10
 --------------------------------------------------
 
 Idea is to improve handling of extremes by throwing ten times the bins
@@ -114,7 +91,7 @@ icdf texture can share some of teh implementation
 
 **/
 
-inline QOPTWLS_METHOD float qwls::wavelength_hd10(const float& u0) const
+inline WLS_METHOD float qwls::wavelength_hd10(const float& u0) const
 {
     float wl ;
 
@@ -124,22 +101,22 @@ inline QOPTWLS_METHOD float qwls::wavelength_hd10(const float& u0) const
 
     if( u0 < 0.1f )
     {
-        wl = tex2D<float>(scint_tex, u0*10.f , y1 );
+        wl = tex2D<float>(qwls_tex, u0*10.f , y1 );
     }
     else if ( u0 > 0.9f )
     {
-        wl = tex2D<float>(scint_tex, (u0 - 0.9f)*10.f , y2 );
+        wl = tex2D<float>(qwls_tex, (u0 - 0.9f)*10.f , y2 );
     }
     else
     {
-        wl = tex2D<float>(scint_tex, u0,  y0 );
+        wl = tex2D<float>(qwls_tex, u0,  y0 );
     }
     return wl ;
 }
 
 
 
-inline QOPTWLS_METHOD float qwls::wavelength_hd20(const float& u0) const
+inline WLS_METHOD float qwls::wavelength_hd20(const float& u0) const
 {
     float wl ;
 
@@ -149,15 +126,15 @@ inline QOPTWLS_METHOD float qwls::wavelength_hd20(const float& u0) const
 
     if( u0 < 0.05f )
     {
-        wl = tex2D<float>(scint_tex, u0*20.f , y1 );
+        wl = tex2D<float>(qwls_tex, u0*20.f , y1 );
     }
     else if ( u0 > 0.95f )
     {
-        wl = tex2D<float>(scint_tex, (u0 - 0.95f)*20.f , y2 );
+        wl = tex2D<float>(qwls_tex, (u0 - 0.95f)*20.f , y2 );
     }
     else
     {
-        wl = tex2D<float>(scint_tex, u0,  y0 );
+        wl = tex2D<float>(qwls_tex, u0,  y0 );
     }
     return wl ;
 }

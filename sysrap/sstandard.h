@@ -107,6 +107,7 @@ struct sstandard
 
     const NP* wls_icdf;
     const NP* wls_time;
+    const NP* wls_MeanPhotons;
 
 
     sstandard();
@@ -163,7 +164,8 @@ inline sstandard::sstandard()
     optical(nullptr),
     icdf(nullptr),
     wls_icdf(nullptr),
-    wls_time(nullptr)
+    wls_time(nullptr),
+    wls_MeanPhotons(nullptr)
 {
 }
 
@@ -239,6 +241,7 @@ inline void sstandard::import(const NPFold* fold )
     // WLS
     wls_icdf = fold->get(snam::WLS_ICDF);
     wls_time = fold->get(snam::WLS_Time);
+    wls_MeanPhotons=fold->get(snam::WLS_MeanPhotons);
 }
 
 inline void sstandard::save(const char* base, const char* rel )

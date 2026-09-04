@@ -20,6 +20,7 @@ struct snam
     // WLS related
     static constexpr const char* WLS_ICDF = "wls_icdf.npy" ;
     static constexpr const char* WLS_Time = "wls_time.npy" ;
+    static constexpr const char* WLS_MeanPhotons = "wls_MeanPhoton.npy" ;
 
     static constexpr const char* MULTIFILM = "multifilm.npy" ;
     static constexpr const char* PROPCOM = "propcom.npy" ;

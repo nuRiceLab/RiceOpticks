@@ -104,6 +104,7 @@ set(SOURCES
     QBuf.cc
 
     QWLS.cc
+    QWLS.cu
 )
 
 

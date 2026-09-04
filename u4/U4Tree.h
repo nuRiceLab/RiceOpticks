@@ -149,7 +149,7 @@ private:
     void initRayleigh();
     void initMaterials();
     void initMaterials_NoRINDEX();
-    void initOptWLS();
+    void initWLS();
     void initMaterials_r(const G4VPhysicalVolume* const pv);
     void initMaterial(const G4Material* const mt);
 
@@ -292,7 +292,7 @@ inline void U4Tree::init()
     LOG(LEVEL) << "-initMaterials_NoRINDEX" ;
     initMaterials_NoRINDEX();
 
-    LOG(LEVEL) << "-initOptWLS" ;
+    LOG(LEVEL) << "-initWLS" ;
     initWLS();
 
     LOG(LEVEL) << "-initScint" ;
@@ -442,6 +442,7 @@ inline void U4Tree::initWLS()
     {
          st->standard->wls_icdf = wls->wls_icdf ;
          st->standard->wls_time = wls->wlstimeconstant ;
+         st->standard->wls_MeanPhotons = wls->wlsmeannumberphotons;
     }
 
 }

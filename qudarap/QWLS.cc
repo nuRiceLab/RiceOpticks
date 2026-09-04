@@ -24,7 +24,7 @@
 #include "QU.hh"
 #include "QWLS.hh"
 //#include "qscint.h"
-
+#include "qwls.h"
 
 const plog::Severity QWLS::LEVEL = SLOG::EnvLevel("QWLS", "DEBUG");
 
@@ -44,11 +44,12 @@ QWLS::QWLS(const NP* wlwicdf, unsigned hd_factor )
     src( wlwicdf->ebyte == 4 ? wlwicdf : NP::MakeNarrow(dsrc) ),
     tex(MakeWLSQTex(src, hd_factor)),
     wls(MakeInstance(tex)),
-    d_wls(QU::UploadArray<wls>(wls, 1, "QWLS::QWLS/d_wls"))
+    d_wls(QU::UploadArray<qwls>(wls, 1, "QWLS::QWLS/d_wls"))
 {
+    fqwls = this ;
 }
 
-qscint* QWLS::MakeInstance(const QTex<float>* tex) // static
+qwls* QWLS::MakeInstance(const QTex<float>* tex) // static
 {
     qwls* wls = new qwls;
     wls->qwls_tex = tex->texObj ;

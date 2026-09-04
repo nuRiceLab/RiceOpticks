@@ -14,7 +14,7 @@ Canonical use is from CSGOptiX/CSGOptiX7.cu:simulate
 
 * temporary working state local to each photon is held in *sctx*
   and passed around using reference arguments
-
+History: 2026-09-03 : Ilker Parmaksiz : Adding wavelength shifting support.
 TODO:
 
 1. get more of the below to work on CPU with mocked curand (and in future mocked tex2D and cudaTextureObject_t )
@@ -65,6 +65,7 @@ TODO:
 #include "qpmt.h"
 #include "tcomplex.h"
 
+#include "qwls.h"
 
 struct qcerenkov ;
 
@@ -78,6 +79,7 @@ struct qsim
     qcerenkov*          cerenkov ;
     qscint*             scint ;
     qpmt<float>*        pmt ;
+    qwls *              wls ;
 
 #if defined(__CUDACC__) || defined(__CUDABE__)
 #else
@@ -148,7 +150,8 @@ inline qsim::qsim()    // instanciated on CPU (see QSim::init_sim) and copied to
         multifilm(nullptr),
         cerenkov(nullptr),
         scint(nullptr),
-        pmt(nullptr)
+        pmt(nullptr),
+        wls(nullptr)
     {
     }
 #endif

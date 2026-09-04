@@ -18,12 +18,12 @@ struct QUDARAP_API QWLS
 {
     static const plog::Severity LEVEL ;
     static QTex<float>* MakeWLSQTex(const NP* src, unsigned hd_factor);
-
+    qwls* MakeInstance(const QTex<float>* tex);
     const NP*      dsrc ;
     const NP*      src ;
     QTex<float>*    tex ;
-    qwls*       optwls ;
-    qwls*       d_optwls ;
+    qwls*       wls ;
+    qwls*       d_wls ;
 
     QWLS(const NP* icdf, unsigned hd_factor);
 
@@ -40,4 +40,4 @@ struct QUDARAP_API QWLS
 
 };
 
-thread_local QWLS qwls;
+thread_local QWLS *fqwls=nullptr;

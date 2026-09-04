@@ -1,12 +1,12 @@
 #pragma once
 /**
-U4OptWLS
+U4WLS
 ================
 WLS : Wavelength Shifting
 
 History:
 Ilker Parmaksiz, 08/31/2026
-
+--- Will add Mean Number of Photons
 **/
 
 #include <string>
@@ -24,20 +24,17 @@ Ilker Parmaksiz, 08/31/2026
 struct U4WLS
 {
     static constexpr const bool VERBOSE = false ;
-    static constexpr const char* PROPS = "WLSMEANNUMBERPHOTONS,WLSABSLENGTH,WLSCOMPONENT,WLSTIMECONSTANT" ;
+    static constexpr const char* PROPS = "WLSMEANNUMBERPHOTONS,WLSCOMPONENT,WLSTIMECONSTANT" ;
     static U4WLS* Create(const NPFold* materials );
 
     const NPFold* wls ;
     const char* name ;
-
-    const NP* wlsabslength ;
     const NP* wlscomponent ;
     const NP* wlstimeconstant ;
-
+    const NP* wlsmeannumberphotons ;
     const double epsilon ;
 
     // Variables to collect from Geant4
-    const G4MaterialPropertyVector* WLSABSVector ;
     const G4MaterialPropertyVector* WLSComponentVector ;
     const G4MaterialPropertyVector* WLSIntegral ;
     const G4double MeanNumberPhotons ;
@@ -62,7 +59,7 @@ struct U4WLS
         const char* material_name="LS",
         bool energy_not_wavelength=false );
 
-    static G4MaterialPropertyVector* Integral( const G4MaterialPropertyVector* theFastLightVector ) ;
+    static G4MaterialPropertyVector* Integral( const G4MaterialPropertyVector* fProperyVector ) ;
     static NP* CreateWavelengthSamples(
         const G4MaterialPropertyVector* WLSIntegral,
         int num_samples
@@ -94,19 +91,18 @@ inline U4WLS* U4WLS::Create(const NPFold* materials ) // static
     return with_qwls ? new U4WLS(sub, name) : nullptr ;
 }
 
-
 inline U4WLS::U4WLS(const NPFold* wls_, const char* name_)
     :
     wls(wls_),
     name(strdup(name_)),
-    wlsabslength(wls->get("WLSABSLENGTH")),
     wlscomponent(wls->get("WLSCOMPONENT")),
     wlstimeconstant(wls->get("WLSTIMECONSTANT")),
-    MeanNumberPhotons(wls->get("WLSMEANNUMBERPHOTONS")),
+    wlsmeannumberphotons(wls->get("WLSMEANNUMBERPHOTONS")),
     epsilon(0.),
-    WLSABSVector(U4MaterialPropertyVector::FromArray(wlsabslength)),
     WLSComponentVector(U4MaterialPropertyVector::FromArray(wlscomponent)),
     WLSIntegral(Integral(WLSComponentVector)),
+    MeanNumberPhotons(1),
+    TimeConstant(0),
     wls_icdf(nullptr),
     num_wlsamp(ssys::getenvint("U4WLS__num_wlsamp", 0)),
     wlsamp(nullptr)
@@ -123,19 +119,16 @@ inline void U4WLS::init()
 }
 
 
-
 inline std::string U4WLS::desc() const
 {
     std::stringstream ss ;
-    ss << "U4OptWLS::desc" << std::endl
+    ss << "U4WLS::desc" << std::endl
        << " name " << name
-       << " WLSLength " << ( wlsabslength ? wlsabslength->sstr() : "-" )
        << " WLSComponent " << ( wlscomponent ? wlscomponent->sstr() : "-" )
        << " WLSTimeConstant " << ( wlstimeconstant ? wlstimeconstant->sstr() : "-" )
        << " wls_icdf " << ( wls_icdf ? wls_icdf->sstr() : "-" )
        << " wlsamp " << ( wlsamp ? wlsamp->sstr() : "-" )
-       << std::endl
-       ;
+       << std::endl;
 
     std::string str = ss.str();
     return str ;
@@ -144,7 +137,6 @@ inline std::string U4WLS::desc() const
 inline NPFold* U4WLS::make_fold() const
 {
     NPFold* fold = new NPFold ;
-    fold->add("wlsabslength", wlsabslength) ;
     fold->add("wlscomponent", wlscomponent) ;
     fold->add("wlstimeconstant", wlstimeconstant) ;
     fold->add("wls_icdf", wls_icdf) ;
@@ -181,7 +173,7 @@ inline NP* U4WLS::createGeant4InterpolatedInverseCDF(
 
 
 /**
-U4OptWLS::Integral
+U4WLS::Integral
 ---------------------------
 
 Returns cumulative sum of the input property on the same energy domain,
@@ -191,20 +183,20 @@ The is using trapezoidal numerical integration.
 
 **/
 
-inline G4MaterialPropertyVector* U4WLS::Integral( const G4MaterialPropertyVector* theFastLightVector )
+inline G4MaterialPropertyVector* U4WLS::Integral( const G4MaterialPropertyVector* fProperyVector )
 {
      G4MaterialPropertyVector* aMaterialPropertyVector = new G4MaterialPropertyVector();
 
-          if (theFastLightVector) {
+          if (fProperyVector) {
 
-               G4double currentIN = (*theFastLightVector)[0];
+               G4double currentIN = (*fProperyVector)[0];
 
                 if (currentIN >= 0.0) {
 
                     // Create first (photon energy, Scintillation
                     // Integral pair
 
-                    G4double currentPM = theFastLightVector->
+                    G4double currentPM = fProperyVector->
                         Energy(0);
 
                     G4double currentCII = 0.0;
@@ -222,12 +214,12 @@ inline G4MaterialPropertyVector* U4WLS::Integral( const G4MaterialPropertyVector
                     // pairs stored for this material
 
                     for(size_t ii = 1;
-                              ii < theFastLightVector->GetVectorLength();
+                              ii < fProperyVector->GetVectorLength();
                               ++ii)
                     {
-                        currentPM = theFastLightVector->Energy(ii);
+                        currentPM = fProperyVector->Energy(ii);
 
-                        currentIN= (*theFastLightVector)[ii];
+                        currentIN= (*fProperyVector)[ii];
 
                         currentCII = 0.5 * (prevIN + currentIN);
 
@@ -258,7 +250,7 @@ inline NP* U4WLS::CreateWavelengthSamples(
 
     double mx = WLSIntegral->GetMaxValue() ;
     std::cerr
-        << "U4OptWLS::CreateWavelengthSamples"
+        << "U4WLS::CreateWavelengthSamples"
         << " WLSIntegral.max*1e9 "
         << std::fixed << std::setw(10) << std::setprecision(4) << mx*1e9
         ;
@@ -290,7 +282,7 @@ inline NP* U4WLS::CreateWavelengthSamples(
 
 
 /**
-U4OptWLS::CreateGeant4InterpolatedInverseCDF
+U4WLS::CreateGeant4InterpolatedInverseCDF
 -----------------------------------------------------
 
 Reproducing the results of Geant4 dynamic bin finding interpolation
@@ -416,14 +408,14 @@ inline NP* U4WLS::CreateGeant4InterpolatedInverseCDF(
     wls_icdf->names.push_back(material_name) ;  // match X4/GGeo
     wls_icdf->set_meta<std::string>("name", material_name );
 
-    wls_icdf->set_meta<std::string>("creator", "U4OptWLS::CreateGeant4InterpolatedInverseCDF" );
+    wls_icdf->set_meta<std::string>("creator", "U4WLS::CreateGeant4InterpolatedInverseCDF" );
     wls_icdf->set_meta<int>("hd_factor", hd_factor );
     wls_icdf->set_meta<int>("num_bins", num_bins );
     wls_icdf->set_meta<double>("edge", edge );
 
 
     if(VERBOSE) std::cerr
-        << "U4OptWLS::CreateGeant4InterpolatedInverseCDF"
+        << "U4WLS::CreateGeant4InterpolatedInverseCDF"
         << " num_bins " << num_bins
         << " hd_factor " << hd_factor
         << " mx " << std::fixed << std::setw(10) << std::setprecision(4) << mx
