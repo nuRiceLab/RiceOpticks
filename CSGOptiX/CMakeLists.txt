@@ -193,7 +193,7 @@ target_include_directories(${name}
    PUBLIC
       $<BUILD_INTERFACE:${OPTICKS_PREFIX}/externals/glm/glm>
       $<INSTALL_INTERFACE:externals/glm/glm>
-      ${OpticksOptiX_INCLUDE}
+      $<BUILD_INTERFACE:${OpticksOptiX_INCLUDE}>
       $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
