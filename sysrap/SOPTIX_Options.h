@@ -6,6 +6,7 @@ SOPTIX_Options.h : module and pipeline compile/link options
 moduleCompileOptions.maxRegisterCount
     OPTIX_COMPILE_DEFAULT_MAX_REGISTER_COUNT:0 for no limit 
     TODO: expt changing this
+    Including the shader execution reordering for faster simulation speeds.
 
 
 **/
@@ -173,6 +174,7 @@ inline void SOPTIX_Options::init_pipelineCompileOptions()
     pipelineCompileOptions.pipelineLaunchParamsVariableName = pipelineLaunchParamsVariableName ; 
     pipelineCompileOptions.usesPrimitiveTypeFlags = usesPrimitiveTypeFlags ;
     //pipelineCompileOptions.usesPrintf = true;
+    //pipelineCompileOptions.usesShaderExecutionReordering = true ;  // TODO: we need to check if device is compatibleps
 }
 
 inline std::string SOPTIX_Options::Desc_pipelineCompileOptions(const OptixPipelineCompileOptions& pipeline_compile_options )

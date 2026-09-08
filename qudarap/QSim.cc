@@ -1,4 +1,4 @@
-
+/// History: Adding wavelength shifting (Ilker Parmaksiz, 09/04/2026)
 #include <csignal>
 
 #include "SLOG.hh"
@@ -44,6 +44,8 @@
 #include "QPMT.hh"
 
 #include "QSim.hh"
+
+#include "QWLS.hh"
 
 const plog::Severity QSim::LEVEL = SLOG::EnvLevel("QSim", "DEBUG");
 
@@ -175,6 +177,19 @@ void QSim::UploadComponents( const SSim* ssim  )
         unsigned hd_factor = 20u ;  // 0,10,20
         QScint* scint = new QScint( icdf, hd_factor); // custom high-definition inverse CDF for scintillation generation
         LOG(LEVEL) << scint->desc();
+    }
+
+    // WLS
+    const NP* wls_icdf = ssim->get(snam::WLS_ICDF);
+    if( icdf == nullptr )
+    {
+        LOG(error) << " WLS ICDF null, snam::WLS_ICDF " << snam::ICDF ;
+    }
+    else
+    {
+        unsigned hd_factor = 20u ;  // 0,10,20
+        fqwls = new QWLS( icdf, hd_factor); // custom high-definition inverse CDF for WLS generation
+        LOG(LEVEL) << fqwls->desc();
     }
 
 

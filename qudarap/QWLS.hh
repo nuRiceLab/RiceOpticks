@@ -40,4 +40,4 @@ struct QUDARAP_API QWLS
 
 };
 
-thread_local QWLS *fqwls=nullptr;
+extern thread_local QWLS *fqwls;

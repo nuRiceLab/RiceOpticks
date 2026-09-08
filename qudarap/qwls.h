@@ -5,11 +5,12 @@
 
 
 #pragma once
+//#include "QWLS.hh"
 /**
 wls.h
 ==================
 **/
-
+struct QWLS;
 #if defined(__CUDACC__) || defined(__CUDABE__)
    #define WLS_METHOD __device__
 #else
@@ -30,10 +31,8 @@ struct qwls
     unsigned            hd_factor ;
 
 #if defined(__CUDACC__) || defined(__CUDABE__) || defined(MOCK_CURAND) || defined(MOCK_CUDA)
-    WLS_METHOD void    reemit(   sphoton& p, RNG& rng, float scintillationTime) const ;
-    WLS_METHOD void    momw_polw(sphoton& p, RNG& rng) const ;
+    WLS_METHOD void    wlsemit(   sphoton& p, RNG& rng) const ;
     // sets direction, polarization and wavelength as needed by both generate and reemit
-
     WLS_METHOD float   wavelength(     const float& u0) const ;
     WLS_METHOD float   wavelength_hd0( const float& u0) const ;
     WLS_METHOD float   wavelength_hd10(const float& u0) const ;
@@ -46,16 +45,46 @@ struct qwls
 
 #if defined(__CUDACC__) || defined(__CUDABE__) || defined(MOCK_CURAND) || defined(MOCK_CUDA)
 
-//#include "sscint.h"
 
 /**
-wls::generate_photon
-------------------------
+qwls::wlsemit : dir,pol and wavelength do not depend on genstep param
+--------------------------------------------------------------------------------
+
+Translation of "jcv DsG4Scintillation"
 
 **/
 
+inline WLS_METHOD void qwls::wlsemit(sphoton& p, RNG& rng) const
+{
+    float u0 = curand_uniform(&rng);
+    float u1 = curand_uniform(&rng);
+    float u2 = curand_uniform(&rng);
+    float u3 = curand_uniform(&rng);
 
+    float cost = 1.f - 2.f*u0;
+    float sint = sqrt((1.f-cost)*(1.f+cost));
+    float phi = 2.f*M_PIf*u1;
+    float sinp = sin(phi);
+    float cosp = cos(phi);
 
+    p.mom.x = sint*cosp;
+    p.mom.y = sint*sinp;
+    p.mom.z = cost ;
+    p.orient_iindex = 0u ;
+
+    // Determine polarization of new photon
+    p.pol.x = cost*cosp ;
+    p.pol.y = cost*sinp ;
+    p.pol.z = -sint ;
+
+    phi = 2.f*M_PIf*u2 ;
+    sinp = sin(phi);
+    cosp = cos(phi);
+
+    p.pol = normalize( cosp*p.pol + sinp*cross(p.mom, p.pol) ) ;
+    p.wavelength = wavelength(u3);
+    p.time=p.time;
+}
 
 
 inline WLS_METHOD float qwls::wavelength(const float& u0) const

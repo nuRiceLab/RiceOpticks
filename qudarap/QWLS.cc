@@ -25,7 +25,7 @@
 #include "QWLS.hh"
 //#include "qscint.h"
 #include "qwls.h"
-
+thread_local QWLS *fqwls = nullptr;
 const plog::Severity QWLS::LEVEL = SLOG::EnvLevel("QWLS", "DEBUG");
 
 /**
@@ -53,7 +53,7 @@ qwls* QWLS::MakeInstance(const QTex<float>* tex) // static
 {
     qwls* wls = new qwls;
     wls->qwls_tex = tex->texObj ;
-    wls->qwls_meta = tex->d_meta ;
+        wls->qwls_meta = tex->d_meta ;
     bool qwlsdisable_hd = ssys::getenvbool("QWLS_DISABLE_HD");
     wls->hd_factor = qwlsdisable_hd ? 0u : tex->getHDFactor() ;
     return wls ;
