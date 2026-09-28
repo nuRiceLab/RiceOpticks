@@ -69,7 +69,8 @@ include(CTest)
 include(GNUInstallDirs)
 set(CMAKE_INSTALL_INCLUDEDIR "include/${name}")  # override the GNUInstallDirs default of "include"
 
-list(APPEND CMAKE_MODULE_PATH "$ENV{OPTICKS_PREFIX}/externals/share/bcm/cmake")
+list(APPEND CMAKE_MODULE_PATH "${OPTICKS_PREFIX}/externals/share/bcm/cmake")
+list(APPEND CMAKE_PREFIX_PATH "${OPTICKS_PREFIX}/externals/share/bcm/cmake")
 
 find_package(BCM CONFIG)
 
