@@ -1684,7 +1684,7 @@ inline QSIM_METHOD int qsim::propagate_at_surface(unsigned& flag, RNG& rng, sctx
     const float& absorb = s.surface.y ;
     //const float& reflect_specular_ = s.surface.z ;
     const float& reflect_diffuse_  = s.surface.w ;
-    const int sensorID=ctx.prd->identity();	
+    //const int sensorID=ctx.prd->identity();
     float u_surface = curand_uniform(&rng);
     
 #if !defined(PRODUCTION) && defined(DEBUG_TAG)
@@ -1719,9 +1719,9 @@ inline QSIM_METHOD int qsim::propagate_at_surface(unsigned& flag, RNG& rng, sctx
                                       ( u_qe < qe  ? EFFICIENCY_COLLECT : EFFICIENCY_CULL  )
                                   ;
 #else
-
-	flag = (u_surface < absorb || sensorID <= 0) ? SURFACE_ABSORB : SURFACE_DETECT;
-                                  
+	//flag = (u_surface < absorb || sensorID <= 0) ? SURFACE_ABSORB : SURFACE_DETECT;
+	flag = (u_surface < absorb) ? SURFACE_ABSORB : SURFACE_DETECT;
+                         
 #endif 
         /*	
 	if(flag == SURFACE_DETECT){
