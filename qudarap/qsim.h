@@ -15,6 +15,7 @@ Canonical use is from CSGOptiX/CSGOptiX7.cu:simulate
 * temporary working state local to each photon is held in *sctx*
   and passed around using reference arguments
 History: 2026-09-03 : Ilker Parmaksiz : Adding wavelength shifting support.
+       : 2026-10-06 : Ilker Parmaksiz : Adding WLS propagate to boundary logic.
 TODO:
 
 1. get more of the below to work on CPU with mocked curand (and in future mocked tex2D and cudaTextureObject_t )
@@ -728,6 +729,7 @@ inline QSIM_METHOD int qsim::propagate_to_boundary(unsigned& flag, RNG& rng, sct
     const float& reemission_prob = s.material1.w ;
     const float& group_velocity = s.m1group2.x ;
     const float& distance_to_boundary = ctx.prd->q0.f.w ;
+    const float& wls_absorption_length = s.m1group2.y ;
 
 #if !defined(PRODUCTION) && defined(DEBUG_TAG)
     float u_to_sci = curand_uniform(&rng) ;  // purely for alignment with G4
@@ -735,7 +737,7 @@ inline QSIM_METHOD int qsim::propagate_to_boundary(unsigned& flag, RNG& rng, sct
 #endif
     float u_scattering = curand_uniform(&rng) ;
     float u_absorption = curand_uniform(&rng) ;
-
+    float u_wls = curand_uniform(&rng) ;
 #if !defined(PRODUCTION) && defined(DEBUG_TAG)
     stagr& tagr = ctx.tagr ;
     tagr.add( stag_to_sci, u_to_sci);
@@ -749,9 +751,11 @@ inline QSIM_METHOD int qsim::propagate_to_boundary(unsigned& flag, RNG& rng, sct
     // see notes/issues/U4LogTest_maybe_replacing_G4Log_G4UniformRand_in_Absorption_and_Scattering_with_float_version_will_avoid_deviations.rst
     float scattering_distance = -scattering_length*KLUDGE_FASTMATH_LOGF(u_scattering);
     float absorption_distance = -absorption_length*KLUDGE_FASTMATH_LOGF(u_absorption);
+    float wlsabsorption_distance = -wls_absorption_length*KLUDGE_FASTMATH_LOGF(u_wls);
 #else
     float scattering_distance = -scattering_length*logf(u_scattering);
     float absorption_distance = -absorption_length*logf(u_absorption);
+    float wlsabsorption_distance = -wls_absorption_length*logf(u_wls);
 #endif
 
 #if !defined(PRODUCTION) && defined(DEBUG_PIDX)
@@ -776,8 +780,19 @@ inline QSIM_METHOD int qsim::propagate_to_boundary(unsigned& flag, RNG& rng, sct
 
 
 
+    if (wlsabsorption_distance <= scattering_distance &&
+        wlsabsorption_distance <= absorption_distance &&
+        wlsabsorption_distance <= distance_to_boundary)
+    {
+            p.time += wlsabsorption_distance/group_velocity ;
+            p.pos  += wlsabsorption_distance*(p.mom) ;
+            flag = WLS ;
+            // Need to get new wavelength, direction and polarization from WLS process
+            wls->wlsemit(p,rng);
+            return CONTINUE;
 
-    if (absorption_distance <= scattering_distance)
+    }
+    else if (absorption_distance <= scattering_distance)
     {
         if (absorption_distance <= distance_to_boundary)
         {

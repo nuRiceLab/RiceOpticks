@@ -28,7 +28,7 @@ soptwls.h
 #endif
 
 
-struct qoptwls
+struct swls
 {
     // ctrl
     unsigned gentype ;
@@ -62,7 +62,7 @@ struct qoptwls
 #if defined(__CUDACC__) || defined(__CUDABE__)
 #else
    float* cdata() const {  return (float*)&gentype ; }
-   static void FillGenstep( qoptwls& gs, int genstep_id, int numphoton_per_genstep, bool dump ) ;
+   static void FillGenstep( swls& gs, int genstep_id, int numphoton_per_genstep, bool dump ) ;
    std::string desc() const ;
 
 
@@ -76,7 +76,7 @@ struct qoptwls
 #else
 #include <sstream>
 
-inline void qoptwls::FillGenstep( qoptwls& gs, int genstep_id, int numphoton_per_genstep, bool dump )
+inline void swls::FillGenstep( swls& gs, int genstep_id, int numphoton_per_genstep, bool dump )
 {
     gs.gentype = OpticksGenstep_G4OptWLS;
     gs.trackid = 0u ;
@@ -112,10 +112,10 @@ inline void qoptwls::FillGenstep( qoptwls& gs, int genstep_id, int numphoton_per
     gs.f53 = 0.f ;
 }
 
-inline std::string qoptwls::desc() const
+inline std::string swls::desc() const
 {
     std::stringstream ss ;
-    ss << "qoptwls::desc"
+    ss << "swls::desc"
        << " gentype " << gentype
        << " numphoton " << numphoton
        << " pos ("

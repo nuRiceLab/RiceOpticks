@@ -46,7 +46,7 @@ enum
     PRIMARYSOURCE      = 0x1 << 19,
     GENSTEPSOURCE      = 0x1 << 20,
     DEFER_FSTRACKINFO  = 0x1 << 21,
-    OptWLS             = 0x1 << 22
+    WLS                = 0x1 << 22
 };
 
 //

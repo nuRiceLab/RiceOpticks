@@ -18,7 +18,10 @@ Try to cope with this without version barnching using edit::
    :%s/PhysicsOrderedFree/MaterialProperty/gc
 
 Maybe will need to add some casts too.
-
+ History:
+   2026-10-6: Adding Support new Geant4 Scintillation properties SCINTILLATIONCOMPONENT1, SCINTILLATIONCOMPONENT2, REEMISSIONPROB
+ TODO:
+    * Add the third scintillation component SCINTILLATIONCOMPONENT3.
 **/
 
 #include <string>
@@ -32,12 +35,30 @@ Maybe will need to add some casts too.
 #include "ssys.h" 
 #include "NPFold.h"
 #include "U4MaterialPropertyVector.h"
+#include "G4Version.hh"
+
+#if G4VERSION_NUMBER < 1071
+#define FAST_PROP_NAME "FASTCOMPONENT"
+#define SLOW_PROP_NAME "SLOWCOMPONENT"
+#else
+#define FAST_PROP_NAME "SCINTILLATIONCOMPONENT1"
+#define SLOW_PROP_NAME "SCINTILLATIONCOMPONENT2"
+#endif
+
+#define REEM_PROP_NAME "REEMISSIONPROB"
+
+
+
 
 struct U4Scint
 {
     static constexpr const bool VERBOSE = false ; 
-    static constexpr const char* PROPS = "SLOWCOMPONENT,FASTCOMPONENT,REEMISSIONPROB" ; 
-    static U4Scint* Create(const NPFold* materials ); 
+    static constexpr const char* FAST_PROP = FAST_PROP_NAME;
+    static constexpr const char* SLOW_PROP = SLOW_PROP_NAME;
+    static constexpr const char* REEM_PROP = REEM_PROP_NAME;
+
+    static constexpr const char* PROPS = FAST_PROP_NAME "," SLOW_PROP_NAME "," REEM_PROP_NAME;
+    static U4Scint* Create(const NPFold* materials );
 
     const NPFold* scint ; 
     const char* name ; 
@@ -112,9 +133,9 @@ inline U4Scint::U4Scint(const NPFold* scint_, const char* name_)
     :
     scint(scint_),
     name(strdup(name_)),
-    fast(scint->get("FASTCOMPONENT")),
-    slow(scint->get("SLOWCOMPONENT")),
-    reem(scint->get("REEMISSIONPROB")),
+    fast(scint->get(FAST_PROP)),
+    slow(scint->get(SLOW_PROP)),
+    reem(scint->get(REEM_PROP)),
     epsilon(0.), 
     mismatch_0(NP::DumpCompare<double>(fast, slow, 0, 0, epsilon)),
     mismatch_1(NP::DumpCompare<double>(fast, slow, 1, 1, epsilon)),

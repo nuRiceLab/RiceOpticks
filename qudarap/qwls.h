@@ -60,7 +60,7 @@ inline WLS_METHOD void qwls::wlsemit(sphoton& p, RNG& rng) const
     float u1 = curand_uniform(&rng);
     float u2 = curand_uniform(&rng);
     float u3 = curand_uniform(&rng);
-
+    float u4 = curand_uniform(&rng);
     float cost = 1.f - 2.f*u0;
     float sint = sqrt((1.f-cost)*(1.f+cost));
     float phi = 2.f*M_PIf*u1;
@@ -83,7 +83,9 @@ inline WLS_METHOD void qwls::wlsemit(sphoton& p, RNG& rng) const
 
     p.pol = normalize( cosp*p.pol + sinp*cross(p.mom, p.pol) ) ;
     p.wavelength = wavelength(u3);
-    p.time=p.time;
+    //p.time=p.time;
+    // Add exponential decay time here
+    //p.time += -logf(u4)*wlstime_constant
 }
 
 

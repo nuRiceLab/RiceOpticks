@@ -21,10 +21,17 @@ Ilker Parmaksiz, 08/31/2026
 #include "NPFold.h"
 #include "U4MaterialPropertyVector.h"
 
+#define WLS_MEAN_NUMBER_PHOTONS "WLSMEANNUMBERPHOTONS"
+#define WLS_COMPONENT "WLSCOMPONENT"
+#define WLS_TIME_CONSTANT "WLSTIMECONSTANT"
+
 struct U4WLS
 {
     static constexpr const bool VERBOSE = false ;
-    static constexpr const char* PROPS = "WLSMEANNUMBERPHOTONS,WLSCOMPONENT,WLSTIMECONSTANT" ;
+    static constexpr const char* WLSMEANNUMBERPHOTONS = WLS_MEAN_NUMBER_PHOTONS;
+    static constexpr const char* WLSCOMPONENT = WLS_COMPONENT;
+    static constexpr const char* WLSTIMECONSTANT = WLS_TIME_CONSTANT;
+    static constexpr const char* PROPS = WLS_MEAN_NUMBER_PHOTONS "," WLS_COMPONENT "," WLS_TIME_CONSTANT;
     static U4WLS* Create(const NPFold* materials );
 
     const NPFold* wls ;
@@ -95,9 +102,9 @@ inline U4WLS::U4WLS(const NPFold* wls_, const char* name_)
     :
     wls(wls_),
     name(strdup(name_)),
-    wlscomponent(wls->get("WLSCOMPONENT")),
-    wlstimeconstant(wls->get("WLSTIMECONSTANT")),
-    wlsmeannumberphotons(wls->get("WLSMEANNUMBERPHOTONS")),
+    wlscomponent(wls->get(WLSMEANNUMBERPHOTONS)),
+    wlstimeconstant(wls->get(WLSCOMPONENT)),
+    wlsmeannumberphotons(wls->get((WLSTIMECONSTANT))),
     epsilon(0.),
     WLSComponentVector(U4MaterialPropertyVector::FromArray(wlscomponent)),
     WLSIntegral(Integral(WLSComponentVector)),
