@@ -1,6 +1,6 @@
 //
 // Created by Ilker Parmaksiz on 8/31/26.
-// Implementation of G4OpWLS for Riceicks
+// Implementation of G4WLS for RiceOpticks
 //
 
 
@@ -23,7 +23,6 @@
 #include "QTex.hh"
 #include "QU.hh"
 #include "QWLS.hh"
-//#include "qscint.h"
 #include "qwls.h"
 thread_local QWLS *fqwls = nullptr;
 const plog::Severity QWLS::LEVEL = SLOG::EnvLevel("QWLS", "DEBUG");
@@ -38,13 +37,16 @@ QWLS::QWLS
 **/
 
 
-QWLS::QWLS(const NP* wlwicdf, unsigned hd_factor )
+QWLS::QWLS(const NP* wlsicdf,const float wlstime, const float wlsmeanphotons, unsigned hd_factor)
     :
-    dsrc(wlwicdf->ebyte == 8 ? wlwicdf : nullptr),
-    src( wlwicdf->ebyte == 4 ? wlwicdf : NP::MakeNarrow(dsrc) ),
+    dsrc(wlsicdf->ebyte == 8 ? wlsicdf : nullptr),
+    src( wlsicdf->ebyte == 4 ? wlsicdf : NP::MakeNarrow(dsrc) ),
+    wlstime(wlstime),
+    wlsmeanphotons(wlsmeanphotons),
     tex(MakeWLSQTex(src, hd_factor)),
     wls(MakeInstance(tex)),
     d_wls(QU::UploadArray<qwls>(wls, 1, "QWLS::QWLS/d_wls"))
+
 {
     fqwls = this ;
 }
@@ -53,7 +55,9 @@ qwls* QWLS::MakeInstance(const QTex<float>* tex) // static
 {
     qwls* wls = new qwls;
     wls->qwls_tex = tex->texObj ;
-        wls->qwls_meta = tex->d_meta ;
+    wls->qwls_meta = tex->d_meta ;
+    wls->time_constant = wlstime;
+    wls->mean_number_photons = wlsmeanphotons;
     bool qwlsdisable_hd = ssys::getenvbool("QWLS_DISABLE_HD");
     wls->hd_factor = qwlsdisable_hd ? 0u : tex->getHDFactor() ;
     return wls ;

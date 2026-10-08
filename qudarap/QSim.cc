@@ -181,14 +181,23 @@ void QSim::UploadComponents( const SSim* ssim  )
 
     // WLS
     const NP* wls_icdf = ssim->get(snam::WLS_ICDF);
-    if( icdf == nullptr )
+    const NP* wls_time_ = ssim->get(snam::WLS_Time);
+    const NP* wls_meanphotons_ = ssim->get(snam::WLS_MeanPhotons);
+
+    const float wls_time =
+        wls_time_ ? wls_time_->cvalues<float>()[0] : 0.f;
+
+    const float wls_meanphotons =
+        wls_meanphotons_ ? wls_meanphotons_->cvalues<float>()[0] : 1.f;
+
+    if( wls_icdf == nullptr )
     {
-        LOG(error) << " WLS ICDF null, snam::WLS_ICDF " << snam::ICDF ;
+        LOG(info) << "WLS properties are not available";
     }
     else
     {
         unsigned hd_factor = 20u ;  // 0,10,20
-        fqwls = new QWLS( icdf, hd_factor); // custom high-definition inverse CDF for WLS generation
+        fqwls = new QWLS( wls_icdf,wls_time,wls_meanphotons, hd_factor); // custom high-definition inverse CDF for WLS generation
         LOG(LEVEL) << fqwls->desc();
     }
 

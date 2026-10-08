@@ -27,8 +27,11 @@ struct sphoton ;
 struct qwls
 {
     cudaTextureObject_t qwls_tex ;
-    quad4*              qwls_meta ; // HUH: not used ?
+    quad4*              qwls_meta ; // HUH: not used ?  q0.f.x (WLS Time),q0.f.y (Mean Photons), q0.u.z (delta or exponential time)
     unsigned            hd_factor ;
+    float              time_constant ;
+    float              mean_number_photons ;
+
 
 #if defined(__CUDACC__) || defined(__CUDABE__) || defined(MOCK_CURAND) || defined(MOCK_CUDA)
     WLS_METHOD void    wlsemit(   sphoton& p, RNG& rng) const ;
@@ -37,6 +40,7 @@ struct qwls
     WLS_METHOD float   wavelength_hd0( const float& u0) const ;
     WLS_METHOD float   wavelength_hd10(const float& u0) const ;
     WLS_METHOD float   wavelength_hd20(const float& u0) const ;
+
 
 #endif
 
@@ -83,9 +87,10 @@ inline WLS_METHOD void qwls::wlsemit(sphoton& p, RNG& rng) const
 
     p.pol = normalize( cosp*p.pol + sinp*cross(p.mom, p.pol) ) ;
     p.wavelength = wavelength(u3);
-    //p.time=p.time;
-    // Add exponential decay time here
-    //p.time += -logf(u4)*wlstime_constant
+
+    // Add exponential decay time here if needed, otherwise delta time is used
+    if(qwls_meta->q0.u.z) p.time += -logf(u4) * time_constant;// HUH: q0.u.z is delta or exponential time, not used in G4OpWLS
+
 }
 
 

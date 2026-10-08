@@ -21,11 +21,13 @@ struct QUDARAP_API QWLS
     qwls* MakeInstance(const QTex<float>* tex);
     const NP*      dsrc ;
     const NP*      src ;
+    const float      wlstime;
+    const float      wlsmeanphotons;
     QTex<float>*    tex ;
     qwls*       wls ;
     qwls*       d_wls ;
 
-    QWLS(const NP* icdf, unsigned hd_factor);
+    QWLS(const NP* wlsicdf, const float wlstime, const float wlsmeanphotons, unsigned hd_factor);
 
     void init();
     std::string desc() const ;
